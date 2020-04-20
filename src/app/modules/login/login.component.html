@@ -1,0 +1,85 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8 d-none d-lg-block p-0">
+      <div
+        class="login-bg bg-cover p-5 align-items-center d-flex ui-bg-cover ui-bg-overlay-container justify-content-center">
+        <div class="ui-bg-overlay bg-dark opacity-50"></div>
+        <div class="text-left w-100 text-white px-5 z-index-2">
+          <h1 class="display-2 font-weight-bolder mb-4">Anytime, Anywhere</h1>
+          <div class="text-large">
+            Emergency administrative access to your infrastructure devices has never been
+            easier. Utilize Console Shark over 4G LTE to get administrative access to your
+            devices anytime anywhere.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 align-items-center d-flex justify-content-center p-5">
+      <div class="col-lg-12 col-md-12 p-0">
+        <div class="text-center">
+          <img src="../../../assets/img/login-form-icon.png" alt="image">
+        </div>
+        <div class="card-body p-0">
+          <div class="text-center text-muted mb-4 mt-5">
+            <h4 class="text-lighter">Login to Your Account</h4>
+          </div>
+          <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+            <div class="form-group">
+              <label>Email</label>
+              <input type="text" class="form-control" formControlName="email">
+              <span class="text-danger"
+                *ngIf="(loginFormControl.email.touched || submitted) && loginFormControl.email.errors?.required">
+                Email is required
+              </span>
+              <span class="text-danger" *ngIf="loginFormControl.email.touched && loginFormControl.email.errors?.email">
+                Enter a valid email address
+              </span>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-8">
+                  <label class="form-label">Password</label>
+                </div>
+                <div class="col-md-4 text-right">
+                  <a class="forgot-password" (click)="openForgotPasswordModal()"><small>Forgot password?</small></a>
+                </div>
+              </div>
+              <div class="input-group input-group-alternative">
+                <input type="password" class="form-control" formControlName="password">
+              </div>
+              <span class="text-danger"
+                *ngIf="(loginFormControl.password.touched || submitted) && loginFormControl.password.errors?.required">
+                Password is required
+              </span>
+              <span class="text-danger"
+                *ngIf="loginFormControl.password.touched && loginFormControl.password.errors?.invalidPassword">
+                Password should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase
+                letter and 1 number
+              </span>
+            </div>
+            <div class="row">
+              <div class="col-lg-8 col-8">
+                <div class="form-group">
+                  <label class="custom-control custom-checkbox m-0"><input type="checkbox" class="custom-control-input"
+                      formControlName="rememberMe">
+                    <span class="custom-control-label">Remember me</span></label>
+                </div>
+              </div>
+              <div class="col-lg-4 col-4">
+                <div class="text-right">
+                  <button type="submit" class="btn btn-primary">Sign in</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="row text-center mt-5">
+          <div class="col-12 text-muted">
+            Don't have an account yet? <a class="forgot-password" (click)="openModal()">Register</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

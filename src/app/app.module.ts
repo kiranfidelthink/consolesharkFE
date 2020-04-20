@@ -3,16 +3,39 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { MainModule } from "./modules/main/main.module";
+import { LoginComponent } from './modules/login/login.component';
+import { AuthGuard } from './auth/auth.guard';
+import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { RegisterModalComponent } from './modals/register/register.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ForgotPasswordModalComponent } from './modals/forgot-password/forgot-password.component';
+import { SharedModule } from './shared/shared.module';
+
+
+
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    RegisterModalComponent,
+    ForgotPasswordModalComponent
   ],
   imports: [
+    SharedModule,
+    MainModule,
     BrowserModule,
-    AppRoutingModule
+    ReactiveFormsModule,
+    AppRoutingModule,
+    NgbModule,
+
   ],
-  providers: [],
+  // entryComponents:[
+  //   RegisterModalComponent
+  // ],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

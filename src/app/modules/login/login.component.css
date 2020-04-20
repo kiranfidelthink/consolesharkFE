@@ -1,0 +1,133 @@
+.login-bg {
+  background: url('../../../assets/img/login-bg.jpg') no-repeat center;
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  color: white;
+  text-align: center;
+}
+
+.bg-cover {
+  background-color: rgba(0, 0, 0, 0);
+  background-position: center center;
+  background-size: cover;
+}
+
+.ui-bg-overlay-container .ui-bg-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+}
+
+.bg-dark {
+  background-color: rgba(24, 28, 33, 0.9) !important;
+}
+
+.opacity-50 {
+  opacity: .5 !important;
+}
+
+.ui-bg-overlay-container,
+.ui-bg-video-container {
+  position: relative;
+}
+
+.ui-bg-cover {
+  background-color: rgba(0, 0, 0, 0);
+  background-position: center center;
+  background-size: cover;
+}
+
+.align-items-center {
+  -ms-flex-align: center !important;
+  align-items: center !important;
+}
+
+.z-index-2 {
+  z-index: 2;
+}
+
+.forgot-password {
+  cursor: pointer;
+  color: #1e70cd;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.text-large {
+  font-size: 130% !important;
+}
+
+.text-lighter {
+  color: #d1d2d3 !important;
+}
+
+.form-label {
+  margin-bottom: calc(.438rem - 2px);
+  font-weight: 500;
+  font-size: .83125rem;
+  padding-bottom: 0;
+}
+
+a:hover {
+  color: #3c8ae2;
+  text-decoration: none;
+}
+
+.btn-primary {
+  border-color: rgba(0, 0, 0, 0);
+  background: #26B4FF;
+  color: #fff;
+}
+.custom-control-input {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+input[type="radio"], input[type="checkbox"] {
+    box-sizing: border-box;
+    padding: 0;
+}
+button, input {
+    overflow: visible;
+}
+.custom-control {
+    position: relative;
+    display: block;
+    min-height: 1.31418rem;
+    padding-left: 1.563rem;
+}
+.custom-control {
+    min-height: 1.125rem;
+    cursor: default;
+}
+.custom-checkbox .custom-control-label::before {
+    background-size: 65%;
+}
+.custom-checkbox .custom-control-label::before {
+    border-radius: .25rem;
+}
+.custom-control-label::before {
+    top: .0625rem;
+    left: 0;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-clip: padding-box;
+    transition: all .2s;
+    pointer-events: auto;
+}
+.custom-control-label::before {
+    position: absolute;
+    top: .1rem;
+    left: -1.563rem;
+    display: block;
+    width: 1.125rem;
+    height: 1.125rem;
+    pointer-events: none;
+    content: "";
+    background-color: #fff;
+    border: rgba(24,28,33,0.1) solid 1px;
+}

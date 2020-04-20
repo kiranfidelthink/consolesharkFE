@@ -1,0 +1,90 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" (click)="closeModal('dismiss')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body p-2rem">
+  <div class="text-center">
+    <img src="../../../assets/img/login-form-icon.png" alt="image" />
+  </div>
+  <div class="text-center text-muted mb-4 mt-2">
+    <h4 class="text-lighter">Register</h4>
+  </div>
+  <form class="form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>First Name</label>
+      <input type="text" class="form-control" formControlName="firstName">
+      <span class="text-danger"
+        *ngIf="(registerFormControl.firstName.touched || submitted) && registerFormControl.firstName.errors?.required">
+        First Name is required
+      </span>
+    </div>
+    <div class="form-group">
+      <label>Last Name</label>
+      <input type="text" class="form-control" formControlName="lastName">
+      <span class="text-danger"
+        *ngIf="(registerFormControl.lastName.touched || submitted) && registerFormControl.lastName.errors?.required">
+        Last Name is required
+      </span>
+    </div>
+    <div class="form-group">
+      <label>Contact Number</label>
+      <input type="number" formControlName="contactNumber" class="form-control" maxlength="12" minlength="10"/>
+      <span class="text-danger"
+        *ngIf="(registerFormControl.contactNumber.touched || submitted) && registerFormControl.contactNumber.errors?.required">
+        Contact Number is required
+      </span>
+      <span class="text-danger"
+        *ngIf="registerFormControl.contactNumber.touched && registerFormControl.contactNumber.errors?.invalidContactNumber">
+        Contact Number should have minimum 10 digit
+      </span>
+      <!-- <div *ngIf="submitted && registerFormControl.contactNumber.errors" class="text-danger">
+        <div *ngIf="registerFormControl.contactNumber.errors.required">Contact Number is required</div>
+      </div> -->
+    </div>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="text" class="form-control" formControlName="email">
+      <span class="text-danger"
+        *ngIf="(registerFormControl.email.touched || submitted) && registerFormControl.email.errors?.required">
+        Email is required
+      </span>
+      <span class="text-danger" *ngIf="registerFormControl.email.touched && registerFormControl.email.errors?.email">
+        Enter a valid email address
+      </span>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" class="form-control" formControlName="password">
+      <span class="text-danger"
+        *ngIf="(registerFormControl.password.touched || submitted) && registerFormControl.password.errors?.required">
+        Password is required
+      </span>
+      <span class="text-danger"
+        *ngIf="registerFormControl.password.touched && registerFormControl.password.errors?.invalidPassword">
+        Password should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase
+        letter and 1 number
+      </span>
+    </div>
+    <div class="form-group">
+      <label>Confirm Password</label>
+      <input type="password" class="form-control" formControlName="confirmPassword">
+      <span class="text-danger"
+        *ngIf="(registerFormControl.confirmPassword.touched || submitted)&& registerFormControl.confirmPassword.errors?.required">
+        Confirm Password is required
+      </span>
+      <span class="text-danger"
+        *ngIf="registerFormControl.confirmPassword.touched && registerFormControl.confirmPassword.errors?.passwordMismatch">
+        Passwords doesnot match
+      </span>
+    </div>
+    <div class="form-group text-right">
+      <button type="submit" class="btn btn-primary">Register</button>
+    </div>
+  </form>
+</div>
+<!-- <div class="modal-footer">
+    
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal('close')">Close</button>
+    <button type="button" class="btn btn-primary" (click)="closeModal('changes saved!')">Save changes</button>
+</div> -->
