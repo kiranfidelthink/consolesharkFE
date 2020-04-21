@@ -11,7 +11,8 @@ import { RegisterModalComponent } from './modals/register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ForgotPasswordModalComponent } from './modals/forgot-password/forgot-password.component';
 import { SharedModule } from './shared/shared.module';
-
+import { SidenavService } from './shared/sharedService/sidenav.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -30,12 +31,12 @@ import { SharedModule } from './shared/shared.module';
     ReactiveFormsModule,
     AppRoutingModule,
     NgbModule,
-
+    BrowserAnimationsModule
   ],
   // entryComponents:[
   //   RegisterModalComponent
   // ],
-  providers: [AuthGuard],
+  providers: [AuthGuard, SidenavService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

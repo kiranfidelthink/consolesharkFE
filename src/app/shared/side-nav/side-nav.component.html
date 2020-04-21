@@ -1,20 +1,26 @@
-<div class="bg-custom border-right" id="sidebar-wrapper">
-  <div class="row">
-    <div class="col-md-8">
-      <div class="sidebar-heading">Consoleshark </div>
-    </div>
-    <!-- <div class="col-md-4">
-  <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
-    </div> -->
-  </div>
-
+<div class="bg-custom"  [@onSideNavChange]="sideNavState ? 'open' : 'close'">
+  <ul class="list-group">
+    <li class="list-group-item d-flex"><span [@animateText]="linkText ? 'show' : 'hide'"
+        class="pr-3 sidebar-heading">Consoleshark</span>
+      <button class="toggle-btn" (click)="onSinenavToggle()">
+        <i *ngIf="sideNavState" class="fa fa-bars"></i>
+        <i *ngIf="!sideNavState" class="fa fa-bars"></i>
+      </button>
+    </li>
+  </ul>
   <div class="sidenav-divider mt-0"></div>
-  <div class="list-group list-group-flush">
-    <a href="#" class="list-group-item list-group-item-action">Dashboard</a>
-    <a href="#" class="list-group-item list-group-item-action">Shortcuts</a>
-    <a href="#" class="list-group-item list-group-item-action">Overview</a>
-    <a href="#" class="list-group-item list-group-item-action">Events</a>
-    <a href="#" class="list-group-item list-group-item-action">Profile</a>
-    <a href="#" class="list-group-item list-group-item-action">Status</a>
-  </div>
+  <ul class="list-group">
+    <li class="list-group-item d-flex"><i class="fa fa-tachometer pr-3"></i><span
+        [@animateText]="linkText ? 'show' : 'hide'">Dashboard</span></li>
+    <li class="list-group-item d-flex" (click)="goToLogin()"><i class="fa fa-th pr-3"></i><span
+        [@animateText]="linkText ? 'show' : 'hide'">Devices</span></li>
+    <li class="list-group-item d-flex"><i class="fa fa-file-o pr-3"></i><span
+        [@animateText]="linkText ? 'show' : 'hide'">Reporting</span></li>
+    <li class="list-group-item d-flex"><i class="fa fa-server pr-3"></i><span
+        [@animateText]="linkText ? 'show' : 'hide'">Server</span></li>
+    <li class="list-group-item d-flex"><i class="fa fa-calendar pr-3"></i><span
+        [@animateText]="linkText ? 'show' : 'hide'">Events</span></li>
+    <li class="list-group-item d-flex"><i class="fa fa-user-o pr-3"></i><span
+        [@animateText]="linkText ? 'show' : 'hide'">user</span></li>
+  </ul>
 </div>
