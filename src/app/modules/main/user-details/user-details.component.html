@@ -78,40 +78,40 @@
           </div>
           <div class="col-md-9" *ngIf="curTab === 'overview'">
       
-            <div class="card-body media align-items-center">
+            <!-- <div class="card-body media align-items-center">
               <img src="../../../../assets/img/user-image1.png" alt="" class="w-100px">
               <div class="media-body ml-4">
                 <button type="button" class="btn btn-outline-primary">Upload new photo</button> &nbsp;
                 <button type="button" class="btn btn-default md-btn-flat">Reset</button>
                 <div class="text-light small mt-1">Allowed JPG, GIF or PNG. Max size of 800K</div>
               </div>
-            </div>
+            </div> -->
             <hr class="border-light m-0">
       
             <div class="card-body">
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <label class="form-label">Username</label>
                 <input [(ngModel)]="accountData.username" type="text" class="form-control mb-1" value="nmaxwell" [disabled]="true">
-              </div>
+              </div> -->
               <div class="form-group">
                 <label class="form-label">First Name</label>
-                <input [(ngModel)]="accountData.name" type="text" class="form-control" value="Nelle Maxwell" [disabled]="true">
+                <input [(ngModel)]="firstName" type="text" class="form-control" value="Nelle Maxwell" [disabled]="true">
               </div>
               <div class="form-group">
                 <label class="form-label">Last Name</label>
-                <input [(ngModel)]="accountData.name" type="text" class="form-control" value="Nelle Maxwell" [disabled]="true">
+                <input [(ngModel)]="lastName" type="text" class="form-control" value="Nelle Maxwell" [disabled]="true">
               </div>
               <div class="form-group">
                 <label class="form-label">E-mail</label>
-                <input [(ngModel)]="accountData.email" type="text" class="form-control mb-1" value="nmaxwell@mail.com" [disabled]="true">
-                <div class="alert alert-warning mt-3" *ngIf="!accountData.verified">
+                <input [(ngModel)]="email" type="text" class="form-control mb-1" value="nmaxwell@mail.com" [disabled]="true">
+                <!-- <div class="alert alert-warning mt-3" *ngIf="!accountData.verified">
                   Your email is not confirmed. Please check your inbox.<br>
                   <a href="javascript:void(0)">Resend confirmation</a>
-                </div>
+                </div> -->
               </div>
               <div class="form-group">
                 <label class="form-label">Organization</label>
-                <input [(ngModel)]="accountData.company" type="text" class="form-control" value="Company Ltd." [disabled]="true">
+                <input type="text" class="form-control" [disabled]="true">
               </div>
             </div>
       

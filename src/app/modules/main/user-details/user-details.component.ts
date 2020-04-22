@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: "app-user-details",
@@ -9,7 +10,13 @@ import { Router } from '@angular/router';
 export class UserDetailsComponent implements OnInit {
   popularApps: any = [];
   newestApps: any = [];
-  constructor(private route:Router) {}
+  userEmail: any;
+  currentUserData:any;
+  firstName: any;
+  lastName: any;
+  email: any;
+
+  constructor(private route:Router, private auth:AuthService) {}
   curTab = 'overview';
 
   languages = [
@@ -53,7 +60,29 @@ export class UserDetailsComponent implements OnInit {
     }
   };
   ngOnInit() {
+    this.getUserDetails();
   }
   
+  getUserDetails() {
+    this.userEmail = localStorage.getItem('userEmail')
+    console.log("resssssss", this.userEmail)
+
+    this.auth.getUSerOrganization(this.userEmail).subscribe((res:any) => {
+      console.log("resssssss of user", res)
+      this.currentUserData = res
+      this.firstName= this.currentUserData.first_name
+      this.lastName= this.currentUserData.last_name
+      this.email= this.currentUserData.email
+     
+    });
+    // if (localStorage.getItem('organizationDetails') != null) {
+    //   console.log('Inside if');
+    //   this.openModal();
+    // } else {
+    //   console.log('Inside else');
+    //   // this.routes.navigate(['/login']);
+    //   // return false;
+    // }
+  }
   
 }

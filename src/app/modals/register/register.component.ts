@@ -75,6 +75,7 @@ export class RegisterModalComponent implements OnInit {
         mobile_number: '+91' + this.registerForm.value.contactNumber,
         email: this.registerForm.value.email,
         password: this.registerForm.value.password,
+        organization_id: '1'
       };
       this.auth.registerUser(user).subscribe((res) => {
         this.createUser(user);

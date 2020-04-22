@@ -28,6 +28,28 @@ export class AuthService {
     console.log("===========", user)
     return this.http.post<User>(`${this.baseUrl}create_user`, user);
   }
+  getUSerOrganization(user:User):Observable<User>{
+    console.log("===========", user)
+    const userEmail = {
+      email:user
+    }
+    return this.http.post<User>(`${this.baseUrl}get_user`, userEmail);
+  }
+  verifyMobile(user: User) : Observable<User> {
+    console.log("userrrrrr", user)
+    return this.http.post<User>(`${this.baseUrl}verify_phone`, user);
+  }
+  verifyEmailAddress(user: User) : Observable<User> {
+    console.log("userrrrrr----", user)
+    return this.http.post<User>(`${this.baseUrl}verify_email`, user);
+  }
+  sendMobileOTP(user: User) : Observable<User> {
+    console.log("userrrrrr----,,,,,,,,,,,,,,,,,,,,,", user)
+    const mobileNumber = {
+      mobile_number: '+'+user.mobile_number
+  }
+    return this.http.post<User>(`${this.baseUrl}send_otp`, mobileNumber);
+  }
   // registerUser(user : User){
   //   return this.http.post('https://api.dashboard.consoleshark.com/user-svc/signup_user',user) 
   //   }

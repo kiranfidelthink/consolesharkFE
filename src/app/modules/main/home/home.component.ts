@@ -1,19 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OrganizationModalComponent } from 'src/app/modals/organization/organization.component';
-
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-
-  constructor(private modalService: NgbModal) { }
+  userEmail: any;
+  constructor(private modalService: NgbModal, private routes: Router, private auth:AuthService) {}
 
   ngOnInit() {
-    this.openModal()
+    this.getUserDetails();
+    // this.openModal()
+  }
+  getUserDetails() {
+    this.userEmail = localStorage.getItem('userEmail')
+    console.log("resssssss", this.userEmail)
+
+    this.auth.getUSerOrganization(this.userEmail).subscribe((res:any) => {
+      console.log("resssssss", res)
+      if(!res.organization_id){
+        this.openModal();
+      }
+    });
+    // if (localStorage.getItem('organizationDetails') != null) {
+    //   console.log('Inside if');
+    //   this.openModal();
+    // } else {
+    //   console.log('Inside else');
+    //   // this.routes.navigate(['/login']);
+    //   // return false;
+    // }
   }
 
   openModal() {

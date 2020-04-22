@@ -24,6 +24,8 @@ export class LoginComponent implements OnInit {
   ) {}
   msg;
   ngOnInit() {
+    // localStorage.removeItem('organizationDetails');
+    // localStorage.removeItem('jwtToken');
     this.loginForm = this.fb.group({
       // email: ['', [Validators.required, Validators.email]],
       email: ['', [Validators.required]],
@@ -39,6 +41,10 @@ export class LoginComponent implements OnInit {
     this.auth.loginUser(this.loginForm.value).subscribe((res: any) => {
       console.log('res', res);
       localStorage.setItem('jwtToken', res.accessToken.jwtToken);
+      localStorage.setItem('userEmail', res.idToken.payload.email);
+      // if (res.idToken.payload.email == 'ms1@mail.com') {
+      //   localStorage.setItem('organizationDetails', 'true');
+      // }
       this.routes.navigate(['/']);
     });
   }
