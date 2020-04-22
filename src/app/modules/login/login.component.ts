@@ -17,11 +17,10 @@ export class LoginComponent implements OnInit {
   submitted = false;
 
   constructor(
-    private service: AuthService,
+    private auth: AuthService,
     private routes: Router,
     private modalService: NgbModal,
-    private fb: FormBuilder,
-    private auth: AuthService
+    private fb: FormBuilder
   ) {}
   msg;
   ngOnInit() {
@@ -37,14 +36,26 @@ export class LoginComponent implements OnInit {
   }
   onSubmit() {
     this.submitted = true;
-    if (this.loginForm.valid) {
-      console.log('this.loginForm.valid', this.loginForm.value);
-      console.warn(this.loginForm.value);
-      this.auth.loginUser(this.loginForm.value).subscribe((res) => {
-        console.log('data=============', res);
-        this.routes.navigate(['/']);
-      });
-    }
+    this.auth.loginUser(this.loginForm.value).subscribe((res: any) => {
+      console.log('res', res);
+      localStorage.setItem('jwtToken', res.accessToken.jwtToken);
+      this.routes.navigate(['/']);
+    });
+    // if (this.loginForm.valid) {
+    //   console.log('this.loginForm.valid', this.loginForm.value);
+    //   console.warn(this.loginForm.value);
+
+    //   var output = this.service.checkusernameandpassword(
+    //     this.loginForm.value.email,
+    //     this.loginForm.value.password
+    //   );
+    //   this.routes.navigate(['/']);
+    //   if (output == true) {
+
+    //   } else {
+    //     this.msg = 'Invalid username or password';
+    //   }
+    // }
   }
 
   openModal() {
@@ -68,7 +79,7 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  openForgotPasswordModal(){
+  openForgotPasswordModal() {
     const modalRef = this.modalService.open(ForgotPasswordModalComponent, {
       scrollable: true,
       windowClass: 'myCustomModalClass',
