@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  environmentName: 'PROD',
+  baseUrl: 'https://api.dashboard.consoleshark.com/user-svc/'
 };

@@ -70,3 +70,8 @@
 .toggle-btn:focus{
   outline: none;
 }
+
+li:hover, li:focus{
+  color: #fff;
+  outline: none;
+}

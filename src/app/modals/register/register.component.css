@@ -1,5 +1,6 @@
 .modal-header {
   border-bottom: none;
+  padding: 0.5rem 1rem;
 }
 
 .modal-footer {
@@ -10,4 +11,7 @@
   border-color: rgba(0, 0, 0, 0);
   background: #26B4FF;
   color: #fff;
+}
+.w-15{
+  width: 15%;
 }

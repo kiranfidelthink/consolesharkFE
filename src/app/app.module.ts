@@ -13,6 +13,9 @@ import { ForgotPasswordModalComponent } from './modals/forgot-password/forgot-pa
 import { SharedModule } from './shared/shared.module';
 import { SidenavService } from './shared/sharedService/sidenav.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MobileVerifyComponent } from './modules/mobile-verification/mobile-verification.component';
+import { HttpClientModule } from '@angular/common/http'
+import { AuthService } from './auth/auth.service';
 
 
 
@@ -22,7 +25,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppComponent,
     LoginComponent,
     RegisterModalComponent,
-    ForgotPasswordModalComponent
+    ForgotPasswordModalComponent,
+    MobileVerifyComponent
   ],
   imports: [
     SharedModule,
@@ -31,12 +35,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     AppRoutingModule,
     NgbModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
   // entryComponents:[
   //   RegisterModalComponent
   // ],
-  providers: [AuthGuard, SidenavService],
+  providers: [AuthGuard, SidenavService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

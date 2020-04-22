@@ -2,6 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { CustomvalidationService } from '../../shared/sharedService/customValidation.service';
+import { AuthService } from 'src/app/auth/auth.service';
+import { first } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'register-modal',
@@ -17,7 +20,9 @@ export class RegisterModalComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private customValidator: CustomvalidationService,
-    public activeModal: NgbActiveModal
+    public activeModal: NgbActiveModal,
+    private auth: AuthService,
+    private routes: Router
   ) {}
 
   ngOnInit() {
@@ -27,10 +32,13 @@ export class RegisterModalComponent implements OnInit {
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
-        contactNumber: ['', Validators.compose([
-          Validators.required,
-          this.customValidator.contactPatternValidator(),
-        ]),],
+        contactNumber: [
+          '',
+          Validators.compose([
+            Validators.required,
+            this.customValidator.contactPatternValidator(),
+          ]),
+        ],
         // username: [
         //   '',
         //   [Validators.required],
@@ -61,12 +69,24 @@ export class RegisterModalComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     if (this.registerForm.valid) {
-      console.log("this.registerForm.valid", this.registerForm.value)
-      // alert(
-      //   'Form Submitted succesfully!!!\n Check the values in browser console.'
-      // );
-      // console.table(this.registerForm.value);
+      const user = {
+        first_name: this.registerForm.value.firstName,
+        last_name: this.registerForm.value.lastName,
+        mobile_number: '+91' + this.registerForm.value.contactNumber,
+        email: this.registerForm.value.email,
+        password: this.registerForm.value.password,
+      };
+      this.auth.registerUser(user).subscribe((res) => {
+        this.createUser(user);
+      });
     }
+  }
+  createUser(user) {
+    this.auth.createUser(user).subscribe((res) => {
+      setTimeout(() => {
+        this.activeModal.close();
+      }, 4000);
+    });
   }
   closeModal(sendData) {
     this.activeModal.close(sendData);

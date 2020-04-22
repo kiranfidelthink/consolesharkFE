@@ -4,33 +4,41 @@ import { HomeComponent } from './modules/main/home/home.component';
 import { LoginComponent } from './modules/login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 import { UserDetailsComponent } from './modules/main/user-details/user-details.component';
-
+import { HostManagementComponent } from './modules/main/host-management/host-management.component';
+import { MobileVerifyComponent } from './modules/mobile-verification/mobile-verification.component';
 
 const routes: Routes = [
   { path: "login", component : LoginComponent },
-  {path: '**', redirectTo: '/'},
+  { path: "mobile-verification", component : MobileVerifyComponent },
+  // {path: '**', redirectTo: '/'},
+  // {
+  //   path: "host-management",
+  //   component: HostManagementComponent
+  // },
   // { path: "",canActivate : [AuthGuard], component : HomeComponent },
 // { path: "home", canActivate : [AuthGuard] , component: HomeComponent },
   {
     path: "",
     component: HomeComponent,
-    pathMatch: 'full',
     canActivate : [AuthGuard],
     children: [
       {
         path: "",
         component: UserDetailsComponent
       },
-      // {
-      //   path: "app-list",
-      //   component: AppListComponent
-      // }
+      {
+        path: "host-management",
+        component: HostManagementComponent
+      }
+      
     ]
   }
 ];
 
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
+
 export class AppRoutingModule {}

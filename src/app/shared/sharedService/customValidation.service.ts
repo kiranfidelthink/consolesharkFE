@@ -27,6 +27,16 @@ export class CustomvalidationService {
       return valid ? null : { invalidContactNumber: true };
     };
   }
+  otpPatternValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } => {
+      if (!control.value) {
+        return null;
+      }
+      const regex = new RegExp('^\\+?\\d{6}$');
+      const valid = regex.test(control.value);
+      return valid ? null : { invalidOTP: true };
+    };
+  }
 
   MatchPassword(password: string, confirmPassword: string) {
     return (formGroup: FormGroup) => {

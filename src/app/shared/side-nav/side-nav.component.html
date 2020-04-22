@@ -9,18 +9,79 @@
     </li>
   </ul>
   <div class="sidenav-divider mt-0"></div>
-  <ul class="list-group">
-    <li class="list-group-item d-flex"><i class="fa fa-tachometer pr-3"></i><span
+  <ul class="list-group nav navbar-nav item" >
+    <li class="list-group-item d-flex"  routerLink='/'><i class="fa fa-tachometer pr-3"></i><span
         [@animateText]="linkText ? 'show' : 'hide'">Dashboard</span></li>
-    <li class="list-group-item d-flex" (click)="goToLogin()"><i class="fa fa-th pr-3"></i><span
+    <li class="list-group-item d-flex"  routerLink='/'><i class="fa fa-th pr-3"></i><span
         [@animateText]="linkText ? 'show' : 'hide'">Devices</span></li>
-    <li class="list-group-item d-flex"><i class="fa fa-file-o pr-3"></i><span
-        [@animateText]="linkText ? 'show' : 'hide'">Reporting</span></li>
-    <li class="list-group-item d-flex"><i class="fa fa-server pr-3"></i><span
+    <li class="list-group-item d-flex" routerLink='/login'><i class="fa fa-file-o pr-3"></i><span
+        [@animateText]="linkText ? 'show' : 'hide'" >Reporting</span></li>
+    <li class="list-group-item d-flex"  routerLink='/'><i class="fa fa-server pr-3"></i><span
         [@animateText]="linkText ? 'show' : 'hide'">Server</span></li>
-    <li class="list-group-item d-flex"><i class="fa fa-calendar pr-3"></i><span
-        [@animateText]="linkText ? 'show' : 'hide'">Events</span></li>
-    <li class="list-group-item d-flex"><i class="fa fa-user-o pr-3"></i><span
-        [@animateText]="linkText ? 'show' : 'hide'">user</span></li>
+    <li class="list-group-item d-flex collapsed active" data-toggle="collapse" data-target="#products"><i class="fa fa-calendar pr-3"></i><span class="w-100"
+        [@animateText]="linkText ? 'show' : 'hide'">Events<i *ngIf="!showChevronDown" class="fa fa-chevron-left float-right"></i>
+        <i *ngIf="showChevronDown" class="fa fa-chevron-down float-right"></i></span>
+      </li>
+      <ul class="sub-menu collapse" id="products">
+        <li class="list-group-item d-flex" routerLink='/'>Option 1</li>
+        <li class="list-group-item d-flex" routerLink='/host-management'>Option 2</li>
+        
+      </ul>
+    <li class="list-group-item d-flex"  routerLink='/host-management'><i class="fa fa-user-o pr-3"></i><span
+        [@animateText]="linkText ? 'show' : 'hide'">Host Management</span></li>
   </ul>
+  <!-- <ul class="nav justify-content-center">
+    <li class="nav-item">
+        <a class="nav-link menu-item" href="#">Ligas</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link menu-item" href="#">Gráficas</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link menu-item" href="#">Artículos</a>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link menu-item dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Clasificaciones</a>      
+        <div class=" dropdown dropdown-menu">
+            <a class="dropdown-item menu-item" href="#">Equipos</a>
+            <a class="dropdown-item menu-item" href="#">Jugadoras</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Separated link</a>
+        </div>
+    </li>                
+</ul> -->
 </div>
+
+
+ <!-- <div class="nav-side-menu">
+   <div class="brand">s Logo</div>
+   <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+ 
+   <div class="menu-list">
+ 
+     <ul id="menu-content" class="menu-content collapse out">
+       <li>a
+         <a href="#">
+           <i class="fa fa-dashboard fa-lg"></i> Dashboard
+         </a>
+       </li>
+ 
+       <li data-toggle="collapse" data-target="#products" class="collapsed active">
+         <a href="#"><i class="fa fa-gift fa-lg"></i> UI Elements <span class="arrow"></span></a>
+       </li>
+       <ul class="sub-menu collapse" id="products">
+         <li class="active"><a href="#">CSS3 Animation</a></li>
+         <li><a href="#">General</a></li>
+         <li><a href="#">Buttons</a></li>
+         <li><a href="#">Tabs & Accordions</a></li>
+         <li><a href="#">Typography</a></li>
+         <li><a href="#">FontAwesome</a></li>
+         <li><a href="#">Slider</a></li>
+         <li><a href="#">Panels</a></li>
+         <li><a href="#">Widgets</a></li>
+         <li><a href="#">Bootstrap Model</a></li>
+       </ul>
+     </ul>
+   </div>
+ </div>
+  -->

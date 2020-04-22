@@ -5,18 +5,19 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { AppRoutingModule } from "../../app-routing.module";
 import { FormsModule } from '@angular/forms';
+import { HostManagementComponent } from './host-management/host-management.component';
 
 
 
 
 @NgModule({
-  declarations: [HomeComponent, UserDetailsComponent],
+  declarations: [HomeComponent, UserDetailsComponent, HostManagementComponent],
   imports: [
     CommonModule,
     SharedModule,
     AppRoutingModule,
     FormsModule
   ],
-  exports: [HomeComponent, UserDetailsComponent],
+  exports: [HomeComponent, UserDetailsComponent, HostManagementComponent],
 })
 export class MainModule { }

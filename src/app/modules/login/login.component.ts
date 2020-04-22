@@ -20,7 +20,8 @@ export class LoginComponent implements OnInit {
     private service: AuthService,
     private routes: Router,
     private modalService: NgbModal,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private auth: AuthService
   ) {}
   msg;
   ngOnInit() {
@@ -39,16 +40,10 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       console.log('this.loginForm.valid', this.loginForm.value);
       console.warn(this.loginForm.value);
-
-      var output = this.service.checkusernameandpassword(
-        this.loginForm.value.email,
-        this.loginForm.value.password
-      );
-      if (output == true) {
+      this.auth.loginUser(this.loginForm.value).subscribe((res) => {
+        console.log('data=============', res);
         this.routes.navigate(['/']);
-      } else {
-        this.msg = 'Invalid username or password';
-      }
+      });
     }
   }
 
@@ -67,7 +62,7 @@ export class LoginComponent implements OnInit {
     modalRef.componentInstance.fromParent = data;
     modalRef.result.then(
       (result) => {
-        console.log('result', result);
+        console.log('result--', result);
       },
       (reason) => {}
     );
@@ -88,7 +83,7 @@ export class LoginComponent implements OnInit {
     modalRef.componentInstance.fromParent = data;
     modalRef.result.then(
       (result) => {
-        console.log('result', result);
+        console.log('result---', result);
       },
       (reason) => {}
     );

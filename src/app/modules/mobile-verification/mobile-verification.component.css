@@ -3,7 +3,6 @@
   width: 100%;
   height: 100vh;
   background-size: cover;
-  color: white;
   text-align: center;
 }
 
@@ -72,6 +71,9 @@
   color: #212529;
   text-align: left;
 }
+.form-group{
+  text-align: left;
+}
 
 a:hover {
   color: #3c8ae2;
@@ -83,52 +85,11 @@ a:hover {
   background: #26B4FF;
   color: #fff;
 }
-.custom-control-input {
-    position: absolute;
-    z-index: -1;
-    opacity: 0;
-}
+
 input[type="radio"], input[type="checkbox"] {
     box-sizing: border-box;
     padding: 0;
 }
 button, input {
     overflow: visible;
-}
-.custom-control {
-    position: relative;
-    display: block;
-    min-height: 1.31418rem;
-    padding-left: 1.563rem;
-}
-.custom-control {
-    min-height: 1.125rem;
-    cursor: default;
-}
-.custom-checkbox .custom-control-label::before {
-    background-size: 65%;
-}
-.custom-checkbox .custom-control-label::before {
-    border-radius: .25rem;
-}
-.custom-control-label::before {
-    top: .0625rem;
-    left: 0;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-clip: padding-box;
-    transition: all .2s;
-    pointer-events: auto;
-}
-.custom-control-label::before {
-    position: absolute;
-    top: .1rem;
-    left: -1.563rem;
-    display: block;
-    width: 1.125rem;
-    height: 1.125rem;
-    pointer-events: none;
-    content: "";
-    background-color: #fff;
-    border: rgba(24,28,33,0.1) solid 1px;
 }

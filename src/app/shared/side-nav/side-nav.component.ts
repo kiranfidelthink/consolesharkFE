@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 export class SidenavComponent implements OnInit {
   public sideNavState: boolean = true;
   public linkText: boolean = true;
+  showChevronDown: boolean = false;
   constructor(private routes: Router) {}
 
   ngOnInit(): void {}
@@ -30,5 +31,9 @@ export class SidenavComponent implements OnInit {
   }
   goToLogin() {
     this.routes.navigate(['/login']);
+  }
+  goToHostManagement(){
+    console.log("Inside host management")
+    this.routes.navigate(["/host-management"]);
   }
 }
