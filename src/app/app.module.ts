@@ -16,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MobileVerifyComponent } from './modules/mobile-verification/mobile-verification.component';
 import { HttpClientModule } from '@angular/common/http'
 import { AuthService } from './auth/auth.service';
+import { OrganizationModalComponent } from './modals/organization/organization.component';
 
 
 
@@ -26,7 +27,8 @@ import { AuthService } from './auth/auth.service';
     LoginComponent,
     RegisterModalComponent,
     ForgotPasswordModalComponent,
-    MobileVerifyComponent
+    MobileVerifyComponent,
+    OrganizationModalComponent
   ],
   imports: [
     SharedModule,

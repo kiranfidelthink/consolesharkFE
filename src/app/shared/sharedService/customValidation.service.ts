@@ -59,6 +59,28 @@ export class CustomvalidationService {
     }
   }
 
+  phonePatternValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } => {
+      if (!control.value) {
+        return null;
+      }
+      const regex = new RegExp('^\\+?\\d{10}$');
+      const valid = regex.test(control.value);
+      return valid ? null : { invalidPhone: true };
+    };
+  }
+
+  cellPatternValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } => {
+      if (!control.value) {
+        return null;
+      }
+      const regex = new RegExp('^\\+?\\d{10}$');
+      const valid = regex.test(control.value);
+      return valid ? null : { invalidCell: true };
+    };
+  }
+
   // userNameValidator(userControl: AbstractControl) {
   //   return new Promise(resolve => {
   //     setTimeout(() => {
