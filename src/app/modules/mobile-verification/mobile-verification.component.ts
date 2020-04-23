@@ -37,7 +37,7 @@ export class MobileVerifyComponent implements OnInit {
       this.clientId = params['clientId'];
       this.username = params['username'];
       this.code = params['code'];
-      console.log("emailId", this.emailId); // Print the parameter to the console. 
+      // console.log("emailId", this.emailId); // Print the parameter to the console. 
   });
   }
   msg;
@@ -52,12 +52,15 @@ export class MobileVerifyComponent implements OnInit {
 
     this.getUserDetails(this.emailId);
   }
+  resendOTP(){
+    this.getUserDetails(this.emailId);
+  }
   getUserDetails(emailId) {
     
-    console.log("resssssss", emailId)
+    // console.log("get user detatils", emailId)
 
     this.auth.getUSerOrganization(emailId).subscribe((res:any) => {
-      console.log("resssssss--------", res)
+      console.log("getUSerOrganization res in mobile verification", res)
       this.sendOTP(res)
       this.currentUserDetail = res;
       this.mobileNumber = this.currentUserDetail.mobile_number; 
@@ -76,27 +79,27 @@ export class MobileVerifyComponent implements OnInit {
   }
   sendOTP(userData){
     this.auth.sendMobileOTP(userData).subscribe((res:any) => {
-      console.log("resssssss--------", res)
+      // console.log("resssssss--------", res)
     });
   }
   get mobileVerificationFormControl() {
     return this.mobileVerificationForm.controls;
   }
   onSubmit() {
-    console.log("mobile",this.currentUserDetail)
-    console.log("this.mobileVerificationForm.value",this.mobileVerificationForm.value)
+    // console.log("mobile",this.currentUserDetail)
+    // console.log("this.mobileVerificationForm.value",this.mobileVerificationForm.value)
     this.submitted = true;
     const userData:any= {
       otp:this.mobileVerificationForm.value.otp,
-      mobile_number:'+'+this.currentUserDetail.mobile_number
+      mobile_number:this.currentUserDetail.mobile_number
     }
     this.auth.verifyMobile(userData).subscribe((res) => {
-      console.log("ressss", res)
+      // console.log("ressss", res)
       this.verfiEmail();
     });
     if (this.mobileVerificationForm.valid) {
       
-      console.log('this.mobileVerificationForm.valid', this.mobileVerificationForm.value);
+      // console.log('this.mobileVerificationForm.valid', this.mobileVerificationForm.value);
       console.warn(this.mobileVerificationForm.value);
       
     }
@@ -114,24 +117,7 @@ export class MobileVerifyComponent implements OnInit {
     });
 
   }
-  openResendModal(){
-    // const modalRef = this.modalService.open(ForgotPasswordModalComponent, {
-    //   scrollable: true,
-    //   windowClass: 'myCustomModalClass',
-    // });
-
-    // let data = {
-    //   prop1: 'Some Data',
-    //   prop2: 'From Parent Component',
-    //   prop3: 'This Can be anything',
-    // };
-
-    // modalRef.componentInstance.fromParent = data;
-    // modalRef.result.then(
-    //   (result) => {
-    //     console.log('result', result);
-    //   },
-    //   (reason) => {}
-    // );
+  skipMobileVerification(){
+    this.routes.navigate(['/login']);
   }
 }

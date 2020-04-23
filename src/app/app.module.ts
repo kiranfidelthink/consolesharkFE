@@ -18,6 +18,8 @@ import { HttpClientModule } from '@angular/common/http'
 import { AuthService } from './auth/auth.service';
 import { OrganizationModalComponent } from './modals/organization/organization.component';
 import { ToastMessageComponent } from './modals/toast-message/toast-message.component';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 
 
@@ -40,7 +42,9 @@ import { ToastMessageComponent } from './modals/toast-message/toast-message.comp
     AppRoutingModule,
     NgbModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    BsDropdownModule.forRoot(),
+    NgxIntlTelInputModule,
   ],
   // entryComponents:[
   //   RegisterModalComponent

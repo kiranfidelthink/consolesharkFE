@@ -26,7 +26,7 @@ export class OrganizationModalComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log('this.fromParent', this.fromParent);
+    // console.log('this.fromParent', this.fromParent);
     this.organizationForm = this.fb.group(
       {
         companyName: ['', Validators.required],
@@ -57,20 +57,35 @@ export class OrganizationModalComponent implements OnInit {
 
   onSubmit() {
     console.log("Insdie submit", this.organizationForm.value)
+    console.log("this.organizationForm", this.organizationForm)
     this.submitted = true;
-    // if (this.organizationForm.valid) {
-    //   const user = {
-    //     first_name: this.organizationForm.value.companyName,
-    //     last_name: this.organizationForm.value.companyAddress,
-    //     mobile_number: '+91' + this.organizationForm.value.contactNumber,
-    //     email: this.organizationForm.value.email,
-    //     password: this.organizationForm.value.password,
-    //   };
-    //   this.auth.registerUser(user).subscribe((res) => {
-    //   });
-    // }
+    if (this.organizationForm.valid) {
+      const organization = {
+        company_name:this.organizationForm.value.companyName,
+        company_address: this.organizationForm.value.companyAddress,
+            billing_contact:{
+                name:this.organizationForm.value.name,
+                email:this.organizationForm.value.email,
+                phone:this.organizationForm.value.phone,
+                cell: this.organizationForm.value.cell.dialCode+this.organizationForm.value.cell.number
+            }   
+        }
+      
+      this.auth.createOrganization(organization).subscribe((res:any) => {
+        console.log("create organization res", res)
+        this.updateUser(res.organization_id);
+        this.activeModal.close();
+      });
+    }
   }
-  
+  updateUser(organizationId){
+    console.log("organizationId", organizationId)
+    this.auth.updateUserByOrganization(organizationId).subscribe((res:any) => {
+      console.log("updateUserByOrganization res", res)
+      // this.activeModal.close();
+    });
+
+  }
   closeModal(sendData) {
     this.activeModal.close(sendData);
   }

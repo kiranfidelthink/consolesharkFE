@@ -54,14 +54,20 @@
       <div class="row mt-3">
         <div class="col-md-6">
           <label>Cell</label>
-          <input type="number" formControlName="cell" class="form-control" maxlength="12" minlength="10" />
+          <ngx-intl-tel-input type="number" [searchCountryFlag]="true" [phoneValidation]="true" class="d-block"
+            formControlName="cell" [maxLength]="10" minlength="10"></ngx-intl-tel-input>
+          <!-- <input type="number" formControlName="cell" class="form-control" maxlength="12" minlength="10" /> -->
           <span class="text-danger"
             *ngIf="(organizationFormControl.cell.touched || submitted) && organizationFormControl.cell.errors?.required">
-            Cell is required
+            Contact Number is required
           </span>
           <span class="text-danger"
             *ngIf="organizationFormControl.cell.touched && organizationFormControl.cell.errors?.invalidCell">
-            Cell should have minimum 10 digit
+            Contact Number should have minimum 10 digit
+          </span>
+          <span class="text-danger"
+            *ngIf="organizationFormControl.cell.touched && organizationFormControl.cell.status == 'INVALID'">
+            Please enter correct Contact Number
           </span>
         </div>
         <div class="col-md-6">

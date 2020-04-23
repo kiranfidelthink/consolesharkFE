@@ -17,6 +17,7 @@ export class RegisterModalComponent implements OnInit {
   msg: string;
   registerForm: FormGroup;
   submitted = false;
+  showToastMessage: boolean = false;
 
   messageForToast = {
     messageType:"Success!",
@@ -35,7 +36,7 @@ export class RegisterModalComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log('this.fromParent', this.fromParent);
+    // console.log('this.fromParent', this.fromParent);
     this.registerForm = this.fb.group(
       {
         firstName: ['', Validators.required],
@@ -77,24 +78,27 @@ export class RegisterModalComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    // console.log("this.registerForm", this.registerForm)
     if (this.registerForm.valid) {
       const user = {
         first_name: this.registerForm.value.firstName,
         last_name: this.registerForm.value.lastName,
-        mobile_number: '+91' + this.registerForm.value.contactNumber,
+        mobile_number: this.registerForm.value.contactNumber.dialCode+this.registerForm.value.contactNumber.number,
         email: this.registerForm.value.email,
-        password: this.registerForm.value.password,
-        organization_id: '1'
+        password: this.registerForm.value.password
       };
       this.auth.registerUser(user).subscribe((res) => {
-        console.log("register success", res)
+        // console.log("register success", res)
         this.createUser(user);
       });
     }
   }
   createUser(user) {
     this.auth.createUser(user).subscribe((res) => {
-      console.log("create user success", res)
+      // console.log("create user success", res)
+      if(res){
+        this.showToastMessage = true;
+      }
       setTimeout(() => {
         this.activeModal.close();
       }, 4000);
@@ -119,7 +123,7 @@ export class RegisterModalComponent implements OnInit {
     modalRef.componentInstance.fromParent = data;
     modalRef.result.then(
       (result) => {
-        console.log('result--', result);
+        // console.log('result--', result);
       },
       (reason) => {}
     );

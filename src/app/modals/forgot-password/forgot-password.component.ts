@@ -21,7 +21,7 @@ export class ForgotPasswordModalComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log('this.fromParent', this.fromParent);
+    // console.log('this.fromParent', this.fromParent);
     this.forgotPasswordForm = this.fb.group(
       {
         email: ['', [Validators.required, Validators.email]],
@@ -36,7 +36,7 @@ export class ForgotPasswordModalComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     if (this.forgotPasswordForm.valid) {
-      console.log("this.forgotPasswordForm.valid", this.forgotPasswordForm.value)
+      // console.log("this.forgotPasswordForm.valid", this.forgotPasswordForm.value)
       // alert(
       //   'Form Submitted succesfully!!!\n Check the values in browser console.'
       // );

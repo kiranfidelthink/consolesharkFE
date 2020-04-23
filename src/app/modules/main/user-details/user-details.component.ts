@@ -65,7 +65,6 @@ export class UserDetailsComponent implements OnInit {
   
   getUserDetails() {
     this.userEmail = localStorage.getItem('userEmail')
-    console.log("resssssss", this.userEmail)
 
     this.auth.getUSerOrganization(this.userEmail).subscribe((res:any) => {
       console.log("resssssss of user", res)

@@ -10,7 +10,7 @@
   <!-- <div class="text-center">
     <img src="../../../assets/img/login-form-icon.png" class="w-15" alt="image" />
   </div> -->
-  <toast-message-modal [toastMessage]="messageForToast"></toast-message-modal>
+  <toast-message-modal *ngIf="showToastMessage" [toastMessage]="messageForToast"></toast-message-modal>
   <div class="text-center text-muted mb-2">
     <h4 class="text-lighter">Register</h4>
   </div>
@@ -31,16 +31,33 @@
         Last Name is required
       </span>
     </div>
-    <div class="form-group">
+    <div class="form-group d-grid">
       <label>Contact Number</label>
-      <input type="number" formControlName="contactNumber" class="form-control" maxlength="12" minlength="10"/>
-      <span class="text-danger"
+      <ngx-intl-tel-input type="number" [searchCountryFlag]="true" [phoneValidation]="true" class="d-block" formControlName="contactNumber" [maxLength]="10" minlength="10"></ngx-intl-tel-input>
+      <!-- <ngx-intl-tel-input
+    [cssClass]="control-form"
+    [preferredCountries]="[]"
+    [enableAutoCountrySelect]="false"
+    [enablePlaceholder]="true"
+    [searchCountryFlag]="true"
+    [searchCountryField]="[]"
+    [selectFirstCountry]="false"
+    [selectedCountryISO]=""
+    [maxLength]="15"
+    [tooltipField]=""
+    [phoneValidation]="true"
+    formControlName="contactNumber"></ngx-intl-tel-input> -->
+       <span class="text-danger"
         *ngIf="(registerFormControl.contactNumber.touched || submitted) && registerFormControl.contactNumber.errors?.required">
         Contact Number is required
       </span>
       <span class="text-danger"
         *ngIf="registerFormControl.contactNumber.touched && registerFormControl.contactNumber.errors?.invalidContactNumber">
         Contact Number should have minimum 10 digit
+      </span>
+      <span class="text-danger"
+        *ngIf="registerFormControl.contactNumber.touched && registerFormControl.contactNumber.status == 'INVALID'">
+        Please enter correct Contact Number
       </span>
       <!-- <div *ngIf="submitted && registerFormControl.contactNumber.errors" class="text-danger">
         <div *ngIf="registerFormControl.contactNumber.errors.required">Contact Number is required</div>
@@ -83,7 +100,7 @@
       </span>
     </div>
     <div class="form-group text-right">
-      <button type="submit" class="btn btn-primary">Register</button>
+      <button type="submit" [disabled]="registerForm.status == 'INVALID'" class="btn btn-primary">Register</button>
     </div>
   </form>
 </div>

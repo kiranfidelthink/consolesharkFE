@@ -19,11 +19,15 @@ export class CustomvalidationService {
   }
   contactPatternValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } => {
+      // console.log("control", control)
+      // console.log("control.value", control.value)
       if (!control.value) {
         return null;
       }
       const regex = new RegExp('^\\+?\\d{10}$');
-      const valid = regex.test(control.value);
+      // const regex = new RegExp('^(?!0+$)(?:\\(?\\+\\d{1,3}\\)?[- ]?|0)?\\d{10}$');
+      const valid = regex.test(control.value.number);
+      // console.log("valid", valid)
       return valid ? null : { invalidContactNumber: true };
     };
   }
@@ -72,11 +76,15 @@ export class CustomvalidationService {
 
   cellPatternValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } => {
+      // console.log("control", control)
+      // console.log("control.value", control.value)
       if (!control.value) {
         return null;
       }
       const regex = new RegExp('^\\+?\\d{10}$');
-      const valid = regex.test(control.value);
+      // const regex = new RegExp('^(?!0+$)(?:\\(?\\+\\d{1,3}\\)?[- ]?|0)?\\d{10}$');
+      const valid = regex.test(control.value.number);
+      // console.log("valid", valid)
       return valid ? null : { invalidCell: true };
     };
   }

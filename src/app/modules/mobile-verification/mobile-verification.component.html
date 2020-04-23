@@ -25,7 +25,7 @@
                     <label class="form-label">Enter your OTP</label>
                   </div>
                   <div class="col-md-4 text-right">
-                    <a class="forgot-password" (click)="openResendModal()"><small>Resend OTP</small></a>
+                    <a class="forgot-password" (click)="resendOTP()"><small>Resend OTP</small></a>
                   </div>
                 </div>
                 <div class="input-group input-group-alternative">
@@ -41,12 +41,14 @@
                   OTP should have minimum 4 digit
                 </span>
               </div>
-              <div class="row float-right">
-                <div class="col-lg-4 col-4">
-                  <div class="text-right">
+              <div class="row float-right m-2">
+                <div class="text-right"> 
+                  <button class="btn btn-primary m-2" (click)="skipMobileVerification()">Skip</button> 
+                  <button type="submit" class="btn btn-primary">Verify</button>
+              </div> 
+                <!-- <div class="col-lg-4 col-4">
                     <button type="submit" class="btn btn-primary">Verify</button>
-                  </div>
-                </div>
+                </div> -->
               </div>
             </form>
           </div>
