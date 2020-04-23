@@ -1,0 +1,4 @@
+<div class="alert alert-dismissible fade show" [ngClass]="toastMessage.alertType === 'success' ? 'alert-success' : 'alert-danger'">
+  <strong>{{toastMessage.messageType}}</strong> {{toastMessage.message}}
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+</div>

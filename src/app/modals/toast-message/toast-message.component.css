@@ -1,0 +1,13 @@
+.modal-header {
+  border-bottom: none;
+}
+
+.modal-footer {
+  border-top: none;
+}
+
+.btn-primary {
+  border-color: rgba(0, 0, 0, 0);
+  background: #26B4FF;
+  color: #fff;
+}

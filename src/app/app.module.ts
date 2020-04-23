@@ -17,6 +17,7 @@ import { MobileVerifyComponent } from './modules/mobile-verification/mobile-veri
 import { HttpClientModule } from '@angular/common/http'
 import { AuthService } from './auth/auth.service';
 import { OrganizationModalComponent } from './modals/organization/organization.component';
+import { ToastMessageComponent } from './modals/toast-message/toast-message.component';
 
 
 
@@ -28,7 +29,8 @@ import { OrganizationModalComponent } from './modals/organization/organization.c
     RegisterModalComponent,
     ForgotPasswordModalComponent,
     MobileVerifyComponent,
-    OrganizationModalComponent
+    OrganizationModalComponent,
+    ToastMessageComponent
   ],
   imports: [
     SharedModule,

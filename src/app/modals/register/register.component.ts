@@ -1,10 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { CustomvalidationService } from '../../shared/sharedService/customValidation.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { ToastMessageComponent } from '../toast-message/toast-message.component';
 
 @Component({
   selector: 'register-modal',
@@ -17,12 +18,20 @@ export class RegisterModalComponent implements OnInit {
   registerForm: FormGroup;
   submitted = false;
 
+  messageForToast = {
+    messageType:"Success!",
+    message:" Your registration is successful.",
+    alertType:"success",
+  }
+
   constructor(
     private fb: FormBuilder,
     private customValidator: CustomvalidationService,
     public activeModal: NgbActiveModal,
     private auth: AuthService,
-    private routes: Router
+    private routes: Router,
+    private modalService: NgbModal,
+
   ) {}
 
   ngOnInit() {
@@ -78,12 +87,14 @@ export class RegisterModalComponent implements OnInit {
         organization_id: '1'
       };
       this.auth.registerUser(user).subscribe((res) => {
+        console.log("register success", res)
         this.createUser(user);
       });
     }
   }
   createUser(user) {
     this.auth.createUser(user).subscribe((res) => {
+      console.log("create user success", res)
       setTimeout(() => {
         this.activeModal.close();
       }, 4000);
@@ -91,6 +102,27 @@ export class RegisterModalComponent implements OnInit {
   }
   closeModal(sendData) {
     this.activeModal.close(sendData);
+  }
+
+  openModal2(){
+    const modalRef = this.modalService.open(ToastMessageComponent, {
+      scrollable: true,
+      windowClass: 'myCustomModalClass',
+    });
+
+    let data = {
+      prop1: 'Some Data',
+      prop2: 'From Parent Component',
+      prop3: 'This Can be anything',
+    };
+
+    modalRef.componentInstance.fromParent = data;
+    modalRef.result.then(
+      (result) => {
+        console.log('result--', result);
+      },
+      (reason) => {}
+    );
   }
   //  closeModal() {
   //   //   this.activeModal.close();
