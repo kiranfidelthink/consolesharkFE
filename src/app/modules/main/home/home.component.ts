@@ -19,10 +19,7 @@ export class HomeComponent implements OnInit {
   }
   getUserDetails() {
     this.userEmail = localStorage.getItem('userEmail')
-    console.log("get user details in home component", this.userEmail)
-
     this.auth.getUSerOrganization(this.userEmail).subscribe((res:any) => {
-      console.log("get user details in home component get user organization", res)
       localStorage.setItem('user_id', res.user_id)
       if(!res.organization_id){
         this.openModal();

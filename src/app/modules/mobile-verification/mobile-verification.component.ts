@@ -43,7 +43,7 @@ export class MobileVerifyComponent implements OnInit {
   msg;
   ngOnInit() {
     this.mobileVerificationForm = this.fb.group({
-      contactNumber: ['', [Validators.required]],
+      contactNumber: [{value:'',disabled: true}, [Validators.required]],
       otp: ['', Validators.compose([
         Validators.required,
         this.customValidator.otpPatternValidator(),
@@ -57,7 +57,7 @@ export class MobileVerifyComponent implements OnInit {
   }
   getUserDetails(emailId) {
     
-    // console.log("get user detatils", emailId)
+    console.log("emailId in mobile verification", emailId)
 
     this.auth.getUSerOrganization(emailId).subscribe((res:any) => {
       console.log("getUSerOrganization res in mobile verification", res)

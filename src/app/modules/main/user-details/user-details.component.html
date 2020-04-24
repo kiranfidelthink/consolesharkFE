@@ -95,15 +95,15 @@
               </div> -->
               <div class="form-group">
                 <label class="form-label">First Name</label>
-                <input [(ngModel)]="firstName" type="text" class="form-control" value="Nelle Maxwell" [disabled]="true">
+                <input type="text" class="form-control" value="Nelle Maxwell" [disabled]="true">
               </div>
               <div class="form-group">
                 <label class="form-label">Last Name</label>
-                <input [(ngModel)]="lastName" type="text" class="form-control" value="Nelle Maxwell" [disabled]="true">
+                <input type="text" class="form-control" value="Nelle Maxwell" [disabled]="true">
               </div>
               <div class="form-group">
                 <label class="form-label">E-mail</label>
-                <input [(ngModel)]="email" type="text" class="form-control mb-1" value="nmaxwell@mail.com" [disabled]="true">
+                <input type="text" class="form-control mb-1" value="nmaxwell@mail.com" [disabled]="true">
                 <!-- <div class="alert alert-warning mt-3" *ngIf="!accountData.verified">
                   Your email is not confirmed. Please check your inbox.<br>
                   <a href="javascript:void(0)">Resend confirmation</a>
@@ -131,19 +131,19 @@
             <div class="card-body">
               <div class="form-group">
                 <label class="form-label">Username</label>
-                <input [(ngModel)]="accountData.username" type="text" class="form-control mb-1" value="nmaxwell">
+                <input type="text" class="form-control mb-1" value="nmaxwell">
               </div>
               <div class="form-group">
                 <label class="form-label">First Name</label>
-                <input [(ngModel)]="accountData.name" type="text" class="form-control" value="Nelle Maxwell">
+                <input type="text" class="form-control" value="Nelle Maxwell">
               </div>
               <div class="form-group">
                 <label class="form-label">Last Name</label>
-                <input [(ngModel)]="accountData.name" type="text" class="form-control" value="Nelle Maxwell">
+                <input type="text" class="form-control" value="Nelle Maxwell">
               </div>
               <div class="form-group">
                 <label class="form-label">E-mail</label>
-                <input [(ngModel)]="accountData.email" type="text" class="form-control mb-1" value="nmaxwell@mail.com">
+                <input type="text" class="form-control mb-1" value="nmaxwell@mail.com">
                 <div class="alert alert-warning mt-3" *ngIf="!accountData.verified">
                   Your email is not confirmed. Please check your inbox.<br>
                   <a href="javascript:void(0)">Resend confirmation</a>
@@ -151,7 +151,7 @@
               </div>
               <div class="form-group">
                 <label class="form-label">Organization</label>
-                <input [(ngModel)]="accountData.company" type="text" class="form-control" value="Company Ltd.">
+                <input  type="text" class="form-control" value="Company Ltd.">
               </div>
             </div>
             <div class="text-right m-3">
@@ -162,7 +162,7 @@
           <div class="col-md-9" *ngIf="curTab === 'password'">
             <div class="card-body pb-2">
       
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <label class="form-label">Current password</label>
                 <input type="password" class="form-control">
               </div>
@@ -175,7 +175,51 @@
               <div class="form-group">
                 <label class="form-label">Repeat new password</label>
                 <input type="password" class="form-control">
-              </div>
+              </div> -->
+              <!-- <toast-message-modal >qwertyuio</toast-message-modal> -->
+              <form class="form" [formGroup]="updatePasswordForm" (ngSubmit)="onSubmitUpdatePassword()">
+               <div class="form-group">
+                  <label>Current Password</label>
+                  <input type="password" class="form-control" formControlName="currentPassword">
+                  <span class="text-danger"
+                    *ngIf="(updatePasswordFormControl.currentPassword.touched || submittedUpdatePasswordForm) && updatePasswordFormControl.currentPassword.errors?.required">
+                    New Password is required
+                  </span>
+                  <span class="text-danger"
+                    *ngIf="updatePasswordFormControl.currentPassword.touched && updatePasswordFormControl.currentPassword.errors?.invalidPassword">
+                    New Password should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase
+                    letter and 1 number
+                  </span>
+                </div>
+                <div class="form-group">
+                  <label>New Password</label>
+                  <input type="password" class="form-control" formControlName="newPassword">
+                  <span class="text-danger"
+                    *ngIf="(updatePasswordFormControl.newPassword.touched || submittedUpdatePasswordForm) && updatePasswordFormControl.newPassword.errors?.required">
+                    New Password is required
+                  </span>
+                  <span class="text-danger"
+                    *ngIf="updatePasswordFormControl.newPassword.touched && updatePasswordFormControl.newPassword.errors?.invalidPassword">
+                    New Password should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase
+                    letter and 1 number
+                  </span>
+                </div>
+                <div class="form-group">
+                  <label>Confirm New Password</label>
+                  <input type="password" class="form-control" formControlName="confirmNewPassword">
+                  <span class="text-danger"
+                    *ngIf="(updatePasswordFormControl.confirmNewPassword.touched || submittedUpdatePasswordForm)&& updatePasswordFormControl.confirmNewPassword.errors?.required">
+                    Confirm New Password is required
+                  </span>
+                  <span class="text-danger"
+                    *ngIf="updatePasswordFormControl.confirmNewPassword.touched && updatePasswordFormControl.confirmNewPassword.errors?.passwordMismatch">
+                    Passwords does not match
+                  </span>
+                </div>
+                <div class="form-group text-right">
+                  <button type="submit" [disabled]="updatePasswordForm.status == 'INVALID'" class="btn btn-primary">Update Password</button>
+                </div>
+              </form>
       
             </div>
           </div>

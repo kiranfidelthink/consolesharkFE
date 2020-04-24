@@ -4,7 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { AppRoutingModule } from "../../app-routing.module";
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HostManagementComponent } from './host-management/host-management.component';
 
 
@@ -16,7 +16,7 @@ import { HostManagementComponent } from './host-management/host-management.compo
     CommonModule,
     SharedModule,
     AppRoutingModule,
-    FormsModule
+    ReactiveFormsModule
   ],
   exports: [HomeComponent, UserDetailsComponent, HostManagementComponent],
 })

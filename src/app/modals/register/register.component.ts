@@ -5,7 +5,6 @@ import { CustomvalidationService } from '../../shared/sharedService/customValida
 import { AuthService } from 'src/app/auth/auth.service';
 import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { ToastMessageComponent } from '../toast-message/toast-message.component';
 
 @Component({
   selector: 'register-modal',
@@ -108,26 +107,6 @@ export class RegisterModalComponent implements OnInit {
     this.activeModal.close(sendData);
   }
 
-  openModal2(){
-    const modalRef = this.modalService.open(ToastMessageComponent, {
-      scrollable: true,
-      windowClass: 'myCustomModalClass',
-    });
-
-    let data = {
-      prop1: 'Some Data',
-      prop2: 'From Parent Component',
-      prop3: 'This Can be anything',
-    };
-
-    modalRef.componentInstance.fromParent = data;
-    modalRef.result.then(
-      (result) => {
-        // console.log('result--', result);
-      },
-      (reason) => {}
-    );
-  }
   //  closeModal() {
   //   //   this.activeModal.close();
   //   // }

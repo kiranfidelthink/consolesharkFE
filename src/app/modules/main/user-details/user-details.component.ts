@@ -1,6 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
+import { Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { CustomvalidationService } from 'src/app/shared/sharedService/customValidation.service';
+
 
 @Component({
   selector: "app-user-details",
@@ -15,8 +18,11 @@ export class UserDetailsComponent implements OnInit {
   firstName: any;
   lastName: any;
   email: any;
+  submittedUpdatePasswordForm = false;
+  updatePasswordForm: FormGroup;
 
-  constructor(private route:Router, private auth:AuthService) {}
+
+  constructor(private route:Router, private auth:AuthService,private fb: FormBuilder,private customValidator: CustomvalidationService) {}
   curTab = 'overview';
 
   languages = [
@@ -60,7 +66,58 @@ export class UserDetailsComponent implements OnInit {
     }
   };
   ngOnInit() {
+    this.updatePasswordForm = this.fb.group(
+      {
+        currentPassword: [
+          '',
+          Validators.compose([
+            Validators.required,
+            this.customValidator.patternValidator(),
+          ]),
+        ],
+        newPassword: [
+          '',
+          Validators.compose([
+            Validators.required,
+            this.customValidator.patternValidator(),
+          ]),
+        ],
+        confirmNewPassword: ['', [Validators.required]],
+      },
+      {
+        validator: this.customValidator.MatchPassword(
+          'newPassword',
+          'confirmNewPassword'
+        ),
+      }
+    );
     this.getUserDetails();
+  }
+
+  get updatePasswordFormControl() {
+    return this.updatePasswordForm.controls;
+  }
+
+  onSubmitUpdatePassword() {
+    this.submittedUpdatePasswordForm = true;
+    console.log("this.updatePasswordForm", this.updatePasswordForm)
+    if (this.updatePasswordForm.valid) {
+      const password:any = {
+        currentPassword: this.updatePasswordForm.value.currentPassword,
+        newPassword: this.updatePasswordForm.value.newPassword
+      };
+      this.auth.updatePassword(password).subscribe((res:any) => {
+        console.log("updateUser res", res)
+        this.updateUserDetail(this.updatePasswordForm.value.newPassword)
+        // this.activeModal.close();
+      });
+    }
+  }
+  updateUserDetail(newPassword){
+    this.auth.updateUserPassword(newPassword).subscribe((res:any) => {
+      console.log("updateUserByOrganization res", res)
+      // this.activeModal.close();
+    });
   }
   
   getUserDetails() {
@@ -72,16 +129,7 @@ export class UserDetailsComponent implements OnInit {
       this.firstName= this.currentUserData.first_name
       this.lastName= this.currentUserData.last_name
       this.email= this.currentUserData.email
-     
     });
-    // if (localStorage.getItem('organizationDetails') != null) {
-    //   console.log('Inside if');
-    //   this.openModal();
-    // } else {
-    //   console.log('Inside else');
-    //   // this.routes.navigate(['/login']);
-    //   // return false;
-    // }
   }
   
 }
