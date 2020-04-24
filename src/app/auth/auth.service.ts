@@ -80,4 +80,12 @@ export class AuthService {
       update_password
     );
   }
+  getUserOrganizationById(user: User): Observable<User> {
+    return this.http.get<User>(`${this.baseUrl}get_Organization?organization_id=${user}`);
+  }
+  updateUSerprofile(user: User): Observable<User> {
+    console.log("user inside auth service", user)
+    this.user_id = localStorage.getItem('user_id');
+    return this.http.patch<User>(`${this.baseUrl}update_user?user_id=${this.user_id}`, user);
+  }
 }

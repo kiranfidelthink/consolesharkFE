@@ -6,6 +6,9 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import { AppRoutingModule } from "../../app-routing.module";
 import { ReactiveFormsModule } from '@angular/forms';
 import { HostManagementComponent } from './host-management/host-management.component';
+import { FormsModule } from '@angular/forms';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 
 
@@ -16,7 +19,10 @@ import { HostManagementComponent } from './host-management/host-management.compo
     CommonModule,
     SharedModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    BsDropdownModule.forRoot(),
+    NgxIntlTelInputModule,
   ],
   exports: [HomeComponent, UserDetailsComponent, HostManagementComponent],
 })
