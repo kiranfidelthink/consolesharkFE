@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { CustomvalidationService } from '../../shared/sharedService/customValidation.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { EmitService } from 'src/app/shared/shared-service/emit-service';
 
 @Component({
   selector: 'organization-modal',
@@ -18,13 +19,15 @@ export class OrganizationModalComponent implements OnInit {
   submitted = false;
   user_id: string;
   userOrganizationInfo: any;
+  @Output() onFilter = new EventEmitter();
 
   constructor(
     private fb: FormBuilder,
     private customValidator: CustomvalidationService,
     public activeModal: NgbActiveModal,
     private auth: AuthService,
-    private routes: Router
+    private routes: Router,
+    private _emitService: EmitService
   ) {}
 
   ngOnInit() {
@@ -78,6 +81,7 @@ export class OrganizationModalComponent implements OnInit {
       
       this.auth.createOrganization(organization).subscribe((res:any) => {
         console.log("create organization res", res)
+        this._emitService.filter('Register click');
         // this.updateUser(res.organization_id);
         this.activeModal.close();
       });

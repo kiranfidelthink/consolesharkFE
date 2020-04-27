@@ -67,7 +67,8 @@
               <button type="button" class="list-group-item list-group-item-action" [ngClass]="{active: curTab === 'multifactor-authentication'}" (click)="curTab = 'multifactor-authentication'">Multi-Factor Authentication</button>
               <button type="button" class="list-group-item list-group-item-action" [ngClass]="{active: curTab === 'paper-trail'}" (click)="curTab = 'paper-trail'">paper Trail</button>
               <button type="button" class="list-group-item list-group-item-action" [ngClass]="{active: curTab === 'security-groups'}" (click)="curTab = 'security-groups'">Security Groups</button>
-              <button type="button" class="list-group-item list-group-item-action" [ngClass]="{active: curTab === 'organization'}" (click)="curTab = 'organization'">Organization</button>
+              <button type="button" class="list-group-item list-group-item-action" [ngClass]="{active: curTab === 'organization'}" 
+              (click)="showOrganization()">Organization</button>
               <button type="button" class="list-group-item list-group-item-action" [ngClass]="{active: curTab === 'partner'}" (click)="curTab = 'partner'">Partner</button>
               <button type="button" class="list-group-item list-group-item-action" [ngClass]="{active: curTab === 'provider'}" (click)="curTab = 'provider'">Provider</button>
               <!-- <button type="button" class="list-group-item list-group-item-action" [ngClass]="{active: curTab === 'info'}" (click)="curTab = 'info'">Info</button>

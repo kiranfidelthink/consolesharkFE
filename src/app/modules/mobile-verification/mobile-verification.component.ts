@@ -59,7 +59,7 @@ export class MobileVerifyComponent implements OnInit {
     
     console.log("emailId in mobile verification", emailId)
 
-    this.auth.getUSerOrganization(emailId).subscribe((res:any) => {
+    this.auth.getUserAndOrganization(emailId).subscribe((res:any) => {
       console.log("getUSerOrganization res in mobile verification", res)
       this.sendOTP(res)
       this.currentUserDetail = res;

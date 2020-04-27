@@ -12,8 +12,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterModalComponent implements OnInit {
-  @Input() fromParent;
-  msg: string;
+  // @Input() fromParent;
+  // msg: string;
   registerForm: FormGroup;
   submitted = false;
   showToastMessage: boolean = false;

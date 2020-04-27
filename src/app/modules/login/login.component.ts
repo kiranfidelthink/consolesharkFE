@@ -49,45 +49,54 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  openModal() {
-    const modalRef = this.modalService.open(RegisterModalComponent, {
+  openRegisterModal() {
+    this.modalService.open(RegisterModalComponent, {
       scrollable: true,
       windowClass: 'myCustomModalClass',
     });
+    // const modalRef = this.modalService.open(RegisterModalComponent, {
+    //   scrollable: true,
+    //   windowClass: 'myCustomModalClass',
+    // });
 
-    let data = {
-      prop1: 'Some Data',
-      prop2: 'From Parent Component',
-      prop3: 'This Can be anything',
-    };
+    // let data = {
+    //   prop1: 'Some Data',
+    //   prop2: 'From Parent Component',
+    //   prop3: 'This Can be anything',
+    // };
 
-    modalRef.componentInstance.fromParent = data;
-    modalRef.result.then(
-      (result) => {
-        console.log('result--', result);
-      },
-      (reason) => {}
-    );
+    // modalRef.componentInstance.fromParent = data;
+    // modalRef.result.then(
+    //   (result) => {
+    //     console.log('result--', result);
+    //   },
+    //   (reason) => {}
+    // );
   }
 
   openForgotPasswordModal() {
-    const modalRef = this.modalService.open(ForgotPasswordModalComponent, {
-      scrollable: true,
-      windowClass: 'myCustomModalClass',
-    });
+    this.modalService.open(ForgotPasswordModalComponent, {
+        scrollable: true,
+        windowClass: 'myCustomModalClass',
+      });
+  
+    // const modalRef = this.modalService.open(ForgotPasswordModalComponent, {
+    //   scrollable: true,
+    //   windowClass: 'myCustomModalClass',
+    // });
 
-    let data = {
-      prop1: 'Some Data',
-      prop2: 'From Parent Component',
-      prop3: 'This Can be anything',
-    };
+    // let data = {
+    //   prop1: 'Some Data',
+    //   prop2: 'From Parent Component',
+    //   prop3: 'This Can be anything',
+    // };
 
-    modalRef.componentInstance.fromParent = data;
-    modalRef.result.then(
-      (result) => {
-        console.log('result---', result);
-      },
-      (reason) => {}
-    );
+    // modalRef.componentInstance.fromParent = data;
+    // modalRef.result.then(
+    //   (result) => {
+    //     console.log('result---', result);
+    //   },
+    //   (reason) => {}
+    // );
   }
 }

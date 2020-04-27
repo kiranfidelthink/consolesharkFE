@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
-import { CustomvalidationService } from '../../shared/sharedService/customValidation.service';
 
 @Component({
   selector: 'forgot-password-modal',
@@ -9,14 +8,13 @@ import { CustomvalidationService } from '../../shared/sharedService/customValida
   styleUrls: ['./forgot-password.component.css'],
 })
 export class ForgotPasswordModalComponent implements OnInit {
-  @Input() fromParent;
-  msg: string;
+  // @Input() fromParent;
+  // msg: string;
   forgotPasswordForm: FormGroup;
   submitted = false;
 
   constructor(
     private fb: FormBuilder,
-    private customValidator: CustomvalidationService,
     public activeModal: NgbActiveModal
   ) {}
 
@@ -33,7 +31,7 @@ export class ForgotPasswordModalComponent implements OnInit {
     return this.forgotPasswordForm.controls;
   }
 
-  onSubmit() {
+  onSubmitForgotPassword() {
     this.submitted = true;
     if (this.forgotPasswordForm.valid) {
       // console.log("this.forgotPasswordForm.valid", this.forgotPasswordForm.value)
@@ -46,7 +44,4 @@ export class ForgotPasswordModalComponent implements OnInit {
   closeModal(sendData) {
     this.activeModal.close(sendData);
   }
-  //  closeModal() {
-  //   //   this.activeModal.close();
-  //   // }
 }

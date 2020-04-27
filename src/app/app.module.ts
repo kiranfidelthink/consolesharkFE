@@ -21,6 +21,7 @@ import { ToastMessageComponent } from './modals/toast-message/toast-message.comp
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ToastrModule } from 'ngx-toastr';
+import { EmitService } from './shared/shared-service/emit-service';
 
 
 
@@ -51,7 +52,7 @@ import { ToastrModule } from 'ngx-toastr';
   // entryComponents:[
   //   RegisterModalComponent
   // ],
-  providers: [AuthGuard, SidenavService, AuthService],
+  providers: [AuthGuard, SidenavService, AuthService, EmitService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

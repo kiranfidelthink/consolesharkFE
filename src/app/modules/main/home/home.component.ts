@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   }
   getUserDetails() {
     this.userEmail = localStorage.getItem('userEmail')
-    this.auth.getUSerOrganization(this.userEmail).subscribe((res:any) => {
+    this.auth.getUserAndOrganization(this.userEmail).subscribe((res:any) => {
       localStorage.setItem('user_id', res.id)
       console.log("res", res)
       if(res.organizations !== null){
@@ -29,14 +29,6 @@ export class HomeComponent implements OnInit {
         this.openModal();
       }
     });
-    // if (localStorage.getItem('organizationDetails') != null) {
-    //   console.log('Inside if');
-    //   this.openModal();
-    // } else {
-    //   console.log('Inside else');
-    //   // this.routes.navigate(['/login']);
-    //   // return false;
-    // }
   }
 
   openModal() {

@@ -10,7 +10,7 @@
   </ul>
   <div class="sidenav-divider mt-0"></div>
   <ul class="list-group nav navbar-nav item" >
-    <li class="list-group-item d-flex"  routerLink='/'><i class="fa fa-tachometer pr-3"></i><span
+    <li class="list-group-item d-flex" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" routerLink='/'><i class="fa fa-tachometer pr-3"></i><span
         [@animateText]="linkText ? 'show' : 'hide'">Dashboard</span></li>
     <li class="list-group-item d-flex"  routerLink='/'><i class="fa fa-th pr-3"></i><span
         [@animateText]="linkText ? 'show' : 'hide'">Devices</span></li>
@@ -18,7 +18,7 @@
         [@animateText]="linkText ? 'show' : 'hide'" >Reporting</span></li>
     <li class="list-group-item d-flex"  routerLink='/'><i class="fa fa-server pr-3"></i><span
         [@animateText]="linkText ? 'show' : 'hide'">Server</span></li>
-    <li class="list-group-item d-flex collapsed active" data-toggle="collapse" data-target="#products"><i class="fa fa-calendar pr-3"></i><span class="w-100"
+    <li class="list-group-item d-flex collapsed" data-toggle="collapse" data-target="#products"><i class="fa fa-calendar pr-3"></i><span class="w-100"
         [@animateText]="linkText ? 'show' : 'hide'">Events<i *ngIf="!showChevronDown" class="fa fa-chevron-left float-right"></i>
         <i *ngIf="showChevronDown" class="fa fa-chevron-down float-right"></i></span>
       </li>

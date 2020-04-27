@@ -23,13 +23,8 @@ export class AuthService {
   createUser(user: User): Observable<User> {
     return this.http.post<User>(`${this.baseUrl}create_user`, user);
   }
-  // getUSerOrganization(user: User): Observable<User> {
-  //   const userEmail = {
-  //     email: user,
-  //   };
-  //   return this.http.post<User>(`${this.baseUrl}get_user`, userEmail);
-  // }
-  getUSerOrganization(user: User): Observable<User> {
+ 
+  getUserAndOrganization(user: User): Observable<User> {
     const userEmail = {
       email: user,
     };
@@ -91,7 +86,7 @@ export class AuthService {
     // return this.http.get<User>(`${this.baseUrl}get_Organization?organization_id=${user}`);
     return this.http.get<User>(`${this.baseUrl}get_Organization?organization_id=${user}`);
   }
-  updateUSerprofile(user: User): Observable<User> {
+  updateUserprofile(user: User): Observable<User> {
     console.log("user inside auth service", user)
     this.user_id = localStorage.getItem('user_id');
     return this.http.patch<User>(`${this.baseUrl}update_user?user_id=${this.user_id}`, user);
