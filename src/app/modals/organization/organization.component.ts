@@ -16,6 +16,8 @@ export class OrganizationModalComponent implements OnInit {
   msg: string;
   organizationForm: FormGroup;
   submitted = false;
+  user_id: string;
+  userOrganizationInfo: any;
 
   constructor(
     private fb: FormBuilder,
@@ -58,22 +60,25 @@ export class OrganizationModalComponent implements OnInit {
   onSubmit() {
     console.log("Insdie submit", this.organizationForm.value)
     console.log("this.organizationForm", this.organizationForm)
+    this.user_id = localStorage.getItem('user_id');
+
     this.submitted = true;
     if (this.organizationForm.valid) {
       const organization = {
         company_name:this.organizationForm.value.companyName,
         company_address: this.organizationForm.value.companyAddress,
+        user_id: this.user_id,
             billing_contact:{
                 name:this.organizationForm.value.name,
                 email:this.organizationForm.value.email,
                 phone:this.organizationForm.value.phone,
-                cell: this.organizationForm.value.cell.dialCode+this.organizationForm.value.cell.number
+                cell: this.organizationForm.value.cell.dialCode+this.organizationForm.value.cell.number,
             }   
         }
       
       this.auth.createOrganization(organization).subscribe((res:any) => {
         console.log("create organization res", res)
-        this.updateUser(res.organization_id);
+        // this.updateUser(res.organization_id);
         this.activeModal.close();
       });
     }

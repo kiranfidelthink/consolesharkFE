@@ -20,6 +20,7 @@ import { OrganizationModalComponent } from './modals/organization/organization.c
 import { ToastMessageComponent } from './modals/toast-message/toast-message.component';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -45,6 +46,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     HttpClientModule,
     BsDropdownModule.forRoot(),
     NgxIntlTelInputModule,
+    ToastrModule.forRoot()
   ],
   // entryComponents:[
   //   RegisterModalComponent

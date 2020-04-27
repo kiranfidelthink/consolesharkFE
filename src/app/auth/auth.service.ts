@@ -11,6 +11,7 @@ export class AuthService {
   baseUrl: string = environment.baseUrl;
   user_id: string;
   user_email: string;
+  organization_id: string;
   constructor(private http: HttpClient) {}
 
   loginUser(user: User): Observable<User> {
@@ -22,11 +23,17 @@ export class AuthService {
   createUser(user: User): Observable<User> {
     return this.http.post<User>(`${this.baseUrl}create_user`, user);
   }
+  // getUSerOrganization(user: User): Observable<User> {
+  //   const userEmail = {
+  //     email: user,
+  //   };
+  //   return this.http.post<User>(`${this.baseUrl}get_user`, userEmail);
+  // }
   getUSerOrganization(user: User): Observable<User> {
     const userEmail = {
       email: user,
     };
-    return this.http.post<User>(`${this.baseUrl}get_user`, userEmail);
+    return this.http.post<User>(`${this.baseUrl}get_userOrg`, userEmail);
   }
   verifyMobile(user: User): Observable<User> {
     return this.http.post<User>(`${this.baseUrl}verify_phone`, user);
@@ -81,11 +88,19 @@ export class AuthService {
     );
   }
   getUserOrganizationById(user: User): Observable<User> {
+    // return this.http.get<User>(`${this.baseUrl}get_Organization?organization_id=${user}`);
     return this.http.get<User>(`${this.baseUrl}get_Organization?organization_id=${user}`);
   }
   updateUSerprofile(user: User): Observable<User> {
     console.log("user inside auth service", user)
     this.user_id = localStorage.getItem('user_id');
     return this.http.patch<User>(`${this.baseUrl}update_user?user_id=${this.user_id}`, user);
+  }
+  updateOrganization(user: User): Observable<User> {
+    console.log("user inside updateOrganization", user)
+    this.organization_id = localStorage.getItem('organization_id');
+    // this.userEmail = localStorage.getItem('userEmail')
+
+    return this.http.patch<User>(`${this.baseUrl}update_Organization?organization_id=${this.organization_id}`, user);
   }
 }

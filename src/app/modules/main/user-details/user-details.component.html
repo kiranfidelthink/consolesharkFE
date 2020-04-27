@@ -216,6 +216,24 @@
       
             </div>
           </div>
+          <div class="col-md-9" *ngIf="curTab === 'multifactor-authentication'">
+            <div class="card-body pb-2">
+              <form class="form" [formGroup]="updatePasswordForm" (ngSubmit)="onSubmitUpdatePassword()">
+               <div class="form-group">
+                  <label>Enable/Disable Multifactor Authentication</label>
+                  <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="customSwitches">
+                    <label class="custom-control-label" for="customSwitches">Toggle this switch element</label>
+                  </div>
+                </div>
+                
+                <div class="form-group text-right">
+                  <button type="submit" [disabled]="updatePasswordForm.status == 'INVALID'" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+      
+            </div>
+          </div>
           <div class="col-md-9" *ngIf="curTab === 'organization'">
       
             <!-- <div class="card-body media align-items-center">

@@ -20,8 +20,12 @@ export class HomeComponent implements OnInit {
   getUserDetails() {
     this.userEmail = localStorage.getItem('userEmail')
     this.auth.getUSerOrganization(this.userEmail).subscribe((res:any) => {
-      localStorage.setItem('user_id', res.user_id)
-      if(!res.organization_id){
+      localStorage.setItem('user_id', res.id)
+      console.log("res", res)
+      if(res.organizations !== null){
+      localStorage.setItem('organization_id', res.organizations.id)
+      }
+      else{
         this.openModal();
       }
     });
@@ -52,9 +56,13 @@ export class HomeComponent implements OnInit {
     modalRef.componentInstance.fromParent = data;
     modalRef.result.then(
       (result) => {
+        
         console.log('result--', result);
       },
-      (reason) => {}
+      (reason) => {
+        console.log('reason--', reason);
+
+      }
     );
   }
 }

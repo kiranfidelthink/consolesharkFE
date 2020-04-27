@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { CustomvalidationService } from 'src/app/shared/sharedService/customValidation.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -28,7 +29,9 @@ export class UserDetailsComponent implements OnInit {
 
 
 
-  constructor(private route:Router, private auth:AuthService,private fb: FormBuilder,private customValidator: CustomvalidationService) {}
+  constructor(private routes:Router, private auth:AuthService,private fb: FormBuilder,private customValidator: CustomvalidationService,
+    private toastr: ToastrService) {}
+    
   curTab = 'overview';
 
   languages = [
@@ -37,40 +40,40 @@ export class UserDetailsComponent implements OnInit {
     { value: 'French', label: 'French' }
   ];
 
-  accountData = {
-    avatar: '5-small.png',
-    name: 'Nelle Maxwell',
-    username: 'nmaxwell',
-    email: 'nmaxwell@mail.com',
-    company: 'Company Ltd.',
-    verified: false,
+  // accountData = {
+  //   avatar: '5-small.png',
+  //   name: 'Nelle Maxwell',
+  //   username: 'nmaxwell',
+  //   email: 'nmaxwell@mail.com',
+  //   company: 'Company Ltd.',
+  //   verified: false,
 
-    info: {
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris nunc arcu, dignissim sit amet sollicitudin iaculis, vehicula id urna. Sed luctus urna nunc. Donec fermentum, magna sit amet rutrum pretium, turpis dolor molestie diam, ut lacinia diam risus eleifend sapien. Curabitur ac nibh nulla. Maecenas nec augue placerat, viverra tellus non, pulvinar risus.',
-      birthday: 'May 3, 1995',
-      country: 'Canada',
-      languages: ['English'],
-      phone: '+0 (123) 456 7891',
-      website: '',
-      music: ['Rock', 'Alternative', 'Electro', 'Drum & Bass', 'Dance'],
-      movies: ['The Green Mile', 'Pulp Fiction', 'Back to the Future', 'WALL·E', 'Django Unchained', 'The Truman Show', 'Home Alone', 'Seven Pounds'],
+  //   info: {
+  //     bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris nunc arcu, dignissim sit amet sollicitudin iaculis, vehicula id urna. Sed luctus urna nunc. Donec fermentum, magna sit amet rutrum pretium, turpis dolor molestie diam, ut lacinia diam risus eleifend sapien. Curabitur ac nibh nulla. Maecenas nec augue placerat, viverra tellus non, pulvinar risus.',
+  //     birthday: 'May 3, 1995',
+  //     country: 'Canada',
+  //     languages: ['English'],
+  //     phone: '+0 (123) 456 7891',
+  //     website: '',
+  //     music: ['Rock', 'Alternative', 'Electro', 'Drum & Bass', 'Dance'],
+  //     movies: ['The Green Mile', 'Pulp Fiction', 'Back to the Future', 'WALL·E', 'Django Unchained', 'The Truman Show', 'Home Alone', 'Seven Pounds'],
 
-      twitter: 'https://twitter.com/user',
-      facebook: 'https://www.facebook.com/user',
-      google: '',
-      linkedin: '',
-      instagram: 'https://www.instagram.com/user'
-    },
+  //     twitter: 'https://twitter.com/user',
+  //     facebook: 'https://www.facebook.com/user',
+  //     google: '',
+  //     linkedin: '',
+  //     instagram: 'https://www.instagram.com/user'
+  //   },
 
-    notifications: {
-      comments: true,
-      forum: true,
-      followings: false,
-      news: true,
-      products: false,
-      blog: true
-    }
-  };
+  //   notifications: {
+  //     comments: true,
+  //     forum: true,
+  //     followings: false,
+  //     news: true,
+  //     products: false,
+  //     blog: true
+  //   }
+  // };
   ngOnInit() {
     this.updateUserForm = this.fb.group(
       {
@@ -126,8 +129,14 @@ export class UserDetailsComponent implements OnInit {
         ],
       }
     );
-    this.getUserDetails();
+    this.getUserDetailsOrg();
+    // this.showSuccess();
   }
+
+  showToastr(title, message) {
+    this.toastr.success(title, message);
+  }
+  
   get updateUserFormControl() {
     return this.updateUserForm.controls;
   }
@@ -138,25 +147,38 @@ export class UserDetailsComponent implements OnInit {
     return this.organizationForm.controls;
   }
   
-  getUserDetails() {
+  getUserDetailsOrg() {
     this.userEmail = localStorage.getItem('userEmail')
 
     this.auth.getUSerOrganization(this.userEmail).subscribe((res:any) => {
       console.log("resssssss of user", res)
-      this.getUserOrganizationDetails(res.organization_id);
+      // this.getUserOrganizationDetails(res.organization_id);
+      this.userOrganizationInfo = res.organizations;
       this.currentUserData = res
       this.firstName= this.currentUserData.first_name
       this.lastName= this.currentUserData.last_name
       this.email= this.currentUserData.email
     });
   }
-  getUserOrganizationDetails(organizationId) {
-    this.auth.getUserOrganizationById(organizationId).subscribe((res:any) => {
-      this.userOrganizationInfo = res
-      console.log("user organization info", res)
+  // getUserDetails() {
+  //   this.userEmail = localStorage.getItem('userEmail')
 
-    });
-  }
+  //   this.auth.getUSerOrganization(this.userEmail).subscribe((res:any) => {
+  //     console.log("resssssss of user", res)
+  //     this.getUserOrganizationDetails(res.organization_id);
+  //     this.currentUserData = res
+  //     this.firstName= this.currentUserData.first_name
+  //     this.lastName= this.currentUserData.last_name
+  //     this.email= this.currentUserData.email
+  //   });
+  // }
+  // getUserOrganizationDetails(organizationId) {
+  //   this.auth.getUserOrganizationById(organizationId).subscribe((res:any) => {
+  //     this.userOrganizationInfo = res
+  //     console.log("user organization info", res)
+
+  //   });
+  // }
 
   onSubmitUpdatePassword() {
     this.submittedUpdatePasswordForm = true;
@@ -177,15 +199,17 @@ export class UserDetailsComponent implements OnInit {
     this.auth.updateUserPassword(newPassword).subscribe((res:any) => {
       console.log("updateUserByOrganization res", res)
       // this.activeModal.close();
+      this.showToastr("Password Updated successfully", "");
+      this.routes.navigate(['/login']);
     });
   }
-
+  
   onSubmitupdateUserOrganization(){
     console.log("Insdie submit", this.organizationForm.value)
     console.log("this.organizationForm", this.organizationForm)
     this.submittedOrganizationForm = true;
     if (this.organizationForm.valid) {
-      const organization = {
+      const organization:any = {
         company_name:this.organizationForm.value.companyName,
         company_address: this.organizationForm.value.companyAddress,
             billing_contact:{
@@ -196,11 +220,11 @@ export class UserDetailsComponent implements OnInit {
             }   
         }
       
-      // this.auth.createOrganization(organization).subscribe((res:any) => {
-      //   console.log("create organization res", res)
-      //   this.updateUser(res.organization_id);
-      //   this.activeModal.close();
-      // });
+      this.auth.updateOrganization(organization).subscribe((res:any) => {
+        console.log("create organization res", res)
+        // this.updateUser(res.organization_id);
+        // this.activeModal.close();
+      });
     }
   }
   onSubmitUpdateUser(){
@@ -214,6 +238,8 @@ export class UserDetailsComponent implements OnInit {
       };
       this.auth.updateUSerprofile(user).subscribe((res) => {
         // console.log("register success", res)
+        this.showToastr("Profile Updated successfully", "");
+
       });
     }
   }
