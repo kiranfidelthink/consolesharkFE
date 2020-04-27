@@ -1,10 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { CustomvalidationService } from '../../shared/sharedService/customValidation.service';
 import { AuthService } from 'src/app/auth/auth.service';
-import { first } from 'rxjs/operators';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'register-modal',
@@ -16,7 +14,7 @@ export class RegisterModalComponent implements OnInit {
   // msg: string;
   registerForm: FormGroup;
   submitted = false;
-  showToastMessage: boolean = false;
+  // showToastMessage: boolean = false;
 
   messageForToast = {
     messageType:"Success!",
@@ -28,10 +26,7 @@ export class RegisterModalComponent implements OnInit {
     private fb: FormBuilder,
     private customValidator: CustomvalidationService,
     public activeModal: NgbActiveModal,
-    private auth: AuthService,
-    private routes: Router,
-    private modalService: NgbModal,
-
+    private _auth: AuthService,
   ) {}
 
   ngOnInit() {
@@ -86,17 +81,17 @@ export class RegisterModalComponent implements OnInit {
         email: this.registerForm.value.email,
         password: this.registerForm.value.password
       };
-      this.auth.registerUser(user).subscribe((res) => {
+      this._auth.registerUser(user).subscribe((res) => {
         // console.log("register success", res)
         this.createUser(user);
       });
     }
   }
   createUser(user) {
-    this.auth.createUser(user).subscribe((res) => {
+    this._auth.createUser(user).subscribe((res) => {
       // console.log("create user success", res)
       if(res){
-        this.showToastMessage = true;
+        // this.showToastMessage = true;
       }
       setTimeout(() => {
         this.activeModal.close();

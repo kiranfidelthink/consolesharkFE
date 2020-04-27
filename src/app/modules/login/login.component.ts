@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
 
   constructor(
-    private auth: AuthService,
+    private _auth: AuthService,
     private routes: Router,
     private modalService: NgbModal,
     private fb: FormBuilder
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
   }
   onSubmit() {
     this.submitted = true;
-    this.auth.loginUser(this.loginForm.value).subscribe((res: any) => {
+    this._auth.loginUser(this.loginForm.value).subscribe((res: any) => {
       console.log('res', res);
       localStorage.setItem('jwtToken', res.accessToken.jwtToken);
       localStorage.setItem('userEmail', res.idToken.payload.email);

@@ -1,10 +1,11 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/auth/auth.service';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { CustomvalidationService } from 'src/app/shared/sharedService/customValidation.service';
-import { ToastrService } from 'ngx-toastr';
+// import { ToastrService } from 'ngx-toastr';
 import { EmitService } from 'src/app/shared/shared-service/emit-service';
+import { UserService } from 'src/app/shared/shared-service/user-service';
+import { ToastService } from 'src/app/shared/shared-service/toast-service';
 
 
 @Component({
@@ -29,14 +30,14 @@ export class UserDetailsComponent implements OnInit {
   updateUserForm: FormGroup;
 
 
-  constructor(private routes:Router, private auth:AuthService,private fb: FormBuilder,private customValidator: CustomvalidationService,
-    private toastr: ToastrService, private _emitService: EmitService) {
+  constructor(private routes:Router, private fb: FormBuilder,private customValidator: CustomvalidationService,
+    private _emitService: EmitService, private _userService: UserService, private _toastService: ToastService) {
       this._emitService.listen().subscribe((m:any) => {
         console.log(m);
-        this.onFilterClick(m);
+        this.updateOrganizationDetails(m);
     })
     }
-    onFilterClick(event) {
+    updateOrganizationDetails(event) {
     this.getUserDetailsOrg();
       console.log('Fire onFilterClick: ', event);
   }
@@ -107,9 +108,9 @@ export class UserDetailsComponent implements OnInit {
     this.getUserDetailsOrg();
   }
 
-  showToastr(title, message) {
-    this.toastr.success(title, message);
-  }
+  // showToastr(title, message) {
+  //   this.toastr.success(title, message);
+  // }
   
   get updateUserFormControl() {
     return this.updateUserForm.controls;
@@ -124,7 +125,7 @@ export class UserDetailsComponent implements OnInit {
   getUserDetailsOrg() {
     this.userEmail = localStorage.getItem('userEmail')
 
-    this.auth.getUserAndOrganization(this.userEmail).subscribe((res:any) => {
+    this._userService.getUserAndOrganization(this.userEmail).subscribe((res:any) => {
       console.log("resssssss of user", res)
       this.userOrganizationInfo = res.organizations;
       this.currentUserData = res
@@ -136,7 +137,7 @@ export class UserDetailsComponent implements OnInit {
 
   showOrganization() {
     this.curTab = 'organization';
-    this._emitService.filter('Register click');
+    this._emitService.reloadOrganizationDetails('');
   }
 
   onSubmitUpdatePassword() {
@@ -147,18 +148,20 @@ export class UserDetailsComponent implements OnInit {
         currentPassword: this.updatePasswordForm.value.currentPassword,
         newPassword: this.updatePasswordForm.value.newPassword
       };
-      this.auth.updatePassword(password).subscribe((res:any) => {
+      this._userService.updatePassword(password).subscribe((res:any) => {
         console.log("updateUser res", res)
         this.updateUserDetail(this.updatePasswordForm.value.newPassword)
+        this._toastService.showToastr("User profile update successfully", "");
         // this.activeModal.close();
       });
     }
   }
   updateUserDetail(newPassword){
-    this.auth.updateUserPassword(newPassword).subscribe((res:any) => {
+    this._userService.updateUserPassword(newPassword).subscribe((res:any) => {
       console.log("updateUserByOrganization res", res)
       // this.activeModal.close();
-      this.showToastr("Password Updated successfully", "");
+      this._toastService.showToastr("User updated successfully", "")
+      // this.showToastr();
       this.routes.navigate(['/login']);
     });
   }
@@ -179,8 +182,10 @@ export class UserDetailsComponent implements OnInit {
             }   
         }
       
-      this.auth.updateOrganization(organization).subscribe((res:any) => {
+      this._userService.updateOrganization(organization).subscribe((res:any) => {
         console.log("create organization res", res)
+        this._toastService.showToastr("Organization update successfully", "");
+
         // this.updateUser(res.organization_id);
         // this.activeModal.close();
       });
@@ -195,10 +200,9 @@ export class UserDetailsComponent implements OnInit {
         last_name: this.updateUserForm.value.lastName,
         email: this.updateUserForm.value.email,
       };
-      this.auth.updateUserprofile(user).subscribe((res) => {
+      this._userService.updateUserprofile(user).subscribe((res) => {
         // console.log("register success", res)
-        this.showToastr("Profile Updated successfully", "");
-
+      this._toastService.showToastr("Profile Updated successfully", "")
       });
     }
   }

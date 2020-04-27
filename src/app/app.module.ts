@@ -17,11 +17,13 @@ import { MobileVerifyComponent } from './modules/mobile-verification/mobile-veri
 import { HttpClientModule } from '@angular/common/http'
 import { AuthService } from './auth/auth.service';
 import { OrganizationModalComponent } from './modals/organization/organization.component';
-import { ToastMessageComponent } from './modals/toast-message/toast-message.component';
+// import { ToastMessageComponent } from './modals/toast-message/toast-message.component';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ToastrModule } from 'ngx-toastr';
 import { EmitService } from './shared/shared-service/emit-service';
+import { UserService } from './shared/shared-service/user-service';
+import { ToastService } from './shared/shared-service/toast-service';
 
 
 
@@ -33,8 +35,8 @@ import { EmitService } from './shared/shared-service/emit-service';
     RegisterModalComponent,
     ForgotPasswordModalComponent,
     MobileVerifyComponent,
-    OrganizationModalComponent,
-    ToastMessageComponent
+    OrganizationModalComponent
+    // ToastMessageComponent
   ],
   imports: [
     SharedModule,
@@ -52,7 +54,7 @@ import { EmitService } from './shared/shared-service/emit-service';
   // entryComponents:[
   //   RegisterModalComponent
   // ],
-  providers: [AuthGuard, SidenavService, AuthService, EmitService],
+  providers: [AuthGuard, SidenavService, AuthService, UserService, EmitService, ToastService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

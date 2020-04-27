@@ -1,18 +1,14 @@
 import { Router } from '@angular/router';
-import { AuthService } from '../../auth/auth.service';
 import { Component, OnInit } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { RegisterModalComponent } from '../../modals/register/register.component';
-import { ForgotPasswordModalComponent } from '../../modals/forgot-password/forgot-password.component';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { CustomvalidationService } from 'src/app/shared/sharedService/customValidation.service';
-import {ActivatedRoute, Params} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { UserService } from 'src/app/shared/shared-service/user-service';
 
 @Component({
   selector: 'app-mobile-verification',
   templateUrl: './mobile-verification.component.html',
   styleUrls: ['./mobile-verification.component.css'],
-  providers: [AuthService],
 })
 export class MobileVerifyComponent implements OnInit {
   mobileVerificationForm: FormGroup;
@@ -25,12 +21,11 @@ export class MobileVerifyComponent implements OnInit {
   mobileNumber:number;
 
   constructor(
-    private auth: AuthService,
     private routes: Router,
-    private modalService: NgbModal,
     private fb: FormBuilder,
     private customValidator: CustomvalidationService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private _userService: UserService
   ) {
     this.activatedRoute.queryParams.subscribe(params => {
       this.emailId = params['email'];
@@ -59,7 +54,7 @@ export class MobileVerifyComponent implements OnInit {
     
     console.log("emailId in mobile verification", emailId)
 
-    this.auth.getUserAndOrganization(emailId).subscribe((res:any) => {
+    this._userService.getUserAndOrganization(emailId).subscribe((res:any) => {
       console.log("getUSerOrganization res in mobile verification", res)
       this.sendOTP(res)
       this.currentUserDetail = res;
@@ -78,7 +73,7 @@ export class MobileVerifyComponent implements OnInit {
     // }
   }
   sendOTP(userData){
-    this.auth.sendMobileOTP(userData).subscribe((res:any) => {
+    this._userService.sendMobileOTP(userData).subscribe((res:any) => {
       // console.log("resssssss--------", res)
     });
   }
@@ -93,7 +88,7 @@ export class MobileVerifyComponent implements OnInit {
       otp:this.mobileVerificationForm.value.otp,
       mobile_number:this.currentUserDetail.mobile_number
     }
-    this.auth.verifyMobile(userData).subscribe((res) => {
+    this._userService.verifyMobile(userData).subscribe((res) => {
       // console.log("ressss", res)
       this.verfiEmail();
     });
@@ -111,7 +106,7 @@ export class MobileVerifyComponent implements OnInit {
         code : this.code,
         username: this.username
     }
-    this.auth.verifyEmailAddress(verifyEmailDetails).subscribe((res) => {
+    this._userService.verifyEmailAddress(verifyEmailDetails).subscribe((res) => {
       console.log("ressss=-=-=--==-=", res)
       this.routes.navigate(['/']);
     });

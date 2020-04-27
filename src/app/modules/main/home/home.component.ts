@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OrganizationModalComponent } from 'src/app/modals/organization/organization.component';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/auth/auth.service';
+import { UserService } from 'src/app/shared/shared-service/user-service';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 })
 export class HomeComponent implements OnInit {
   userEmail: any;
-  constructor(private modalService: NgbModal, private routes: Router, private auth:AuthService) {}
+  constructor(private modalService: NgbModal, private routes: Router, private _userService: UserService) {}
 
   ngOnInit() {
     this.getUserDetails();
@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   }
   getUserDetails() {
     this.userEmail = localStorage.getItem('userEmail')
-    this.auth.getUserAndOrganization(this.userEmail).subscribe((res:any) => {
+    this._userService.getUserAndOrganization(this.userEmail).subscribe((res:any) => {
       localStorage.setItem('user_id', res.id)
       console.log("res", res)
       if(res.organizations !== null){

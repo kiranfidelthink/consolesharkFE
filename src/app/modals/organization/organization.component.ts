@@ -2,10 +2,9 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { CustomvalidationService } from '../../shared/sharedService/customValidation.service';
-import { AuthService } from 'src/app/auth/auth.service';
-import { first } from 'rxjs/operators';
-import { Router } from '@angular/router';
 import { EmitService } from 'src/app/shared/shared-service/emit-service';
+import { UserService } from 'src/app/shared/shared-service/user-service';
+import { ToastService } from 'src/app/shared/shared-service/toast-service';
 
 @Component({
   selector: 'organization-modal',
@@ -25,9 +24,9 @@ export class OrganizationModalComponent implements OnInit {
     private fb: FormBuilder,
     private customValidator: CustomvalidationService,
     public activeModal: NgbActiveModal,
-    private auth: AuthService,
-    private routes: Router,
-    private _emitService: EmitService
+    private _emitService: EmitService,
+    private _userService: UserService,
+    private _toastService: ToastService
   ) {}
 
   ngOnInit() {
@@ -79,9 +78,10 @@ export class OrganizationModalComponent implements OnInit {
             }   
         }
       
-      this.auth.createOrganization(organization).subscribe((res:any) => {
+      this._userService.createOrganization(organization).subscribe((res:any) => {
         console.log("create organization res", res)
-        this._emitService.filter('Register click');
+        this._emitService.reloadOrganizationDetails('');
+        this._toastService.showToastr("Organization created successfully", "");
         // this.updateUser(res.organization_id);
         this.activeModal.close();
       });
@@ -89,7 +89,7 @@ export class OrganizationModalComponent implements OnInit {
   }
   updateUser(organizationId){
     console.log("organizationId", organizationId)
-    this.auth.updateUserByOrganization(organizationId).subscribe((res:any) => {
+    this._userService.updateUserByOrganization(organizationId).subscribe((res:any) => {
       console.log("updateUserByOrganization res", res)
       // this.activeModal.close();
     });
