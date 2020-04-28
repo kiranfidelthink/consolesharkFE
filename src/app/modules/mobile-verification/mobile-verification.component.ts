@@ -113,6 +113,7 @@ export class MobileVerifyComponent implements OnInit {
 
   }
   skipMobileVerification(){
+    this.verfiEmail();
     this.routes.navigate(['/login']);
   }
 }

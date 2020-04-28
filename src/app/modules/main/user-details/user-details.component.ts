@@ -140,7 +140,7 @@ export class UserDetailsComponent implements OnInit {
 
   showOrganization() {
     this.curTab = 'organization';
-    this._emitService.reloadOrganizationDetails('');
+    // this._emitService.reloadOrganizationDetails('');
   }
 
   onSubmitUpdatePassword() {
@@ -182,7 +182,7 @@ export class UserDetailsComponent implements OnInit {
                 name:this.organizationForm.value.name,
                 email:this.organizationForm.value.email,
                 phone:this.organizationForm.value.phone,
-                cell: this.organizationForm.value.cell,
+                cell: this.organizationForm.value.cell.number,
                 countryCode: this.organizationForm.value.cell.dialCode,
                 countryISO: this.organizationForm.value.cell.countryCode
             }   

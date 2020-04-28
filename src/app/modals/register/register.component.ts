@@ -3,6 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { CustomvalidationService } from '../../shared/sharedService/customValidation.service';
 import { AuthService } from 'src/app/auth/auth.service';
+import { ToastService } from 'src/app/shared/shared-service/toast-service';
 
 @Component({
   selector: 'register-modal',
@@ -27,6 +28,7 @@ export class RegisterModalComponent implements OnInit {
     private customValidator: CustomvalidationService,
     public activeModal: NgbActiveModal,
     private _auth: AuthService,
+    private _toastService: ToastService
   ) {}
 
   ngOnInit() {
@@ -91,6 +93,7 @@ export class RegisterModalComponent implements OnInit {
     this._auth.createUser(user).subscribe((res) => {
       // console.log("create user success", res)
       if(res){
+        this._toastService.showToastr("Registration successfully", "");
         // this.showToastMessage = true;
       }
       setTimeout(() => {

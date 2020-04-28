@@ -68,7 +68,7 @@
               <button type="button" class="list-group-item list-group-item-action" [ngClass]="{active: curTab === 'paper-trail'}" (click)="curTab = 'paper-trail'">paper Trail</button>
               <button type="button" class="list-group-item list-group-item-action" [ngClass]="{active: curTab === 'security-groups'}" (click)="curTab = 'security-groups'">Security Groups</button>
               <button type="button" class="list-group-item list-group-item-action" [ngClass]="{active: curTab === 'organization'}" 
-              (click)="showOrganization()">Organization</button>
+              (click)="curTab = 'organization'">Organization</button>
               <button type="button" class="list-group-item list-group-item-action" [ngClass]="{active: curTab === 'partner'}" (click)="curTab = 'partner'">Partner</button>
               <button type="button" class="list-group-item list-group-item-action" [ngClass]="{active: curTab === 'provider'}" (click)="curTab = 'provider'">Provider</button>
               <!-- <button type="button" class="list-group-item list-group-item-action" [ngClass]="{active: curTab === 'info'}" (click)="curTab = 'info'">Info</button>
@@ -294,7 +294,7 @@
                       </label>
                       <ngx-intl-tel-input type="number" [searchCountryFlag]="true" [preferredCountries]="[userOrganizationInfo.billing_contact.countryISO | lowercase]"
                       [phoneValidation]="true" class="d-block"
-                      [(ngModel)]="userOrganizationInfo.billing_contact.cell"  formControlName="cell" [maxLength]="10" minlength="10"></ngx-intl-tel-input>
+                      [ngModel]="userOrganizationInfo.billing_contact.cell"  formControlName="cell" [maxLength]="10" minlength="10"></ngx-intl-tel-input>
                       <!-- <input type="number" formControlName="cell" class="form-control" maxlength="12" minlength="10" /> -->
                       <span class="text-danger"
                         *ngIf="(organizationFormControl.cell.touched || submittedOrganizationForm) && organizationFormControl.cell.errors?.required">
