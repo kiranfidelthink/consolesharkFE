@@ -74,7 +74,9 @@ export class OrganizationModalComponent implements OnInit {
                 name:this.organizationForm.value.name,
                 email:this.organizationForm.value.email,
                 phone:this.organizationForm.value.phone,
-                cell: this.organizationForm.value.cell.dialCode+this.organizationForm.value.cell.number,
+                cell: this.organizationForm.value.cell.number,
+                countryCode: this.organizationForm.value.cell.dialCode,
+                countryISO: this.organizationForm.value.cell.countryCode
             }   
         }
       

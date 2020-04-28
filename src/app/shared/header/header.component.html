@@ -1,45 +1,148 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-  <!-- <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button> -->
-  <div>
-    <label class="nav-item navbar-text navbar-search-box p-0 active ml-4">
-      <i class="fa fa-search pr-2 "></i>
-      <span class="navbar-search-input">
-        <input class="form-control navbar-text border-0" placeholder="Search..." style="width:200px" type="text">
-      </span>
-    </label>
+<nav class="layout-navbar navbar navbar-expand-lg align-items-lg-center bg-custom container-p-x" id="layout-navbar">
+
+  <!-- Company Brand (see assets/css/demo/demo.css) -->
+  <a href="" class="navbar-brand app-brand d-lg-none py-0 mr-4">
+    <span class="app-brand bg-primary">
+
+    </span>
+    <span class="app-brand-text font-weight-normal ml-2">Console Shark</span>
+  </a>
+
+  <!-- Sidenav toggle (see assets/css/demo/demo.css) -->
+  <div class="layout-sidenav-toggle navbar-nav d-lg-none align-items-lg-center mr-auto">
+    <a class="nav-item nav-link px-0 mr-lg-4" href="javascript:void(0)">
+      <i class="ion ion-md-menu text-large align-middle"></i>
+    </a>
   </div>
 
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#layout-navbar-collapse"
+    aria-expanded="false">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">
-          <i class="fa fa-bell"></i>
+  <div class="navbar-collapse collapse" id="layout-navbar-collapse" style="">
+    <!-- Divider -->
+    <hr class="d-lg-none w-100 my-2">
+
+    <div class="navbar-nav ">
+      <!-- Search -->
+      <label class="nav-item navbar-text navbar-search-box p-0 active ml-4 mb-0">
+        <i class="fa fa-search pr-2 "></i>
+        <span class="navbar-search-input">
+          <input class="form-control navbar-text border-0 input-search" placeholder="Search..." style="width:200px" type="text">
+        </span>
+      </label>
+      <!-- <label class="nav-item navbar-text navbar-search-box p-0 active">
+        <i class="fa fa-search navbar-icon align-middle"></i>
+        <span class="navbar-search-input pl-2">
+          <input type="text" class="form-control navbar-text mx-2 input-search border-0" placeholder="Search..."
+            style="width:200px">
+        </span>
+      </label> -->
+    </div>
+
+    <div class="navbar-nav align-items-lg-center ml-auto">
+      <!-- <div class="demo-navbar-notifications nav-item dropdown mr-lg-3">
+        <a class="nav-link dropdown-toggle hide-arrow" href="#" data-toggle="dropdown">
+          <i class="ion ion-md-notifications-outline navbar-icon align-middle"></i>
+          <span class="badge badge-primary badge-dot indicator"></span>
+          <span class="d-lg-none align-middle">&nbsp; Notifications</span>
         </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">
-          <i class="fa fa-envelope"></i>
-        </a>
-      </li>
-      <div class="pl-20 pr-20 pt-7">|</div>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          User
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">My Profile</a>
-          <a class="dropdown-item" href="#">Messages</a>
-          <a class="dropdown-item" href="#">Account Settings</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" (click)="logout()">Logout</a>
+        <div class="dropdown-menu dropdown-menu-right">
+          <div class="bg-primary text-center text-white font-weight-bold p-3">
+            4 New Notifications
+          </div>
+          <div class="list-group list-group-flush">
+            <a href="javascript:void(0)" class="list-group-item list-group-item-action media d-flex align-items-center">
+              <div class="ui-icon ui-icon-sm ion ion-md-home bg-secondary border-0 text-white"></div>
+              <div class="media-body line-height-condenced ml-3">
+                <div class="text-body">Login from 192.168.1.1</div>
+                <div class="text-light small mt-1">
+                  Aliquam ex eros, imperdiet vulputate hendrerit et.
+                </div>
+                <div class="text-light small mt-1">12h ago</div>
+              </div>
+            </a>
+
+            <a href="javascript:void(0)" class="list-group-item list-group-item-action media d-flex align-items-center">
+              <div class="ui-icon ui-icon-sm ion ion-md-person-add bg-info border-0 text-white"></div>
+              <div class="media-body line-height-condenced ml-3">
+                <div class="text-body">You have <strong>4</strong> new followers</div>
+                <div class="text-light small mt-1">
+                  Phasellus nunc nisl, posuere cursus pretium nec, dictum vehicula tellus.
+                </div>
+              </div>
+            </a>
+
+            <a href="javascript:void(0)" class="list-group-item list-group-item-action media d-flex align-items-center">
+              <div class="ui-icon ui-icon-sm ion ion-md-power bg-danger border-0 text-white"></div>
+              <div class="media-body line-height-condenced ml-3">
+                <div class="text-body">Server restarted</div>
+                <div class="text-light small mt-1">
+                  19h ago
+                </div>
+              </div>
+            </a>
+
+            <a href="javascript:void(0)" class="list-group-item list-group-item-action media d-flex align-items-center">
+              <div class="ui-icon ui-icon-sm ion ion-md-warning bg-warning border-0 text-body"></div>
+              <div class="media-body line-height-condenced ml-3">
+                <div class="text-body">99% server load</div>
+                <div class="text-light small mt-1">
+                  Etiam nec fringilla magna. Donec mi metus.
+                </div>
+                <div class="text-light small mt-1">
+                  20h ago
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <a href="javascript:void(0)" class="d-block text-center text-light small p-2 my-1">Show all notifications</a>
         </div>
-      </li>
-    </ul>
+      </div> -->
+
+
+      <!-- Divider -->
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">
+            <i class="fa fa-bell"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="fa fa-envelope  "></i>
+          </a>
+        </li>
+
+
+      </ul>
+      <div class="nav-item d-none d-lg-block text-big font-weight-light line-height-1 opacity-25 mr-2 ml-2 color-inherit">|</div>
+
+      <div class="demo-navbar-user nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
+          <span class="d-inline-flex flex-lg-row-reverse align-items-center align-middle">
+            <img src="../../../assets/img/avatar-png-1.png" alt="" width="30" height="30"
+              class="d-block ui-w-30 rounded-circle">
+            <span class="px-1 mr-lg-2 ml-2 ml-lg-0">Sachin</span>
+          </span>
+        </a>
+
+        <!-- Dropdown Menu -->
+        <div class="dropdown-menu dropdown-menu-right">
+          <a class="dropdown-item"><i class="ion ion-ios-person text-lightest"></i> &nbsp; My
+            Account</a>
+          <a class="dropdown-item"><i class="ion ion-ios-mail text-lightest"></i> &nbsp;
+            Support</a>
+          <a class="dropdown-item"><i class="ion ion-md-settings text-lightest"></i> &nbsp;
+            Company</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" (click)="logout()"><i class="ion ion-ios-log-out text-danger"></i> &nbsp; Log
+            Out</a>
+
+        </div>
+      </div>
+    </div>
   </div>
 </nav>

@@ -290,8 +290,10 @@
                   </div>
                   <div class="row mt-3">
                     <div class="col-md-6">
-                      <label>Cell</label>
-                      <ngx-intl-tel-input type="number" [searchCountryFlag]="true" [phoneValidation]="true" class="d-block"
+                      <label>Cell
+                      </label>
+                      <ngx-intl-tel-input type="number" [searchCountryFlag]="true" [preferredCountries]="[userOrganizationInfo.billing_contact.countryISO | lowercase]"
+                      [phoneValidation]="true" class="d-block"
                       [(ngModel)]="userOrganizationInfo.billing_contact.cell"  formControlName="cell" [maxLength]="10" minlength="10"></ngx-intl-tel-input>
                       <!-- <input type="number" formControlName="cell" class="form-control" maxlength="12" minlength="10" /> -->
                       <span class="text-danger"
@@ -323,7 +325,7 @@
             
                 </div>
                 <div class="form-group text-right">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" [disabled]="organizationForm.status == 'INVALID'" class="btn btn-primary">Submit</button>
                 </div>
               </form>
             </div>

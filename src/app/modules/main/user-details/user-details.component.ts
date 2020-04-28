@@ -6,6 +6,7 @@ import { CustomvalidationService } from 'src/app/shared/sharedService/customVali
 import { EmitService } from 'src/app/shared/shared-service/emit-service';
 import { UserService } from 'src/app/shared/shared-service/user-service';
 import { ToastService } from 'src/app/shared/shared-service/toast-service';
+import { CountryISO} from 'ngx-intl-tel-input';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class UserDetailsComponent implements OnInit {
   updatePasswordForm: FormGroup;
   organizationForm: FormGroup;
   updateUserForm: FormGroup;
+  CountryISO:CountryISO; 
 
 
   constructor(private routes:Router, private fb: FormBuilder,private customValidator: CustomvalidationService,
@@ -51,6 +53,7 @@ export class UserDetailsComponent implements OnInit {
   ];
 
   ngOnInit() {
+    console.log("CountryISO", CountryISO.India)
     this.updateUserForm = this.fb.group(
       {
         firstName: ['', Validators.required],
@@ -169,6 +172,7 @@ export class UserDetailsComponent implements OnInit {
   onSubmitupdateUserOrganization(){
     console.log("Insdie submit", this.organizationForm.value)
     console.log("this.organizationForm", this.organizationForm)
+    console.log("this.organizationForm.value.cell.number", this.organizationForm.value.cell.number)
     this.submittedOrganizationForm = true;
     if (this.organizationForm.valid) {
       const organization:any = {
@@ -178,7 +182,9 @@ export class UserDetailsComponent implements OnInit {
                 name:this.organizationForm.value.name,
                 email:this.organizationForm.value.email,
                 phone:this.organizationForm.value.phone,
-                cell: this.organizationForm.value.cell.dialCode+this.organizationForm.value.cell.number
+                cell: this.organizationForm.value.cell,
+                countryCode: this.organizationForm.value.cell.dialCode,
+                countryISO: this.organizationForm.value.cell.countryCode
             }   
         }
       
