@@ -6,6 +6,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { UserDetailsComponent } from './modules/main/user-details/user-details.component';
 import { HostManagementComponent } from './modules/main/host-management/host-management.component';
 import { MobileVerifyComponent } from './modules/mobile-verification/mobile-verification.component';
+import { PaperTrailComponent } from './modules/main/paper-trail/paper-trail.component';
 
 const routes: Routes = [
   { path: "login", component : LoginComponent },
@@ -29,6 +30,10 @@ const routes: Routes = [
       {
         path: "host-management",
         component: HostManagementComponent
+      },
+      {
+        path: "paper-trail",
+        component: PaperTrailComponent
       }
       
     ]

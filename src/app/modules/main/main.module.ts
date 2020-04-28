@@ -9,12 +9,13 @@ import { HostManagementComponent } from './host-management/host-management.compo
 import { FormsModule } from '@angular/forms';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { PaperTrailComponent } from './paper-trail/paper-trail.component';
 
 
 
 
 @NgModule({
-  declarations: [HomeComponent, UserDetailsComponent, HostManagementComponent],
+  declarations: [HomeComponent, UserDetailsComponent, HostManagementComponent, PaperTrailComponent],
   imports: [
     CommonModule,
     SharedModule,
