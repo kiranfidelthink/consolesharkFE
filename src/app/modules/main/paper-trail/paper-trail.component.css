@@ -10,3 +10,9 @@
   border-left: none;
   border-top: none;
 }
+.table th, .table td{
+  padding: .75rem;
+}
+.color-active{
+color: green;
+}

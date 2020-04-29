@@ -5,6 +5,7 @@ import { Organization } from '../../models/organization';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Password } from '../../models/password';
+import { PaperTrail } from 'src/app/models/paper-trail';
 
 @Injectable()
 export class UserService {
@@ -72,12 +73,12 @@ export class UserService {
       update_password
     );
   }
-  getUserOrganizationById(user: User): Observable<User> {
-    // return this.http.get<User>(`${this.baseUrl}get_Organization?organization_id=${user}`);
-    return this.http.get<User>(
-      `${this.baseUrl}get_Organization?organization_id=${user}`
-    );
-  }
+  // getUserOrganizationById(user: User): Observable<User> {
+  //   // return this.http.get<User>(`${this.baseUrl}get_Organization?organization_id=${user}`);
+  //   return this.http.get<User>(
+  //     `${this.baseUrl}get_Organization?organization_id=${user}`
+  //   );
+  // }
   updateUserprofile(user: User): Observable<User> {
     console.log('user inside auth service', user);
     this.user_id = localStorage.getItem('user_id');
@@ -94,6 +95,13 @@ export class UserService {
     return this.http.patch<User>(
       `${this.baseUrl}update_Organization?organization_id=${this.organization_id}`,
       user
+    );
+  }
+
+  getPaperTrailLog(): Observable<PaperTrail> {
+    // return this.http.get<User>(`${this.baseUrl}get_Organization?organization_id=${user}`);
+    return this.http.get<PaperTrail>(
+      `${this.baseUrl}get_Logs`
     );
   }
 }

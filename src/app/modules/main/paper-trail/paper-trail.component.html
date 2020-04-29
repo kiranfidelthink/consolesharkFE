@@ -1,1 +1,32 @@
-<div>Paper Trail</div>
+<div class="card m-3">
+  <div class="card-body">
+    <table class="table table-striped table-bordered table-sm row-border hover" datatable [dtOptions]="dtOptions">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Time</th>
+          <th>IP Address</th>
+          <th>Message</th>
+          <th>Severity</th>
+          <th>Status</th>
+          <th>Created Time</th>
+          <th>Updated Time</th>
+          <th>User Id</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let group of data">
+          <td>{{group.id}}</td>
+          <td>{{group.time}}</td>
+          <td>{{group.ip_address}}</td>
+          <td>{{group.message}}</td>
+          <td>{{group.severity}}</td>
+          <td class="color-active">{{group.status}}</td>
+          <td>{{group.createdAt}}</td>
+          <td>{{group.updatedAt}}</td>
+          <td>{{group.user_id}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

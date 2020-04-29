@@ -10,6 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { PaperTrailComponent } from './paper-trail/paper-trail.component';
+import { DataTablesModule } from 'angular-datatables';
+
 
 
 
@@ -22,6 +24,7 @@ import { PaperTrailComponent } from './paper-trail/paper-trail.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    DataTablesModule.forRoot(),
     BsDropdownModule.forRoot(),
     NgxIntlTelInputModule,
   ],
