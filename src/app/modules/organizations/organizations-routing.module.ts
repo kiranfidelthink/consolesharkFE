@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AccountDetailsComponent } from './account-details/account-details.component';
+import { PaperTrailComponent } from './paper-trail/paper-trail.component';
 
 
 // *******************************************************************************
@@ -9,7 +10,8 @@ import { AccountDetailsComponent } from './account-details/account-details.compo
 
 @NgModule({
   imports: [RouterModule.forChild([
-    { path: '', component: AccountDetailsComponent }
+    { path: 'account-details', component: AccountDetailsComponent },
+    { path: 'paper-trail', component: PaperTrailComponent }
   ])],
   exports: [RouterModule]
 })
