@@ -13,6 +13,7 @@ import { PaperTrailComponent } from './paper-trail/paper-trail.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort'
+import { OrganizationComponent } from './organization/organization.component';
 
 // *******************************************************************************
 //
@@ -31,7 +32,8 @@ import { MatSortModule } from '@angular/material/sort'
   ],
   declarations: [
     AccountDetailsComponent,
-    PaperTrailComponent
+    PaperTrailComponent,
+    OrganizationComponent
   ]
 })
 export class OrganizationsModule { }

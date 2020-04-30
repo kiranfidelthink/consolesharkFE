@@ -1,4 +1,4 @@
-<div class="bg-custom" [@onSideNavChange]="sideNavState ? 'open' : 'close'">
+<!-- <div class="bg-custom" [@onSideNavChange]="sideNavState ? 'open' : 'close'">
   <ul class="list-group">
     <li class="list-group-item d-flex"><span [@animateText]="linkText ? 'show' : 'hide'"
         class="pr-3 sidebar-heading">Consoleshark</span>
@@ -91,6 +91,12 @@
     <li class="list-group-item d-flex custom-padding" routerLink='/paper-trail'><i class="fa fa-user-o pr-3"></i><span
         [@animateText]="linkText ? 'show' : 'hide'">Paper trail</span></li>
   </ul>
+</div> -->
+<!-- <div>
+  Consoleshark
+</div> -->
+<ng-material-multilevel-menu [configuration]='config' [items]='appitems' (selectedItem)="selectedItem($event)">
+</ng-material-multilevel-menu>
   <!-- <ul class="nav justify-content-center">
     <li class="nav-item">
         <a class="nav-link menu-item" href="#">Ligas</a>
@@ -111,7 +117,7 @@
         </div>
     </li>                
 </ul> -->
-</div>
+
 
 
 <!-- <div class="nav-side-menu">

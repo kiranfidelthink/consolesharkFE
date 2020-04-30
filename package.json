@@ -36,6 +36,7 @@
     "jquery": "^3.4.1",
     "mdbootstrap": "^4.16.0",
     "ng-bootstrap-form-validation": "^5.0.0",
+    "ng-material-multilevel-menu": "^4.12.2",
     "ng2-tel-input": "^2.3.0",
     "ngx-bootstrap": "^5.6.1",
     "ngx-intl-tel-input": "^2.3.4",

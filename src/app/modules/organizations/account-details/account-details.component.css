@@ -10,3 +10,21 @@
     border-left: none;
     border-top: none;
   }
+  .org-table-body{
+    border: 5px solid #dee2e6;
+  }
+  .table td, .table th{
+    border-top: 1px solid #dee2e6;
+  }
+  .td-left{
+    background-color: #dee2e642;
+    border-right: 1px solid #dee2e6;
+    text-transform: uppercase;
+    font-weight: 500
+  }
+  .billing-details-td{
+    color: #856404;
+    background-color: #fff3cd;
+    font-weight: 500;
+    text-transform: uppercase;
+  }

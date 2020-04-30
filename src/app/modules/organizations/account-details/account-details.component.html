@@ -53,7 +53,7 @@
         </div>
       </div>
     </div> -->
-    <h4 class="font-weight-bold py-3 mb-4">
+    <h4 class="py-3 mb-4">
         Account settings
       </h4>
       
@@ -65,7 +65,6 @@
               <button type="button" class="list-group-item list-group-item-action" [ngClass]="{active: curTab === 'modify-account'}" (click)="curTab = 'modify-account'">Modify Account</button>
               <button type="button" class="list-group-item list-group-item-action" [ngClass]="{active: curTab === 'password'}" (click)="curTab = 'password'">Change password</button>
               <button type="button" class="list-group-item list-group-item-action" [ngClass]="{active: curTab === 'multifactor-authentication'}" (click)="curTab = 'multifactor-authentication'">Multi-Factor Authentication</button>
-              <button type="button" class="list-group-item list-group-item-action" [ngClass]="{active: curTab === 'paper-trail'}" (click)="curTab = 'paper-trail'">paper Trail</button>
               <button type="button" class="list-group-item list-group-item-action" [ngClass]="{active: curTab === 'security-groups'}" (click)="curTab = 'security-groups'">Security Groups</button>
               <button type="button" class="list-group-item list-group-item-action" [ngClass]="{active: curTab === 'organization'}" 
               (click)="curTab = 'organization'">Organization</button>
@@ -247,87 +246,47 @@
             </div> -->
             <hr class="border-light m-0">
             <div class="card-body">
-              <form class="form" [formGroup]="organizationForm" (ngSubmit)="onSubmitupdateUserOrganization()">
-                <div class="form-group">
-                  <label>Company Name</label>
-                  <input type="text" class="form-control" [(ngModel)]="userOrganizationInfo.company_name" formControlName="companyName">
-                  <span class="text-danger"
-                    *ngIf="(organizationFormControl.companyName.touched || submittedOrganizationForm) && organizationFormControl.companyName.errors?.required">
-                    Company Name is required
-                  </span>
-                </div>
-                <div class="form-group">
-                  <label>Company Address</label>
-                  <input type="text" class="form-control" [(ngModel)]="userOrganizationInfo.company_address" formControlName="companyAddress">
-                  <span class="text-danger"
-                    *ngIf="(organizationFormControl.companyAddress.touched || submittedOrganizationForm) && organizationFormControl.companyAddress.errors?.required">
-                    Company Address is required
-                  </span>
-                </div>
-                <div class="billing-address-css mb-2">Billing Address</div>
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <label>Name</label>
-                      <input type="text" class="form-control" [(ngModel)]="userOrganizationInfo.billing_contact.name"  formControlName="name">
-                      <span class="text-danger"
-                        *ngIf="(organizationFormControl.name.touched || submittedOrganizationForm) && organizationFormControl.name.errors?.required">
-                        First Name is required
-                      </span>
-                    </div>
-                    <div class="col-md-6">
-                      <label>Phone</label>
-                      <input type="number" [(ngModel)]="userOrganizationInfo.billing_contact.phone"  formControlName="phone" class="form-control" maxlength="12" minlength="10" />
-                      <span class="text-danger"
-                        *ngIf="(organizationFormControl.phone.touched || submittedOrganizationForm) && organizationFormControl.phone.errors?.required">
-                        Phone Number is required
-                      </span>
-                      <span class="text-danger"
-                        *ngIf="organizationFormControl.phone.touched && organizationFormControl.phone.errors?.invalidPhone">
-                        Phone Number should have minimum 10 digit
-                      </span>
-                    </div>
-                  </div>
-                  <div class="row mt-3">
-                    <div class="col-md-6">
-                      <label>Cell
-                      </label>
-                      <ngx-intl-tel-input type="number" [searchCountryFlag]="true" [preferredCountries]="[userOrganizationInfo.billing_contact.countryISO | lowercase]"
-                      [phoneValidation]="true" class="d-block"
-                      [ngModel]="userOrganizationInfo.billing_contact.cell"  formControlName="cell" [maxLength]="10" minlength="10"></ngx-intl-tel-input>
-                      <!-- <input type="number" formControlName="cell" class="form-control" maxlength="12" minlength="10" /> -->
-                      <span class="text-danger"
-                        *ngIf="(organizationFormControl.cell.touched || submittedOrganizationForm) && organizationFormControl.cell.errors?.required">
-                        Contact Number is required
-                      </span>
-                      <span class="text-danger"
-                        *ngIf="organizationFormControl.cell.touched && organizationFormControl.cell.errors?.invalidCell">
-                        Contact Number should have minimum 10 digit
-                      </span>
-                      <span class="text-danger"
-                        *ngIf="organizationFormControl.cell.touched && organizationFormControl.cell.status == 'INVALID'">
-                        Please enter correct Contact Number
-                      </span>
-                    </div>
-                    <div class="col-md-6">
-                      <label>Email</label>
-                      <input type="text" class="form-control" [(ngModel)]="userOrganizationInfo.billing_contact.email"  formControlName="email">
-                      <span class="text-danger"
-                        *ngIf="(organizationFormControl.email.touched || submittedOrganizationForm) && organizationFormControl.email.errors?.required">
-                        Email is required
-                      </span>
-                      <span class="text-danger"
-                        *ngIf="organizationFormControl.email.touched && organizationFormControl.email.errors?.email">
-                        Enter a valid email address
-                      </span>
-                    </div>
-                  </div>
-            
-                </div>
-                <div class="form-group text-right">
-                  <button type="submit" [disabled]="organizationForm.status == 'INVALID'" class="btn btn-primary">Submit</button>
-                </div>
-              </form>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <!-- <th scope="col">Last</th> -->
+                    <!-- <th scope="col">Handle</th> -->
+                  </tr>
+                </thead>
+                <tbody class="org-table-body">
+                  <tr>
+                    <td class="td-left">Id</td>
+                    <td>{{userOrganizationInfo.id}}</td>
+                  </tr>
+                  <tr>
+                    <td class="td-left">Company Name</td>
+                    <td>{{userOrganizationInfo.company_name}}</td>
+                  </tr>
+                  <tr>
+                    <td class="td-left">Company Address</td>
+                    <td>{{userOrganizationInfo.company_address}}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="billing-details-td">Billing Details</td>
+                  </tr>
+                  <tr>
+                    <td class="td-left">Name</td>
+                    <td>{{userOrganizationInfo.billing_contact.name}}</td>
+                  </tr>
+                  <tr>
+                    <td class="td-left">Phone</td>
+                    <td>{{userOrganizationInfo.billing_contact.phone}}</td>
+                  </tr>
+                  <tr>
+                    <td class="td-left">Cell</td>
+                    <td>{{userOrganizationInfo.billing_contact.countryCode}}  {{userOrganizationInfo.billing_contact.cell}}</td>
+                  </tr>
+                  <tr>
+                    <td class="td-left">Email</td>
+                    <td>{{userOrganizationInfo.billing_contact.email}}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
       
           </div>

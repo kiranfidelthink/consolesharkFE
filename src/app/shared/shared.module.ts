@@ -5,11 +5,12 @@ import { FooterComponent } from './footer/footer.component';
 import { SidenavComponent } from './side-nav/side-nav.component';
 import { MaterialModule } from 'src/material.module';
 import { RouterModule } from '@angular/router';
+import { NgMaterialMultilevelMenuModule } from 'ng-material-multilevel-menu';
 
 
 @NgModule({
   declarations: [HeaderComponent, FooterComponent, SidenavComponent],
-  imports: [CommonModule, MaterialModule, RouterModule],
+  imports: [CommonModule, MaterialModule, RouterModule,NgMaterialMultilevelMenuModule],
   exports: [
     HeaderComponent,
     FooterComponent,
