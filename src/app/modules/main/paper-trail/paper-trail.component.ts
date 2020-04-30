@@ -1,38 +1,75 @@
-import { Component, OnInit } from "@angular/core";
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { AfterViewInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 import { UserService } from 'src/app/shared/shared-service/user-service';
-
-
-@Component({
-  selector: "app-paper-trail",
-  templateUrl: "./paper-trail.component.html",
-  styleUrls: ["./paper-trail.component.css"]
-})
-export class PaperTrailComponent implements OnInit {
-  title = 'angulardatatables';
-  dtOptions: DataTables.Settings = {};
-  data: any;
-  ngOnInit() {
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 5,
-      processing: true
-    };
-    this.getPaperTrail();
+export interface PeriodicElement {
+  id: string;
+  time: string;
+  message: string;
+  severity: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  user_id: string;
 }
 
-  constructor(private route:Router, private _userService:UserService) {}
+const ELEMENT_DATA: PeriodicElement[] = [
+  {
+    id: '1',
+    time: '158806',
+    message: '127.0.0.22',
+    severity: 'being warning',
+    status: 'Active',
+    createdAt: '2020-04-28T11:19:27.803Z',
+    updatedAt: '2020-04-28T11:19:27.803Z',
+    user_id: '1',
+  },
+  {
+    id: '2',
+    time: '1588069850',
+    message: '127.0.0',
+    severity: 'being warning',
+    status: 'Active',
+    createdAt: '2020-04-28T11:19:27.803Z',
+    updatedAt: '2020-04-28T11:19:27.803Z',
+    user_id: '1',
+  },
+  // { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
+  // { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' }
+];
+@Component({
+  selector: 'app-paper-trail',
+  templateUrl: './paper-trail.component.html',
+  styleUrls: ['./paper-trail.component.css'],
+  encapsulation: ViewEncapsulation.None,
+})
+export class PaperTrailComponent implements OnInit {
+  title = 'angular-material-data-table';
 
+  displayedColumns: string[] = ['id', 'time', 'message', 'severity', 'status', 'createdAt', 'updatedAt', 'user_id'];
+  // dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA)
+  dataSource: MatTableDataSource<PeriodicElement>;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  tableData: any;
+  constructor(private _userService: UserService) {}
+
+  ngOnInit() {
+    this.dataSource = new MatTableDataSource(); // create new object
+    this.getPaperTrail(); // forgeted this line
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
   getPaperTrail() {
-    this._userService.getPaperTrailLog().subscribe((res:any) => {
-     console.log("paper trail", res)
-     this.data = res
-     
+    this._userService.getPaperTrailLog().subscribe((data: any) => {
+      console.log(data);
+      console.log('Laps');
+      this.dataSource.data = data; // on data receive populate dataSource.data array
+      return data;
     });
   }
-  
-  // ngOnInit() {
-  // }
-  
-  
 }

@@ -1,4 +1,4 @@
-<div class="card m-3">
+<!-- <div class="card m-3">
   <div class="card-body">
     <table class="table table-striped table-bordered table-sm row-border hover" datatable [dtOptions]="dtOptions">
       <thead>
@@ -29,4 +29,111 @@
       </tbody>
     </table>
   </div>
+</div> -->
+<!-- <div class="card m-3">
+  <div class="card-body">
+<table datatable [dtOptions]="dtOptions" class="row-border hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Time</th>
+      <th>IP Address</th>
+      <th>Message</th>
+      <th>Severity</th>
+      <th>Status</th>
+      <th>Created At</th>
+      <th>Updated At</th>
+      <th>User Id</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="persons?.length != 0">
+      <tr *ngFor="let person of persons">
+          <td>{{ person.id }}</td>
+          <td>{{ person.time }}</td>
+          <td>{{ person.ip_address }}</td>
+          <td>{{ person.message }}</td>
+          <td>{{ person.severity }}</td>
+          <td>{{ person.status }}</td>
+          <td>{{ person.createdAt }}</td>
+          <td>{{ person.updatedAt }}</td>
+          <td>{{ person.user_id }}</td>
+      </tr>
+  </tbody>
+  <tbody *ngIf="persons?.length == 0">
+    <tr>
+      <td colspan="3" class="no-data-available">No data!</td>
+    </tr>
+  <tbody>
+</table>
+  </div>
+  </div> -->
+  <!-- <div class="card m-3">
+    <div class="card-body">
+  <jqxGrid 
+  [width]="getWidth()"
+	[source]="source" 
+	[theme]="'material'" 
+	[autoheight]="true" 
+	[pageable]="true" 
+	[altrows]="true" 
+	[filterable]="true" 
+	[sortable]="true" 
+	[columns]="columns" 
+#grid>
+</jqxGrid>  
+</div>
+</div> -->
+<div class="card m-3">
+  <div class="card-body">
+  <table mat-table matSort  [dataSource]="dataSource" class="mat-elevation-z8" class="w-100">
+ 
+    <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+ 
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+ 
+    <!-- Name Column -->
+    <ng-container matColumnDef="time">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Time </th>
+      <td mat-cell *matCellDef="let element"> {{element.time}} </td>
+    </ng-container>
+ 
+    <!-- Weight Column -->
+    <ng-container matColumnDef="message">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Weight </th>
+      <td mat-cell *matCellDef="let element"> {{element.message}} </td>
+    </ng-container>
+ 
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="severity">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Severity </th>
+      <td mat-cell *matCellDef="let element"> {{element.severity}} </td>
+    </ng-container>
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+      <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+    </ng-container>
+    <ng-container matColumnDef="createdAt">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Created At </th>
+      <td mat-cell *matCellDef="let element"> {{element.createdAt}} </td>
+    </ng-container>
+    <ng-container matColumnDef="updatedAt">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Updated At </th>
+      <td mat-cell *matCellDef="let element"> {{element.updatedAt}} </td>
+    </ng-container>
+    <ng-container matColumnDef="user_id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> User Id </th>
+      <td mat-cell *matCellDef="let element"> {{element.user_id}} </td>
+    </ng-container>
+ 
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+ 
+  </table>
+  <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+</div>
 </div>

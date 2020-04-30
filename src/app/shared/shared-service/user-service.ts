@@ -98,10 +98,8 @@ export class UserService {
     );
   }
 
-  getPaperTrailLog(): Observable<PaperTrail> {
+  getPaperTrailLog() {
     // return this.http.get<User>(`${this.baseUrl}get_Organization?organization_id=${user}`);
-    return this.http.get<PaperTrail>(
-      `${this.baseUrl}get_Logs`
-    );
+    return this.http.get<PaperTrail>(`${this.baseUrl}get_Logs`);
   }
 }

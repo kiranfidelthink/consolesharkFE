@@ -13,9 +13,12 @@
   color: #9d9fa1;
   padding: .12rem 1.25rem;
   border: transparent;
-  border-bottom: 1px solid rgba(0,0,0,.125);
+  /* border-bottom: 1px solid rgba(0,0,0,.125); */
 }
-
+.seperation-line{
+  width: 99%;
+  border: 0.5px solid rgba(255,255,255,0.06) !important;
+}
 .sidenav-divider {
   border-color: rgba(255, 255, 255, 0.06) !important;
   width: 100%;

@@ -10,27 +10,84 @@
   </ul>
   <div class="sidenav-divider mt-0"></div>
   <ul class="list-group nav navbar-nav item">
-    <li class="list-group-item d-flex custom-padding" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
-      routerLink='/'><i class="fa fa-tachometer pr-3"></i><span
+    <li class="sidenav-header small font-weight-semibold d-flex custom-padding">OVERVIEW</li>
+    <li class="list-group-item d-flex custom-padding" [routerLinkActive]="['active']"
+      [routerLinkActiveOptions]="{exact:true}" routerLink='/'><i class="fa fa-tachometer pr-3"></i><span
         [@animateText]="linkText ? 'show' : 'hide'">Dashboard</span></li>
-    <li class="list-group-item d-flex custom-padding" routerLink='/'><i class="fa fa-th pr-3"></i><span
-        [@animateText]="linkText ? 'show' : 'hide'">Devices</span></li>
-    <li class="list-group-item d-flex custom-padding" routerLink='/login'><i class="fa fa-file-o pr-3"></i><span
-        [@animateText]="linkText ? 'show' : 'hide'">Reporting</span></li>
-    <li class="list-group-item d-flex custom-padding" routerLink='/'><i class="fa fa-server pr-3"></i><span
-        [@animateText]="linkText ? 'show' : 'hide'">Server</span></li>
-    <li class="list-group-item d-flex custom-padding collapsed" data-toggle="collapse" data-target="#products"><i
-        class="fa fa-calendar pr-3"></i><span class="w-100" [@animateText]="linkText ? 'show' : 'hide'">Events<i
+    <li class="list-group-item d-flex custom-padding" routerLink='/'><i class="fa fa-television pr-3"></i><span
+        [@animateText]="linkText ? 'show' : 'hide'">NOC Screen</span></li>
+    <li class="list-group-item d-flex custom-padding" routerLink='/login'><i class="fa fa-user-o pr-3"></i><span
+        [@animateText]="linkText ? 'show' : 'hide'">Sessions</span></li>
+    <hr class="seperation-line">
+    <li class="sidenav-header small font-weight-semibold d-flex custom-padding">CONFIGURATION</li>
+
+    <li class="list-group-item d-flex custom-padding collapsed" data-toggle="collapse" data-target="#host-management"><i
+        class="fa fa-server pr-3"></i><span class="w-100" [@animateText]="linkText ? 'show' : 'hide'">Host
+        Management<i *ngIf="!showChevronDown" class="fa fa-chevron-left float-right"></i>
+        <i *ngIf="showChevronDown" class="fa fa-chevron-down float-right"></i></span>
+    </li>
+    <ul class="sub-menu collapse" id="host-management">
+      <li class="list-group-item d-flex custom-padding" routerLink='/'>Account Details</li>
+
+    </ul>
+    <li class="list-group-item d-flex custom-padding collapsed" data-toggle="collapse" data-target="#shark-management">
+      <i class="fa fa-sitemap pr-3"></i><span class="w-100" [@animateText]="linkText ? 'show' : 'hide'">Shark
+        Management<i *ngIf="!showChevronDown" class="fa fa-chevron-left float-right"></i>
+        <i *ngIf="showChevronDown" class="fa fa-chevron-down float-right"></i></span>
+    </li>
+    <ul class="sub-menu collapse" id="shark-management">
+      <li class="list-group-item d-flex custom-padding" routerLink='/'>Account Details</li>
+
+    </ul>
+    <li class="list-group-item d-flex custom-padding collapsed" data-toggle="collapse" data-target="#reporting"><i
+        class="fa fa-file pr-3"></i><span class="w-100" [@animateText]="linkText ? 'show' : 'hide'">Reporting<i
           *ngIf="!showChevronDown" class="fa fa-chevron-left float-right"></i>
         <i *ngIf="showChevronDown" class="fa fa-chevron-down float-right"></i></span>
     </li>
-    <ul class="sub-menu collapse" id="products">
-      <li class="list-group-item d-flex custom-padding" routerLink='/'>Option 1</li>
-      <li class="list-group-item d-flex custom-padding" routerLink='/host-management'>Option 2</li>
+    <ul class="sub-menu collapse" id="reporting">
+      <li class="list-group-item d-flex custom-padding" routerLink='/'>Account Details</li>
 
     </ul>
-    <li class="list-group-item d-flex custom-padding" routerLink='/host-management'><i class="fa fa-user-o pr-3"></i><span
-        [@animateText]="linkText ? 'show' : 'hide'">Host Management</span></li>
+    <li class="list-group-item d-flex custom-padding collapsed" data-toggle="collapse" data-target="#organization"><i
+        class="fa fa-user pr-3"></i><span class="w-100" [@animateText]="linkText ? 'show' : 'hide'">Organization<i
+          *ngIf="!showChevronDown" class="fa fa-chevron-left float-right"></i>
+        <i *ngIf="showChevronDown" class="fa fa-chevron-down float-right"></i></span>
+    </li>
+    <ul class="sub-menu collapse" id="organization">
+      <li class="list-group-item d-flex custom-padding" routerLink='/'>Account Details</li>
+      <li class="list-group-item d-flex custom-padding" routerLink='/'>Authentication</li>
+      <li class="list-group-item d-flex custom-padding" routerLink='/'>Authentication</li>
+      <li class="list-group-item d-flex custom-padding" routerLink='/'>Billing</li>
+      <li class="list-group-item d-flex custom-padding" routerLink='/'>Organization</li>
+      <li class="list-group-item d-flex custom-padding" routerLink='/'>User Management</li>
+
+    </ul>
+    <li class="list-group-item d-flex custom-padding collapsed" data-toggle="collapse" data-target="#partners">
+      <i class="fa fa-handshake-o pr-3"></i><span class="w-100" [@animateText]="linkText ? 'show' : 'hide'">Partners
+        <i *ngIf="!showChevronDown" class="fa fa-chevron-left float-right"></i>
+        <i *ngIf="showChevronDown" class="fa fa-chevron-down float-right"></i></span>
+    </li>
+    <ul class="sub-menu collapse" id="partners">
+      <li class="list-group-item d-flex custom-padding" routerLink='/'>Account Details</li>
+
+    </ul>
+    <li class="list-group-item d-flex custom-padding collapsed" data-toggle="collapse" data-target="#providers">
+      <i class="fa fa-wrench pr-3"></i><span class="w-100" [@animateText]="linkText ? 'show' : 'hide'">Providers
+        <i *ngIf="!showChevronDown" class="fa fa-chevron-left float-right"></i>
+        <i *ngIf="showChevronDown" class="fa fa-chevron-down float-right"></i></span>
+    </li>
+    <ul class="sub-menu collapse" id="providers">
+      <li class="list-group-item d-flex custom-padding" routerLink='/'>Account Details</li>
+
+    </ul>
+    <hr class="seperation-line">
+    <li class="sidenav-header small font-weight-semibold d-flex custom-padding">Support</li>
+    <li class="list-group-item d-flex custom-padding" routerLink='/'><i
+        class="fa fa-ticket pr-3"></i><span [@animateText]="linkText ? 'show' : 'hide'">Create Cases</span></li>
+    <li class="list-group-item d-flex custom-padding" routerLink='/'><i
+        class="fa fa-ticket pr-3"></i><span [@animateText]="linkText ? 'show' : 'hide'">Manage Cases</span></li>
+    <li class="list-group-item d-flex custom-padding" routerLink='/'><i
+        class="fa fa-lightbulb-o pr-3"></i><span [@animateText]="linkText ? 'show' : 'hide'">Feature Request</span></li>
     <li class="list-group-item d-flex custom-padding" routerLink='/paper-trail'><i class="fa fa-user-o pr-3"></i><span
         [@animateText]="linkText ? 'show' : 'hide'">Paper trail</span></li>
   </ul>

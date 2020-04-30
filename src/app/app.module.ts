@@ -12,7 +12,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ForgotPasswordModalComponent } from './modals/forgot-password/forgot-password.component';
 import { SharedModule } from './shared/shared.module';
 import { SidenavService } from './shared/sharedService/sidenav.service';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MobileVerifyComponent } from './modules/mobile-verification/mobile-verification.component';
 import { HttpClientModule } from '@angular/common/http'
 import { AuthService } from './auth/auth.service';
@@ -24,7 +23,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { EmitService } from './shared/shared-service/emit-service';
 import { UserService } from './shared/shared-service/user-service';
 import { ToastService } from './shared/shared-service/toast-service';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -45,11 +44,11 @@ import { ToastService } from './shared/shared-service/toast-service';
     ReactiveFormsModule,
     AppRoutingModule,
     NgbModule,
-    BrowserAnimationsModule,
     HttpClientModule,
     BsDropdownModule.forRoot(),
     NgxIntlTelInputModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule
   ],
   // entryComponents:[
   //   RegisterModalComponent
