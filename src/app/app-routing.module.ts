@@ -11,7 +11,7 @@ import { OrganizationsModule } from './modules/organizations/organizations.modul
 const routes: Routes = [
   { path: "login", component : LoginComponent },
   { path: "mobile-verification", component : MobileVerifyComponent },
-  // {path: '**', redirectTo: '/'},
+  {path: '**', redirectTo: 'dashboards'},
   // {
   //   path: "host-management",
   //   component: HostManagementComponent
