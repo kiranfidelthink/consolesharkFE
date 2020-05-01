@@ -53,7 +53,7 @@ export class AccountDetailsComponent implements OnInit {
   ];
 
   ngOnInit() {
-    console.log("CountryISO", CountryISO.India)
+    console.log("CountryISO----", CountryISO.India)
     this.updateUserForm = this.fb.group(
       {
         firstName: ['', Validators.required],
@@ -129,7 +129,7 @@ export class AccountDetailsComponent implements OnInit {
     this.userEmail = localStorage.getItem('userEmail')
 
     this._userService.getUserAndOrganization(this.userEmail).subscribe((res:any) => {
-      console.log("resssssss of user", res)
+      console.log("resssssss of user--", res)
       this.userOrganizationInfo = res.organizations;
       this.currentUserData = res
       this.firstName= this.currentUserData.first_name

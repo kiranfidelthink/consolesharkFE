@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { OrganizationModalComponent } from 'src/app/modals/organization/organization.component';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/shared/shared-service/user-service';
+import { CreateExistingOrgComponent } from 'src/app/modals/create-existing-org/create-existing-org.component';
 
 @Component({
   selector: 'app-home',
@@ -26,35 +26,45 @@ export class HomeComponent implements OnInit {
       localStorage.setItem('organization_id', res.organizations.id)
       }
       else{
-        this.openModal();
+        // this.openModal();
+        this.openPopup();
       }
     });
   }
 
-  openModal() {
-    const modalRef = this.modalService.open(OrganizationModalComponent, {
+  // openModal() {
+  //   const modalRef = this.modalService.open(OrganizationModalComponent, {
+  //     scrollable: true,
+  //     backdrop: 'static',
+  //     keyboard: false,
+  //     windowClass: 'myCustomModalClass',
+  //   });
+
+  //   let data = {
+  //     prop1: 'Some Data',
+  //     prop2: 'From Parent Component',
+  //     prop3: 'This Can be anything',
+  //   };
+
+  //   modalRef.componentInstance.fromParent = data;
+  //   modalRef.result.then(
+  //     (result) => {
+        
+  //       console.log('result--', result);
+  //     },
+  //     (reason) => {
+  //       console.log('reason--', reason);
+
+  //     }
+  //   );
+  // }
+  openPopup(){
+    this.modalService.open(CreateExistingOrgComponent, {
       scrollable: true,
+      size:'lg',
       backdrop: 'static',
       keyboard: false,
       windowClass: 'myCustomModalClass',
     });
-
-    let data = {
-      prop1: 'Some Data',
-      prop2: 'From Parent Component',
-      prop3: 'This Can be anything',
-    };
-
-    modalRef.componentInstance.fromParent = data;
-    modalRef.result.then(
-      (result) => {
-        
-        console.log('result--', result);
-      },
-      (reason) => {
-        console.log('reason--', reason);
-
-      }
-    );
   }
 }

@@ -15,7 +15,7 @@ import { SidenavService } from './shared/sharedService/sidenav.service';
 import { MobileVerifyComponent } from './modules/mobile-verification/mobile-verification.component';
 import { HttpClientModule } from '@angular/common/http'
 import { AuthService } from './auth/auth.service';
-import { OrganizationModalComponent } from './modals/organization/organization.component';
+// import { OrganizationModalComponent } from './modals/organization/organization.component';
 // import { ToastMessageComponent } from './modals/toast-message/toast-message.component';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -24,6 +24,7 @@ import { EmitService } from './shared/shared-service/emit-service';
 import { UserService } from './shared/shared-service/user-service';
 import { ToastService } from './shared/shared-service/toast-service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CreateExistingOrgComponent } from './modals/create-existing-org/create-existing-org.component';
 
 
 
@@ -34,7 +35,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RegisterModalComponent,
     ForgotPasswordModalComponent,
     MobileVerifyComponent,
-    OrganizationModalComponent
+    // OrganizationModalComponent,
+    CreateExistingOrgComponent
     // ToastMessageComponent
   ],
   imports: [

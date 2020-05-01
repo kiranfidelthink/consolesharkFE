@@ -7,14 +7,15 @@ import { UserService } from 'src/app/shared/shared-service/user-service';
 import { ToastService } from 'src/app/shared/shared-service/toast-service';
 
 @Component({
-  selector: 'organization-modal',
-  templateUrl: './organization.component.html',
-  styleUrls: ['./organization.component.css'],
+  selector: 'create-existing-org-modal',
+  templateUrl: './create-existing-org.component.html',
+  styleUrls: ['./create-existing-org.component.css'],
 })
-export class OrganizationModalComponent implements OnInit {
+export class CreateExistingOrgComponent implements OnInit {
   @Input() fromParent;
   msg: string;
   organizationForm: FormGroup;
+  existingOrganizationForm: FormGroup;
   submitted = false;
   user_id: string;
   userOrganizationInfo: any;
@@ -53,10 +54,35 @@ export class OrganizationModalComponent implements OnInit {
         ],
       }
     );
+    this.existingOrganizationForm = this.fb.group(
+      {
+        organizationId: ['', Validators.required],
+        // companyAddress: ['', Validators.required],
+        // name: ['', Validators.required],
+        // email: ['', [Validators.required, Validators.email]],
+        // phone: [
+        //   '',
+        //   Validators.compose([
+        //     Validators.required,
+        //     this.customValidator.phonePatternValidator(),
+        //   ]),
+        // ],
+        // cell: [
+        //   '',
+        //   Validators.compose([
+        //     Validators.required,
+        //     this.customValidator.cellPatternValidator(),
+        //   ]),
+        // ],
+      }
+    );
   }
 
   get organizationFormControl() {
     return this.organizationForm.controls;
+  }
+  get existingOrganizationFormControl() {
+    return this.existingOrganizationForm.controls;
   }
 
   onSubmit() {
@@ -103,4 +129,8 @@ export class OrganizationModalComponent implements OnInit {
   //  closeModal() {
   //   //   this.activeModal.close();
   //   // }
+
+  onSubmitExistingOrg(){
+    
+  }
 }

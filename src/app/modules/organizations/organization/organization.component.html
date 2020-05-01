@@ -7,7 +7,7 @@
         <div class="col-md-12">
           <hr class="border-light m-0">
           <div class="card-body">
-            <form class="form" [formGroup]="organizationForm" (ngSubmit)="onSubmitupdateUserOrganization()">
+            <form class="form" *ngIf="userOrganizationInfo" [formGroup]="organizationForm" (ngSubmit)="onSubmitupdateUserOrganization()">
               <div class="form-group">
                 <label>Company Name</label>
                 <input type="text" class="form-control" [(ngModel)]="userOrganizationInfo.company_name"
