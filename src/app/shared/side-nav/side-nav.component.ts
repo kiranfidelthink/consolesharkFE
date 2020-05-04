@@ -20,7 +20,7 @@ export class SidenavComponent implements OnInit {
   showChevronDown: boolean = false;
   constructor(private routes: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(){}
   onSinenavToggle() {
     this.sideNavState = !this.sideNavState;
 

@@ -13,12 +13,27 @@ export class UserService {
   user_id: string;
   user_email: string;
   organization_id: string;
-  constructor(private http: HttpClient) {}
-
+  constructor(private http: HttpClient) {
+    this.user_id = localStorage.getItem('user_id');
+    this.organization_id = localStorage.getItem('organization_id');
+    // this.getIPAddress();
+  }
+  
+  
   getUserAndOrganization(user: User): Observable<User> {
     const userEmail = {
       email: user,
     };
+    // const params = {
+    //   ip_address: this.ipAddress,
+    //   triggered_by:"triggered_by",
+    //   email_id:"email_id",
+    //   user_id:this.user_id,
+    //   time:"current time"
+    //   };
+    // return this.http.post<User>(`${this.baseUrl}get_userOrg`, userEmail, {
+    //   params: params,
+    // });
     return this.http.post<User>(`${this.baseUrl}get_userOrg`, userEmail);
   }
   verifyMobile(user: User): Observable<User> {
@@ -33,10 +48,13 @@ export class UserService {
     };
     return this.http.post<User>(`${this.baseUrl}send_otp`, mobileNumber);
   }
-  createOrganization(organization: Organization): Observable<Organization> {
+  createOrganization(organization: Organization, log_details): Observable<Organization> {
+    const params = {
+      log:JSON.stringify(log_details)
+    };
     return this.http.post<Organization>(
       `${this.baseUrl}create_Organization`,
-      organization
+      organization,{params:params}
     );
   }
   updateUserByOrganization(user: User): Observable<User> {
