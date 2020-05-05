@@ -7,125 +7,207 @@
   </button>
 </div>
 <div class="modal-body">
-  
+
   <section id="tabs">
-      <div class="row p-2rem-custom">
-        <div class="col-md-12">
-          <nav>
-            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Create New Organization</a>
-              <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Join Existing Organization</a>
-            </div>
-          </nav>
-          <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-              <div class="modal-body p-2rem">
-                <div class="text-center text-muted mb-2">
-                  <h4 class="text-lighter">Create New Organization</h4>
-                </div>
-                <form class="form" [formGroup]="organizationForm" (ngSubmit)="onSubmit()">
-                  <div class="form-group">
-                    <label>Company Name</label>
-                    <input type="text" class="form-control" formControlName="companyName">
-                    <span class="text-danger"
-                      *ngIf="(organizationFormControl.companyName.touched || submitted) && organizationFormControl.companyName.errors?.required">
-                      Company Name is required
-                    </span>
-                  </div>
-                  <div class="form-group">
-                    <label>Company Address</label>
-                    <input type="text" class="form-control" formControlName="companyAddress">
-                    <span class="text-danger"
-                      *ngIf="(organizationFormControl.companyAddress.touched || submitted) && organizationFormControl.companyAddress.errors?.required">
-                      Company Address is required
-                    </span>
-                  </div>
-                  <div class="billing-address-css mb-2">Billing Address</div>
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <label>Name</label>
-                        <input type="text" class="form-control" formControlName="name">
-                        <span class="text-danger"
-                          *ngIf="(organizationFormControl.name.touched || submitted) && organizationFormControl.name.errors?.required">
-                          First Name is required
-                        </span>
-                      </div>
-                      <div class="col-md-6">
-                        <label>Phone</label>
-                        <input type="number" formControlName="phone" class="form-control" maxlength="12" minlength="10" />
-                        <span class="text-danger"
-                          *ngIf="(organizationFormControl.phone.touched || submitted) && organizationFormControl.phone.errors?.required">
-                          Phone Number is required
-                        </span>
-                        <span class="text-danger"
-                          *ngIf="organizationFormControl.phone.touched && organizationFormControl.phone.errors?.invalidPhone">
-                          Phone Number should have minimum 10 digit
-                        </span>
-                      </div>
-                    </div>
-                    <div class="row mt-3">
-                      <div class="col-md-6">
-                        <label>Cell</label>
-                        <ngx-intl-tel-input type="number" [searchCountryFlag]="true" [phoneValidation]="true" class="d-block"
-                          formControlName="cell" [maxLength]="10" minlength="10"></ngx-intl-tel-input>
-                        <!-- <input type="number" formControlName="cell" class="form-control" maxlength="12" minlength="10" /> -->
-                        <span class="text-danger"
-                          *ngIf="(organizationFormControl.cell.touched || submitted) && organizationFormControl.cell.errors?.required">
-                          Contact Number is required
-                        </span>
-                        <span class="text-danger"
-                          *ngIf="organizationFormControl.cell.touched && organizationFormControl.cell.errors?.invalidCell">
-                          Contact Number should have minimum 10 digit
-                        </span>
-                        <span class="text-danger"
-                          *ngIf="organizationFormControl.cell.touched && organizationFormControl.cell.status == 'INVALID'">
-                          Please enter correct Contact Number
-                        </span>
-                      </div>
-                      <div class="col-md-6">
-                        <label>Email</label>
-                        <input type="text" class="form-control" formControlName="email">
-                        <span class="text-danger"
-                          *ngIf="(organizationFormControl.email.touched || submitted) && organizationFormControl.email.errors?.required">
-                          Email is required
-                        </span>
-                        <span class="text-danger"
-                          *ngIf="organizationFormControl.email.touched && organizationFormControl.email.errors?.email">
-                          Enter a valid email address
-                        </span>
-                      </div>
-                    </div>
-              
-                  </div>
-                  <div class="form-group text-right">
-                    <button type="submit" [disabled]="organizationForm.status == 'INVALID'" class="btn btn-primary">Submit</button>
-                  </div>
-                </form>
+    <div class="row p-2rem-custom">
+      <div class="col-md-12">
+        <nav>
+          <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+              aria-controls="nav-home" aria-selected="true">Create New Organization</a>
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+              aria-controls="nav-profile" aria-selected="false">Join Existing Organization</a>
+          </div>
+        </nav>
+        <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="modal-body p-2rem">
+              <div class="text-center text-muted mb-2">
+                <h4 class="text-lighter">Create New Organization</h4>
               </div>
-            </div>
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-              <form class="form" [formGroup]="existingOrganizationForm" (ngSubmit)="onSubmitExistingOrg()">
+              <form class="form" [formGroup]="organizationForm" (ngSubmit)="onSubmit()">
                 <div class="form-group">
-                  <label>Organization ID</label>
-                  <input type="text" class="form-control" formControlName="organizationId">
+                  <label>Company Name</label>
+                  <input type="text" class="form-control" formControlName="companyName">
                   <span class="text-danger"
-                    *ngIf="(existingOrganizationFormControl.organizationId.touched || submitted) && existingOrganizationFormControl.organizationId.errors?.required">
-                    Organization ID is required
+                    *ngIf="(organizationFormControl.companyName.touched || submitted) && organizationFormControl.companyName.errors?.required">
+                    Company Name is required
                   </span>
                 </div>
-                
-                
+                <div class="form-group">
+                  <label>Company Address</label>
+                  <input type="text" class="form-control" formControlName="companyAddress">
+                  <span class="text-danger"
+                    *ngIf="(organizationFormControl.companyAddress.touched || submitted) && organizationFormControl.companyAddress.errors?.required">
+                    Company Address is required
+                  </span>
+                </div>
+                <!-- <div class="form-group">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Country </label>
+                      <select class="form-control"formControlName="country">
+                        <option value="" [disabled]="true">Select country</option>
+                        <option *ngFor="let country of countries" [ngValue]="country">{{country.name}}</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label>State </label>
+                      <select class="form-control"formControlName="state">
+                        <option value="" [disabled]="true">Select state</option>
+                        <option *ngFor="let state of states" [ngValue]="state">{{state.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div> -->
+                <!-- <div class="form-group">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>City </label>
+                      <select [(ngModel)]="city" class="form-control"formControlName="city">
+                        <option value="" [disabled]="true">Select city</option>
+                        <option *ngFor="let city of cities" [ngValue]="city">{{city.name}}</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label>Zip Code </label>
+                      <input type="text" class="form-control" formControlName="zipCode">
+                    </div>
+                  </div>
+                </div> -->
+                <div class="billing-address-css mb-2">Billing Address</div>
+                <div class="form-group">
+                  <!-- <label class="custom-control custom-checkbox m-0">
+                    <input type="checkbox"  class="custom-control-input" [(ngModel)]="isChecked" formControlName="copyAddress" (change)="copyAddress(isChecked?'checked':'unchecked')" />
+                    <span class="custom-control-label">Copy Address</span></label> -->
+                </div>
+                <!-- <div class="form-group">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Country </label>
+                      <select class="form-control"formControlName="billingCountry">
+                        <option value="" [disabled]="true">Select country</option>
+                        <option *ngFor="let country of countries" [ngValue]="country">{{country.name}}</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label>State </label>
+                      <select  class="form-control"formControlName="billingState">
+                        <option value="" [disabled]="true">Select state</option>
+                        <option *ngFor="let state of states" [ngValue]="state">{{state.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div> -->
+                <!-- <div class="form-group">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>City </label>
+                      <select [(ngModel)]="billingCity" class="form-control" formControlName="billingCity">
+                        <option value="" [disabled]="true">Select city</option>
+                        <option *ngFor="let city of cities" [ngValue]="city">{{city.name}}</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label>Zip Code </label>
+                      <input type="text" class="form-control" formControlName="billingZipCode">
+                    </div>
+                  </div>
+                </div> -->
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Name</label>
+                      <input type="text" class="form-control" formControlName="name">
+                      <span class="text-danger"
+                        *ngIf="(organizationFormControl.name.touched || submitted) && organizationFormControl.name.errors?.required">
+                        First Name is required
+                      </span>
+                    </div>
+                    <div class="col-md-6">
+                      <label>Phone</label>
+                      <input type="number" formControlName="phone" class="form-control" maxlength="12" minlength="10" />
+                      <span class="text-danger"
+                        *ngIf="(organizationFormControl.phone.touched || submitted) && organizationFormControl.phone.errors?.required">
+                        Phone Number is required
+                      </span>
+                      <span class="text-danger"
+                        *ngIf="organizationFormControl.phone.touched && organizationFormControl.phone.errors?.invalidPhone">
+                        Phone Number should have minimum 10 digit
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col-md-6">
+                      <label>Cell</label>
+                      <ngx-intl-tel-input type="number" [searchCountryFlag]="true" [preferredCountries]="['us']" [phoneValidation]="true"
+                        class="d-block" formControlName="cell" [maxLength]="10" minlength="10"></ngx-intl-tel-input>
+                      <!-- <input type="number" formControlName="cell" class="form-control" maxlength="12" minlength="10" /> -->
+                      <span class="text-danger"
+                        *ngIf="(organizationFormControl.cell.touched || submitted) && organizationFormControl.cell.errors?.required">
+                        Contact Number is required
+                      </span>
+                      <span class="text-danger"
+                        *ngIf="organizationFormControl.cell.touched && organizationFormControl.cell.errors?.invalidCell">
+                        Contact Number should have minimum 10 digit
+                      </span>
+                      <span class="text-danger"
+                        *ngIf="organizationFormControl.cell.touched && organizationFormControl.cell.status == 'INVALID'">
+                        Please enter correct Contact Number
+                      </span>
+                    </div>
+                    <div class="col-md-6">
+                      <label>Email</label>
+                      <input type="text" class="form-control" formControlName="email">
+                      <span class="text-danger"
+                        *ngIf="(organizationFormControl.email.touched || submitted) && organizationFormControl.email.errors?.required">
+                        Email is required
+                      </span>
+                      <span class="text-danger"
+                        *ngIf="organizationFormControl.email.touched && organizationFormControl.email.errors?.email">
+                        Enter a valid email address
+                      </span>
+                    </div>
+                  </div>
+
+                </div>
                 <div class="form-group text-right">
-                  <button type="submit" [disabled]="true" class="btn btn-primary">Submit</button>
+                  <button type="submit" [disabled]="organizationForm.status == 'INVALID'"
+                    class="btn btn-primary">Create</button>
                 </div>
               </form>
             </div>
-            
           </div>
-        
+          <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <form class="form" [formGroup]="existingOrganizationForm" (ngSubmit)="onSubmitExistingOrg()">
+              <div class="form-group">
+                <label>Organization ID</label>
+                <!-- <ng-select [items]="items"
+               bindLabel="name"
+               placeholder="Select item"
+               appendTo="body"
+               multiple="true"
+               [(ngModel)]="selected"
+               formControlName="organizationId">
+    </ng-select> -->
+                <!-- <input type="text" class="form-control" formControlName="organizationId">
+                <span class="text-danger"
+                  *ngIf="(existingOrganizationFormControl.organizationId.touched || submitted) && existingOrganizationFormControl.organizationId.errors?.required">
+                  Organization ID is required
+                </span> -->
+              </div>
+
+
+              <div class="form-group text-right">
+                <button type="submit" [disabled]="true" class="btn btn-primary">Join</button>
+              </div>
+            </form>
+          </div>
+
         </div>
+
       </div>
+    </div>
   </section>
 </div>
 <!-- <div class="modal-footer">

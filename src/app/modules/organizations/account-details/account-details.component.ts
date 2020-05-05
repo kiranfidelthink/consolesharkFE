@@ -7,6 +7,8 @@ import { EmitService } from 'src/app/shared/shared-service/emit-service';
 import { UserService } from 'src/app/shared/shared-service/user-service';
 import { ToastService } from 'src/app/shared/shared-service/toast-service';
 import { CountryISO} from 'ngx-intl-tel-input';
+import { LogService } from 'src/app/shared/shared-service/log.service';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -30,14 +32,22 @@ export class AccountDetailsComponent implements OnInit {
   organizationForm: FormGroup;
   updateUserForm: FormGroup;
   CountryISO:CountryISO; 
+  organization_id: any;
 
-
+  log: any = {
+    time: new Date().getTime(),
+    email: localStorage.getItem('userEmail'),
+    user_id: localStorage.getItem('user_id'),
+    triggered_by: 'Login Page',
+    severity: 'Notification',
+  };
   constructor(private routes:Router, private fb: FormBuilder,private customValidator: CustomvalidationService,
-    private _emitService: EmitService, private _userService: UserService, private _toastService: ToastService) {
+    private _emitService: EmitService, private _userService: UserService, private _toastService: ToastService, private _logService: LogService, private http: HttpClient) {
       this._emitService.listen().subscribe((m:any) => {
         console.log(m);
         this.updateOrganizationDetails(m);
     })
+    this.organization_id = localStorage.getItem('organization_id')
     }
     updateOrganizationDetails(event) {
     this.getUserDetailsOrg();
@@ -53,6 +63,7 @@ export class AccountDetailsComponent implements OnInit {
   ];
 
   ngOnInit() {
+    this.getIPAddress();
     console.log("CountryISO----", CountryISO.India)
     this.updateUserForm = this.fb.group(
       {
@@ -114,7 +125,12 @@ export class AccountDetailsComponent implements OnInit {
   // showToastr(title, message) {
   //   this.toastr.success(title, message);
   // }
-  
+  getIPAddress() {
+    this.http.get('http://api.ipify.org/?format=json').subscribe((res: any) => {
+      this.log.ip_address = res.ip;
+    });
+  }
+
   get updateUserFormControl() {
     return this.updateUserForm.controls;
   }
@@ -130,7 +146,6 @@ export class AccountDetailsComponent implements OnInit {
 
     this._userService.getUserAndOrganization(this.userEmail).subscribe((res:any) => {
       console.log("resssssss of user--", res)
-      this.userOrganizationInfo = res.organizations;
       this.currentUserData = res
       this.firstName= this.currentUserData.first_name
       this.lastName= this.currentUserData.last_name
@@ -139,7 +154,13 @@ export class AccountDetailsComponent implements OnInit {
   }
 
   showOrganization() {
+    console.log("organization_id", this.organization_id)
     this.curTab = 'organization';
+    this._userService.getUserOrganizationById(this.organization_id).subscribe((res:any)=>{
+      console.log("org", res)
+      this.userOrganizationInfo = res;
+
+    })
     // this._emitService.reloadOrganizationDetails('');
   }
 
@@ -153,9 +174,23 @@ export class AccountDetailsComponent implements OnInit {
       };
       this._userService.updatePassword(password).subscribe((res:any) => {
         console.log("updateUser res", res)
+        this.log.event_type = 'Password update';
+        this.log.message = 'Password update successfully';
+        console.log("this.log", this.log)
+        this._logService.createLog(this.log).subscribe((res: any) => {
+          console.log('craete log in login', res);
+        });
+
         this.updateUserDetail(this.updatePasswordForm.value.newPassword)
         this._toastService.showToastr("User profile update successfully", "");
         // this.activeModal.close();
+      },
+      (err: any) => {
+        this.log.event_type = 'Password not updated';
+        this.log.message = 'Failed to update password ';
+        this._logService.createLog(this.log).subscribe((res: any) => {
+          console.log('craete log in login', res);
+        });
       });
     }
   }
@@ -163,6 +198,7 @@ export class AccountDetailsComponent implements OnInit {
     this._userService.updateUserPassword(newPassword).subscribe((res:any) => {
       console.log("updateUserByOrganization res", res)
       // this.activeModal.close();
+      
       this._toastService.showToastr("User updated successfully", "")
       // this.showToastr();
       this.routes.navigate(['/login']);
@@ -208,7 +244,20 @@ export class AccountDetailsComponent implements OnInit {
       };
       this._userService.updateUserprofile(user).subscribe((res) => {
         // console.log("register success", res)
+        this.log.event_type = 'Profile update';
+        this.log.message = 'Profile update  Successfully';
+        console.log("this.log", this.log)
+        this._logService.createLog(this.log).subscribe((res: any) => {
+          console.log('craete log in login', res);
+        });
       this._toastService.showToastr("Profile Updated successfully", "")
+      },
+      (err: any) => {
+        this.log.event_type = 'Profile not updated';
+        this.log.message = 'Failed to update user';
+        this._logService.createLog(this.log).subscribe((res: any) => {
+          console.log('craete log in login', res);
+        });
       });
     }
   }

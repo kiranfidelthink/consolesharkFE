@@ -7,6 +7,8 @@ import { UserService } from 'src/app/shared/shared-service/user-service';
 import { ToastService } from 'src/app/shared/shared-service/toast-service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { LogService } from 'src/app/shared/shared-service/log.service';
+// import * as data from '../../shared/shared-service/countryList.json';
 
 @Component({
   selector: 'create-existing-org-modal',
@@ -25,7 +27,14 @@ export class CreateExistingOrgComponent implements OnInit {
   @Output() onFilter = new EventEmitter();
   current_time: number;
   userEmail: string;
-
+  // products: any = (data as any).default;
+  log: any = {
+    time: new Date().getTime(),
+    email: localStorage.getItem('userEmail'),
+    user_id: localStorage.getItem('user_id'),
+    triggered_by: 'Login Page',
+    severity: 'Informational',
+  };
   constructor(
     private fb: FormBuilder,
     private customValidator: CustomvalidationService,
@@ -34,12 +43,13 @@ export class CreateExistingOrgComponent implements OnInit {
     private _userService: UserService,
     private _toastService: ToastService,
     private routes: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private _logService: LogService
   ) {}
 
   ngOnInit() {
     this.getIPAddress();
-    const epochNow = (new Date).getTime();
+    const epochNow = new Date().getTime();
     this.current_time = epochNow;
     this.userEmail = localStorage.getItem('userEmail');
     // to print only path eg:"/login"
@@ -48,6 +58,15 @@ export class CreateExistingOrgComponent implements OnInit {
     this.organizationForm = this.fb.group({
       companyName: ['', Validators.required],
       companyAddress: ['', Validators.required],
+      // copyAddress: [''],
+      // country: ['', Validators.required],
+      // state: ['', Validators.required],
+      // city: ['', Validators.required],
+      // zipCode: ['', Validators.required],
+      // billingCountry: ['', Validators.required],
+      // billingState: ['', Validators.required],
+      // billingCity: ['', Validators.required],
+      // billingZipCode: ['', Validators.required],
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phone: [
@@ -94,10 +113,27 @@ export class CreateExistingOrgComponent implements OnInit {
     return this.existingOrganizationForm.controls;
   }
 
+  copyAddress(event: any) {
+    console.log(event);
+    if (event == 'checked') {
+      console.log('inside if');
+      this.organizationForm.controls.billingCountry.setValue(
+        this.organizationForm.value.country
+      );
+      this.organizationForm.controls.billingState.setValue(
+        this.organizationForm.value.state
+      );
+      this.organizationForm.controls.billingCity.setValue(
+        this.organizationForm.value.city
+      );
+      this.organizationForm.controls.billingZipCode.setValue(
+        this.organizationForm.value.zipCode
+      );
+    }
+  }
   getIPAddress() {
     this.http.get('http://api.ipify.org/?format=json').subscribe((res: any) => {
-      this.ipAddress = res.ip;
-      console.log('ip address', this.ipAddress);
+      this.log.ip_address = res.ip;
     });
   }
   onSubmit() {
@@ -110,8 +146,16 @@ export class CreateExistingOrgComponent implements OnInit {
       const organization = {
         company_name: this.organizationForm.value.companyName,
         company_address: this.organizationForm.value.companyAddress,
-        user_id: this.user_id,
+        country: this.organizationForm.value.country,
+        state: this.organizationForm.value.state,
+        city: this.organizationForm.value.city,
+        zipCode: this.organizationForm.value.zipCode,
+        // user_id: this.user_id,
         billing_contact: {
+          billingCountry: this.organizationForm.value.billingCountry,
+          billingState: this.organizationForm.value.billingState,
+          billingCity: this.organizationForm.value.billingCity,
+          billingZipCode: this.organizationForm.value.billingZipCode,
           name: this.organizationForm.value.name,
           email: this.organizationForm.value.email,
           phone: this.organizationForm.value.phone,
@@ -131,13 +175,27 @@ export class CreateExistingOrgComponent implements OnInit {
         .createOrganization(organization, log_details)
         .subscribe((res: any) => {
           console.log('create organization res', res);
+          this.log.event_type = 'Organization created';
+        this.log.message = 'Organization created Successfully';
+        console.log("this.log", this.log)
+        this._logService.createLog(this.log).subscribe((res: any) => {
+          console.log('craete log in login', res);
+        });
+
           this._emitService.reloadOrganizationDetails('');
           this._toastService.showToastr(
             'Organization created successfully',
             ''
           );
-          // this.updateUser(res.organization_id);
+          this.updateUser(res.id);
           this.activeModal.close();
+        },
+        (err: any) => {
+          this.log.event_type = 'Organization not created';
+          this.log.message = 'Failed to create organization';
+          this._logService.createLog(this.log).subscribe((res: any) => {
+            console.log('craete log in login', res);
+          });
         });
     }
   }
@@ -158,4 +216,35 @@ export class CreateExistingOrgComponent implements OnInit {
   //   // }
 
   onSubmitExistingOrg() {}
+
+  countries = [
+    { id: 0, name: 'India' },
+    { id: 1, name: 'USA' },
+    { id: 2, name: 'Australia' },
+  ];
+  states = [
+    { id: 0, name: 'Maharastra' },
+    { id: 1, name: 'Madhya Pradesh' },
+    { id: 2, name: 'Gujrat' },
+  ];
+  cities = [
+    { id: 0, name: 'Pune' },
+    { id: 1, name: 'Mulbai' },
+    { id: 2, name: 'Delhi' },
+  ];
+
+  // items = [
+  //   {id: 1, name: 'Python'},
+  //   {id: 2, name: 'Node Js'},
+  //   {id: 3, name: 'Java'},
+  //   {id: 4, name: 'PHP', disabled: true},
+  //   {id: 5, name: 'Django'},
+  //   {id: 6, name: 'Angular'},
+  //   {id: 7, name: 'Vue'},
+  //   {id: 8, name: 'ReactJs'},
+  // ];
+  // selected = [
+  //   {id: 2, name: 'Node Js'},
+  //   {id: 8, name: 'ReactJs'}
+  // ];
 }

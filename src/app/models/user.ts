@@ -4,4 +4,5 @@ export class User {
   mobile_number: any;
   email: string;
   password: string;
+  organization_id: string;
 }

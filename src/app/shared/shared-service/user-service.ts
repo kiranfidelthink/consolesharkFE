@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Password } from '../../models/password';
 import { PaperTrail } from 'src/app/models/paper-trail';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class UserService {
@@ -18,8 +19,7 @@ export class UserService {
     this.organization_id = localStorage.getItem('organization_id');
     // this.getIPAddress();
   }
-  
-  
+
   getUserAndOrganization(user: User): Observable<User> {
     const userEmail = {
       email: user,
@@ -36,6 +36,12 @@ export class UserService {
     // });
     return this.http.post<User>(`${this.baseUrl}get_userOrg`, userEmail);
   }
+  getUserOrganizationById(user: User): Observable<User> {
+    // return this.http.get<User>(`${this.baseUrl}get_Organization?organization_id=${user}`);
+    return this.http.get<User>(
+      `${this.baseUrl}get_Organization?organization_id=${user}`
+    );
+  }
   verifyMobile(user: User): Observable<User> {
     return this.http.post<User>(`${this.baseUrl}verify_phone`, user);
   }
@@ -48,13 +54,17 @@ export class UserService {
     };
     return this.http.post<User>(`${this.baseUrl}send_otp`, mobileNumber);
   }
-  createOrganization(organization: Organization, log_details): Observable<Organization> {
+  createOrganization(
+    organization: Organization,
+    log_details
+  ): Observable<Organization> {
     const params = {
-      log:JSON.stringify(log_details)
+      log: JSON.stringify(log_details),
     };
     return this.http.post<Organization>(
       `${this.baseUrl}create_Organization`,
-      organization,{params:params}
+      organization,
+      { params: params }
     );
   }
   updateUserByOrganization(user: User): Observable<User> {
@@ -91,12 +101,7 @@ export class UserService {
       update_password
     );
   }
-  // getUserOrganizationById(user: User): Observable<User> {
-  //   // return this.http.get<User>(`${this.baseUrl}get_Organization?organization_id=${user}`);
-  //   return this.http.get<User>(
-  //     `${this.baseUrl}get_Organization?organization_id=${user}`
-  //   );
-  // }
+  
   updateUserprofile(user: User): Observable<User> {
     console.log('user inside auth service', user);
     this.user_id = localStorage.getItem('user_id');

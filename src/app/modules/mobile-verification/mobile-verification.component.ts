@@ -4,6 +4,8 @@ import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { CustomvalidationService } from 'src/app/shared/sharedService/customValidation.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/shared/shared-service/user-service';
+import { HttpClient } from '@angular/common/http';
+import { LogService } from 'src/app/shared/shared-service/log.service';
 
 @Component({
   selector: 'app-mobile-verification',
@@ -19,13 +21,21 @@ export class MobileVerifyComponent implements OnInit {
   code:string;
   currentUserDetail:any;
   mobileNumber:number;
-
+  log: any = {
+    time: new Date().getTime(),
+    email: localStorage.getItem('userEmail'),
+    user_id: localStorage.getItem('user_id'),
+    triggered_by: 'Login Page',
+    severity: 'Informational',
+  };
   constructor(
     private routes: Router,
     private fb: FormBuilder,
     private customValidator: CustomvalidationService,
     private activatedRoute: ActivatedRoute,
-    private _userService: UserService
+    private _userService: UserService,
+    private http: HttpClient,
+    private _logService: LogService
   ) {
     this.activatedRoute.queryParams.subscribe(params => {
       this.emailId = params['email'];
@@ -37,6 +47,7 @@ export class MobileVerifyComponent implements OnInit {
   }
   msg;
   ngOnInit() {
+    this.getIPAddress();
     this.mobileVerificationForm = this.fb.group({
       contactNumber: [{value:'',disabled: true}, [Validators.required]],
       otp: ['', Validators.compose([
@@ -47,12 +58,17 @@ export class MobileVerifyComponent implements OnInit {
 
     this.getUserDetails(this.emailId);
   }
+  getIPAddress() {
+    this.http.get('http://api.ipify.org/?format=json').subscribe((res: any) => {
+      this.log.ip_address = res.ip;
+    });
+  }
   resendOTP(){
     this.getUserDetails(this.emailId);
   }
   getUserDetails(emailId) {
     
-    console.log("emailId in mobile verification", emailId)
+    console.log("emailId in mobile verification", emailId)    
 
     this._userService.getUserAndOrganization(emailId).subscribe((res:any) => {
       console.log("getUSerOrganization res in mobile verification", res)
@@ -90,6 +106,13 @@ export class MobileVerifyComponent implements OnInit {
     }
     this._userService.verifyMobile(userData).subscribe((res) => {
       // console.log("ressss", res)
+      this.log.event_type = 'Mobile verification';
+        this.log.message = 'User mobile verified successfully';
+        this.log.email = this.currentUserDetail.email
+        console.log("this.log", this.log)
+        this._logService.createLog(this.log).subscribe((res: any) => {
+          console.log('craete log in login', res);
+        });
       this.verfiEmail();
     });
     if (this.mobileVerificationForm.valid) {
@@ -101,6 +124,7 @@ export class MobileVerifyComponent implements OnInit {
   }
 
   verfiEmail(){
+     
     const verifyEmailDetails:any={
         clientId : this.clientId,
         code : this.code,

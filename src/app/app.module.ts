@@ -25,6 +25,7 @@ import { UserService } from './shared/shared-service/user-service';
 import { ToastService } from './shared/shared-service/toast-service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateExistingOrgComponent } from './modals/create-existing-org/create-existing-org.component';
+import { LogService } from './shared/shared-service/log.service';
 
 
 
@@ -55,7 +56,7 @@ import { CreateExistingOrgComponent } from './modals/create-existing-org/create-
   // entryComponents:[
   //   RegisterModalComponent
   // ],
-  providers: [AuthGuard, SidenavService, AuthService, UserService, EmitService, ToastService],
+  providers: [AuthGuard, SidenavService, AuthService, UserService, EmitService, ToastService, LogService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

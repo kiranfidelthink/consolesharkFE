@@ -21,9 +21,10 @@ export class HomeComponent implements OnInit {
     this.userEmail = localStorage.getItem('userEmail')
     this._userService.getUserAndOrganization(this.userEmail).subscribe((res:any) => {
       localStorage.setItem('user_id', res.id)
+      // this.getOrganization(res)
       console.log("res", res)
-      if(res.organizations !== null){
-      localStorage.setItem('organization_id', res.organizations.id)
+      if(res.organization_id !== null){
+      localStorage.setItem('organization_id', res.organization_id)
       }
       else{
         // this.openModal();
@@ -31,6 +32,11 @@ export class HomeComponent implements OnInit {
       }
     });
   }
+  // getOrganization(organization){
+  //   this._userService.getUserOrganizationById(organization.id).subscribe((res:any)=>{
+  //     console.log("org", res)
+  //   })
+  // }
 
   // openModal() {
   //   const modalRef = this.modalService.open(OrganizationModalComponent, {

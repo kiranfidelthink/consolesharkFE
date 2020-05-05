@@ -7,6 +7,8 @@ import { EmitService } from 'src/app/shared/shared-service/emit-service';
 import { UserService } from 'src/app/shared/shared-service/user-service';
 import { ToastService } from 'src/app/shared/shared-service/toast-service';
 import { CountryISO} from 'ngx-intl-tel-input';
+import { LogService } from 'src/app/shared/shared-service/log.service';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -17,7 +19,7 @@ import { CountryISO} from 'ngx-intl-tel-input';
 export class OrganizationComponent implements OnInit {
   popularApps: any = [];
   newestApps: any = [];
-  userEmail: any;
+  organization_id: any;
   currentUserData:any;
   firstName: any;
   lastName: any;
@@ -27,13 +29,21 @@ export class OrganizationComponent implements OnInit {
   organizationForm: FormGroup;
   CountryISO:CountryISO; 
 
+  log: any = {
+    time: new Date().getTime(),
+    email: localStorage.getItem('userEmail'),
+    user_id: localStorage.getItem('user_id'),
+    triggered_by: 'Login Page',
+    severity: 'Informational',
+  };
 
   constructor(private routes:Router, private fb: FormBuilder,private customValidator: CustomvalidationService,
-    private _emitService: EmitService, private _userService: UserService, private _toastService: ToastService) {
+    private _emitService: EmitService, private _userService: UserService, private _toastService: ToastService, private _logService: LogService, private http: HttpClient) {
       this._emitService.listen().subscribe((m:any) => {
         console.log(m);
         this.updateOrganizationDetails(m);
     })
+    this.organization_id = localStorage.getItem('organization_id')
     }
     updateOrganizationDetails(event) {
     this.getUserDetailsOrg();
@@ -41,6 +51,7 @@ export class OrganizationComponent implements OnInit {
   }
     
   ngOnInit() {
+    this.getIPAddress();
     console.log("CountryISO==", CountryISO.India)
     this.organizationForm = this.fb.group(
       {
@@ -66,21 +77,31 @@ export class OrganizationComponent implements OnInit {
     );
     this.getUserDetailsOrg();
   }
+
+  getIPAddress() {
+    this.http.get('http://api.ipify.org/?format=json').subscribe((res: any) => {
+      this.log.ip_address = res.ip;
+    });
+  }
+
   get organizationFormControl() {
     return this.organizationForm.controls;
   }
   
   getUserDetailsOrg() {
-    this.userEmail = localStorage.getItem('userEmail')
+    this._userService.getUserOrganizationById(this.organization_id).subscribe((res:any)=>{
+      console.log("org", res)
+      this.userOrganizationInfo = res;
 
-    this._userService.getUserAndOrganization(this.userEmail).subscribe((res:any) => {
-      console.log("resssssss of user==", res)
-      this.userOrganizationInfo = res.organizations;
-      this.currentUserData = res
-      this.firstName= this.currentUserData.first_name
-      this.lastName= this.currentUserData.last_name
-      this.email= this.currentUserData.email
-    });
+    })
+    // this._userService.getUserAndOrganization(this.userEmail).subscribe((res:any) => {
+    //   console.log("resssssss of user==", res)
+    //   this.userOrganizationInfo = res.organizations;
+    //   this.currentUserData = res
+    //   this.firstName= this.currentUserData.first_name
+    //   this.lastName= this.currentUserData.last_name
+    //   this.email= this.currentUserData.email
+    // });
   }
   
   onSubmitupdateUserOrganization(){
@@ -104,11 +125,24 @@ export class OrganizationComponent implements OnInit {
       
       this._userService.updateOrganization(organization).subscribe((res:any) => {
         console.log("create organization res", res)
+        this.log.event_type = 'Organization updated';
+        this.log.message = 'Organization updated successfully';
+        console.log("this.log", this.log)
+        this._logService.createLog(this.log).subscribe((res: any) => {
+          console.log('craete log in login', res);
+        });
         this._toastService.showToastr("Organization update successfully", "");
 
         // this.updateUser(res.organization_id);
         // this.activeModal.close();
-      });
+      },
+      (err: any) => {
+        this.log.event_type = 'Organization not updated';
+        this.log.message = 'Failed to update organization';
+        this._logService.createLog(this.log).subscribe((res: any) => {
+          console.log('craete log in login', res);
+        });
+      })
     }
   }
 }

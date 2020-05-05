@@ -258,93 +258,93 @@ export class SidenavComponent implements OnInit {
         },
       ],
     },
-    {
-      label: 'Partners',
-      icon: 'thumb_up',
-      items: [
-        {
-          label: 'Customers',
-          link: '/',
-          activeIcon: 'favorite',
-          expanded: true,
-        },
-        {
-          label: 'Commerce',
-          link: '/',
-          activeIcon: 'favorite',
-          expanded: true,
-          navigationExtras: {
-            queryParams: { order: 'popular', filter: 'new' },
-          },
-        },
-        {
-          label: 'Partner Settings',
-          link: '/',
-          activeIcon: 'favorite',
-          expanded: true,
-          navigationExtras: {
-            queryParams: { order: 'popular', filter: 'new' },
-          },
-        },
-        {
-          label: 'Reporting',
-          link: '/',
-          activeIcon: 'favorite',
-          expanded: true,
-          navigationExtras: {
-            queryParams: { order: 'popular', filter: 'new' },
-          },
-        },
-        {
-          label: 'User Management',
-          link: '/',
-          activeIcon: 'favorite',
-          expanded: true,
-          navigationExtras: {
-            queryParams: { order: 'popular', filter: 'new' },
-          },
-        },
-      ],
-    },
-    {
-      label: 'Providers',
-      icon: 'build',
-      items: [
-        {
-          label: 'Account Details',
-          link: '/',
-          activeIcon: 'favorite',
-          expanded: true,
-        },
-        {
-          label: 'Billing',
-          link: '/',
-          activeIcon: 'favorite',
-          expanded: true,
-          navigationExtras: {
-            queryParams: { order: 'popular', filter: 'new' },
-          },
-        },
-        {
-          label: 'user management',
-          link: '/',
-          activeIcon: 'favorite',
-          expanded: true,
-          navigationExtras: {
-            queryParams: { order: 'popular', filter: 'new' },
-          },
-        },
-        {
-          label: 'Security Policies',
-          link: '/',
-          activeIcon: 'favorite',
-          expanded: true,
-          navigationExtras: {
-            queryParams: { order: 'popular', filter: 'new' },
-          },
-        },
-      ],
-    },
+    // {
+    //   label: 'Partners',
+    //   icon: 'thumb_up',
+    //   items: [
+    //     {
+    //       label: 'Customers',
+    //       link: '/',
+    //       activeIcon: 'favorite',
+    //       expanded: true,
+    //     },
+    //     {
+    //       label: 'Commerce',
+    //       link: '/',
+    //       activeIcon: 'favorite',
+    //       expanded: true,
+    //       navigationExtras: {
+    //         queryParams: { order: 'popular', filter: 'new' },
+    //       },
+    //     },
+    //     {
+    //       label: 'Partner Settings',
+    //       link: '/',
+    //       activeIcon: 'favorite',
+    //       expanded: true,
+    //       navigationExtras: {
+    //         queryParams: { order: 'popular', filter: 'new' },
+    //       },
+    //     },
+    //     {
+    //       label: 'Reporting',
+    //       link: '/',
+    //       activeIcon: 'favorite',
+    //       expanded: true,
+    //       navigationExtras: {
+    //         queryParams: { order: 'popular', filter: 'new' },
+    //       },
+    //     },
+    //     {
+    //       label: 'User Management',
+    //       link: '/',
+    //       activeIcon: 'favorite',
+    //       expanded: true,
+    //       navigationExtras: {
+    //         queryParams: { order: 'popular', filter: 'new' },
+    //       },
+    //     },
+    //   ],
+    // },
+    // {
+    //   label: 'Providers',
+    //   icon: 'build',
+    //   items: [
+    //     {
+    //       label: 'Account Details',
+    //       link: '/',
+    //       activeIcon: 'favorite',
+    //       expanded: true,
+    //     },
+    //     {
+    //       label: 'Billing',
+    //       link: '/',
+    //       activeIcon: 'favorite',
+    //       expanded: true,
+    //       navigationExtras: {
+    //         queryParams: { order: 'popular', filter: 'new' },
+    //       },
+    //     },
+    //     {
+    //       label: 'user management',
+    //       link: '/',
+    //       activeIcon: 'favorite',
+    //       expanded: true,
+    //       navigationExtras: {
+    //         queryParams: { order: 'popular', filter: 'new' },
+    //       },
+    //     },
+    //     {
+    //       label: 'Security Policies',
+    //       link: '/',
+    //       activeIcon: 'favorite',
+    //       expanded: true,
+    //       navigationExtras: {
+    //         queryParams: { order: 'popular', filter: 'new' },
+    //       },
+    //     },
+    //   ],
+    // },
     {
       label: 'Support',
       disabled: true,

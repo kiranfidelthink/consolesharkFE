@@ -4,6 +4,8 @@ import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { CustomvalidationService } from '../../shared/sharedService/customValidation.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ToastService } from 'src/app/shared/shared-service/toast-service';
+import { HttpClient } from '@angular/common/http';
+import { LogService } from 'src/app/shared/shared-service/log.service';
 
 @Component({
   selector: 'register-modal',
@@ -22,16 +24,26 @@ export class RegisterModalComponent implements OnInit {
     message:" Your registration is successful.",
     alertType:"success",
   }
-
+  log: any = {
+    time: new Date().getTime(),
+    email: localStorage.getItem('userEmail'),
+    user_id: localStorage.getItem('user_id'),
+    triggered_by: 'Login Page',
+    severity: 'Informational',
+  };
   constructor(
     private fb: FormBuilder,
     private customValidator: CustomvalidationService,
     public activeModal: NgbActiveModal,
     private _auth: AuthService,
-    private _toastService: ToastService
+    private _toastService: ToastService,
+    private http: HttpClient,
+    private _logService: LogService,
+
   ) {}
 
   ngOnInit() {
+    this.getIPAddress();
     // console.log('this.fromParent', this.fromParent);
     this.registerForm = this.fb.group(
       {
@@ -68,6 +80,12 @@ export class RegisterModalComponent implements OnInit {
     );
   }
 
+  getIPAddress() {
+    this.http.get('http://api.ipify.org/?format=json').subscribe((res: any) => {
+      this.log.ip_address = res.ip;
+    });
+  }
+
   get registerFormControl() {
     return this.registerForm.controls;
   }
@@ -81,11 +99,25 @@ export class RegisterModalComponent implements OnInit {
         last_name: this.registerForm.value.lastName,
         mobile_number: this.registerForm.value.contactNumber.dialCode+this.registerForm.value.contactNumber.number,
         email: this.registerForm.value.email,
-        password: this.registerForm.value.password
+        password: this.registerForm.value.password,
+        organization_id: null
       };
       this._auth.registerUser(user).subscribe((res) => {
+        this.log.email = this.registerForm.value.email
+        this.log.event_type = 'User registered';
+        this.log.message = 'User has successfully registered';
+        this._logService.createLog(this.log).subscribe((res: any) => {
+          console.log('craete log in login', res);
+        });
         // console.log("register success", res)
         this.createUser(user);
+      },
+      (err: any) => {
+        this.log.event_type = 'Registration Failure';
+        this.log.message = 'Failed to register user';
+        this._logService.createLog(this.log).subscribe((res: any) => {
+          console.log('craete log in login', res);
+        });
       });
     }
   }
