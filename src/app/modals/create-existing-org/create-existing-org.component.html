@@ -42,7 +42,7 @@
                     Company Address is required
                   </span>
                 </div>
-                <!-- <div class="form-group">
+                <div class="form-group">
                   <div class="row">
                     <div class="col-md-6">
                       <label>Country </label>
@@ -59,12 +59,12 @@
                       </select>
                     </div>
                   </div>
-                </div> -->
-                <!-- <div class="form-group">
+                </div>
+                <div class="form-group">
                   <div class="row">
                     <div class="col-md-6">
                       <label>City </label>
-                      <select [(ngModel)]="city" class="form-control"formControlName="city">
+                      <select  class="form-control"formControlName="city">
                         <option value="" [disabled]="true">Select city</option>
                         <option *ngFor="let city of cities" [ngValue]="city">{{city.name}}</option>
                       </select>
@@ -74,14 +74,14 @@
                       <input type="text" class="form-control" formControlName="zipCode">
                     </div>
                   </div>
-                </div> -->
+                </div>
                 <div class="billing-address-css mb-2">Billing Address</div>
                 <div class="form-group">
-                  <!-- <label class="custom-control custom-checkbox m-0">
-                    <input type="checkbox"  class="custom-control-input" [(ngModel)]="isChecked" formControlName="copyAddress" (change)="copyAddress(isChecked?'checked':'unchecked')" />
-                    <span class="custom-control-label">Copy Address</span></label> -->
+                  <label class="custom-control custom-checkbox m-0">
+                    <input [(ngModel)]="checkboxValue" (change)="copyAddressField()" formControlName="copyAddress"  type="checkbox" name="onoffswitch" class="custom-control-input" checked>
+                    <span class="custom-control-label">Copy Address</span></label>
                 </div>
-                <!-- <div class="form-group">
+                <div class="form-group">
                   <div class="row">
                     <div class="col-md-6">
                       <label>Country </label>
@@ -98,12 +98,12 @@
                       </select>
                     </div>
                   </div>
-                </div> -->
-                <!-- <div class="form-group">
+                </div>
+                <div class="form-group">
                   <div class="row">
                     <div class="col-md-6">
                       <label>City </label>
-                      <select [(ngModel)]="billingCity" class="form-control" formControlName="billingCity">
+                      <select class="form-control" formControlName="billingCity">
                         <option value="" [disabled]="true">Select city</option>
                         <option *ngFor="let city of cities" [ngValue]="city">{{city.name}}</option>
                       </select>
@@ -113,7 +113,7 @@
                       <input type="text" class="form-control" formControlName="billingZipCode">
                     </div>
                   </div>
-                </div> -->
+                </div>
                 <div class="form-group">
                   <div class="row">
                     <div class="col-md-6">
@@ -182,14 +182,7 @@
             <form class="form" [formGroup]="existingOrganizationForm" (ngSubmit)="onSubmitExistingOrg()">
               <div class="form-group">
                 <label>Organization ID</label>
-                <!-- <ng-select [items]="items"
-               bindLabel="name"
-               placeholder="Select item"
-               appendTo="body"
-               multiple="true"
-               [(ngModel)]="selected"
-               formControlName="organizationId">
-    </ng-select> -->
+                
                 <!-- <input type="text" class="form-control" formControlName="organizationId">
                 <span class="text-danger"
                   *ngIf="(existingOrganizationFormControl.organizationId.touched || submitted) && existingOrganizationFormControl.organizationId.errors?.required">

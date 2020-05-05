@@ -159,6 +159,7 @@ export class AccountDetailsComponent implements OnInit {
     this._userService.getUserOrganizationById(this.organization_id).subscribe((res:any)=>{
       console.log("org", res)
       this.userOrganizationInfo = res;
+      console.log("userOrganizationInfo", this.userOrganizationInfo)
 
     })
     // this._emitService.reloadOrganizationDetails('');

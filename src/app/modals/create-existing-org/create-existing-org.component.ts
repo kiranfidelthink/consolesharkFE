@@ -27,6 +27,7 @@ export class CreateExistingOrgComponent implements OnInit {
   @Output() onFilter = new EventEmitter();
   current_time: number;
   userEmail: string;
+  checkboxValue: boolean;
   // products: any = (data as any).default;
   log: any = {
     time: new Date().getTime(),
@@ -58,15 +59,15 @@ export class CreateExistingOrgComponent implements OnInit {
     this.organizationForm = this.fb.group({
       companyName: ['', Validators.required],
       companyAddress: ['', Validators.required],
-      // copyAddress: [''],
-      // country: ['', Validators.required],
-      // state: ['', Validators.required],
-      // city: ['', Validators.required],
-      // zipCode: ['', Validators.required],
-      // billingCountry: ['', Validators.required],
-      // billingState: ['', Validators.required],
-      // billingCity: ['', Validators.required],
-      // billingZipCode: ['', Validators.required],
+      copyAddress: [''],
+      country: ['', Validators.required],
+      state: ['', Validators.required],
+      city: ['', Validators.required],
+      zipCode: ['', Validators.required],
+      billingCountry: ['', Validators.required],
+      billingState: ['', Validators.required],
+      billingCity: ['', Validators.required],
+      billingZipCode: ['', Validators.required],
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phone: [
@@ -112,9 +113,28 @@ export class CreateExistingOrgComponent implements OnInit {
   get existingOrganizationFormControl() {
     return this.existingOrganizationForm.controls;
   }
-
-  copyAddress(event: any) {
-    console.log(event);
+  copyAddressField() {
+    console.log('checkboxValue', this.checkboxValue);
+    if (this.checkboxValue == true) {
+      console.log('inside if');
+      this.organizationForm.controls.billingCountry.setValue(
+        this.organizationForm.value.country
+      );
+      this.organizationForm.controls.billingState.setValue(
+        this.organizationForm.value.state
+      );
+      this.organizationForm.controls.billingCity.setValue(
+        this.organizationForm.value.city
+      );
+      this.organizationForm.controls.billingZipCode.setValue(
+        this.organizationForm.value.zipCode
+      );
+    } else {
+      console.log('inside else');
+    }
+  }
+  copyAddress1(event: any) {
+    console.log(event.target);
     if (event == 'checked') {
       console.log('inside if');
       this.organizationForm.controls.billingCountry.setValue(
@@ -171,16 +191,15 @@ export class CreateExistingOrgComponent implements OnInit {
         user_id: this.user_id,
         time: this.current_time,
       };
-      this._userService
-        .createOrganization(organization, log_details)
-        .subscribe((res: any) => {
+      this._userService.createOrganization(organization, log_details).subscribe(
+        (res: any) => {
           console.log('create organization res', res);
           this.log.event_type = 'Organization created';
-        this.log.message = 'Organization created Successfully';
-        console.log("this.log", this.log)
-        this._logService.createLog(this.log).subscribe((res: any) => {
-          console.log('craete log in login', res);
-        });
+          this.log.message = 'Organization created Successfully';
+          console.log('this.log', this.log);
+          this._logService.createLog(this.log).subscribe((res: any) => {
+            console.log('craete log in login', res);
+          });
 
           this._emitService.reloadOrganizationDetails('');
           this._toastService.showToastr(
@@ -196,7 +215,8 @@ export class CreateExistingOrgComponent implements OnInit {
           this._logService.createLog(this.log).subscribe((res: any) => {
             console.log('craete log in login', res);
           });
-        });
+        }
+      );
     }
   }
   updateUser(organizationId) {
@@ -233,18 +253,5 @@ export class CreateExistingOrgComponent implements OnInit {
     { id: 2, name: 'Delhi' },
   ];
 
-  // items = [
-  //   {id: 1, name: 'Python'},
-  //   {id: 2, name: 'Node Js'},
-  //   {id: 3, name: 'Java'},
-  //   {id: 4, name: 'PHP', disabled: true},
-  //   {id: 5, name: 'Django'},
-  //   {id: 6, name: 'Angular'},
-  //   {id: 7, name: 'Vue'},
-  //   {id: 8, name: 'ReactJs'},
-  // ];
-  // selected = [
-  //   {id: 2, name: 'Node Js'},
-  //   {id: 8, name: 'ReactJs'}
-  // ];
+  
 }
