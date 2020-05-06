@@ -46,14 +46,14 @@
                   <div class="row">
                     <div class="col-md-6">
                       <label>Country </label>
-                      <select class="form-control"formControlName="country">
+                      <select class="form-control" formControlName="country">
                         <option value="" [disabled]="true">Select country</option>
                         <option *ngFor="let country of countries" [ngValue]="country">{{country.name}}</option>
                       </select>
                     </div>
                     <div class="col-md-6">
                       <label>State </label>
-                      <select class="form-control"formControlName="state">
+                      <select class="form-control" formControlName="state">
                         <option value="" [disabled]="true">Select state</option>
                         <option *ngFor="let state of states" [ngValue]="state">{{state.name}}</option>
                       </select>
@@ -64,7 +64,7 @@
                   <div class="row">
                     <div class="col-md-6">
                       <label>City </label>
-                      <select  class="form-control"formControlName="city">
+                      <select class="form-control" formControlName="city">
                         <option value="" [disabled]="true">Select city</option>
                         <option *ngFor="let city of cities" [ngValue]="city">{{city.name}}</option>
                       </select>
@@ -78,21 +78,22 @@
                 <div class="billing-address-css mb-2">Billing Address</div>
                 <div class="form-group">
                   <label class="custom-control custom-checkbox m-0">
-                    <input [(ngModel)]="checkboxValue" (change)="copyAddressField()" formControlName="copyAddress"  type="checkbox" name="onoffswitch" class="custom-control-input" checked>
+                    <input [(ngModel)]="checkboxValue" (change)="copyAddressField()" formControlName="copyAddress"
+                      type="checkbox" name="onoffswitch" class="custom-control-input" checked>
                     <span class="custom-control-label">Copy Address</span></label>
                 </div>
                 <div class="form-group">
                   <div class="row">
                     <div class="col-md-6">
                       <label>Country </label>
-                      <select class="form-control"formControlName="billingCountry">
+                      <select class="form-control" formControlName="billingCountry">
                         <option value="" [disabled]="true">Select country</option>
                         <option *ngFor="let country of countries" [ngValue]="country">{{country.name}}</option>
                       </select>
                     </div>
                     <div class="col-md-6">
                       <label>State </label>
-                      <select  class="form-control"formControlName="billingState">
+                      <select class="form-control" formControlName="billingState">
                         <option value="" [disabled]="true">Select state</option>
                         <option *ngFor="let state of states" [ngValue]="state">{{state.name}}</option>
                       </select>
@@ -140,8 +141,9 @@
                   <div class="row mt-3">
                     <div class="col-md-6">
                       <label>Cell</label>
-                      <ngx-intl-tel-input type="number" [searchCountryFlag]="true" [preferredCountries]="['us']" [phoneValidation]="true"
-                        class="d-block" formControlName="cell" [maxLength]="10" minlength="10"></ngx-intl-tel-input>
+                      <ngx-intl-tel-input type="number" [searchCountryFlag]="true" [preferredCountries]="['us']"
+                        [phoneValidation]="true" class="d-block" formControlName="cell" [maxLength]="10" minlength="10">
+                      </ngx-intl-tel-input>
                       <!-- <input type="number" formControlName="cell" class="form-control" maxlength="12" minlength="10" /> -->
                       <span class="text-danger"
                         *ngIf="(organizationFormControl.cell.touched || submitted) && organizationFormControl.cell.errors?.required">
@@ -178,21 +180,100 @@
               </form>
             </div>
           </div>
-          <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-            <form class="form" [formGroup]="existingOrganizationForm" (ngSubmit)="onSubmitExistingOrg()">
+          <div class="tab-pane fade custom-modal-height" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <form class="form" [formGroup]="existingOrganizationForm" (ngSubmit)="onSubmitExistingOrg(selectedOrganization)">
               <div class="form-group">
                 <label>Organization ID</label>
-                
-                <!-- <input type="text" class="form-control" formControlName="organizationId">
-                <span class="text-danger"
-                  *ngIf="(existingOrganizationFormControl.organizationId.touched || submitted) && existingOrganizationFormControl.organizationId.errors?.required">
-                  Organization ID is required
-                </span> -->
-              </div>
+                <ng-autocomplete [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)'
+                  (inputChanged)='getOrganizationsListFilter($event)' (inputCleared)="onInputClear($event)" (inputFocused)='getOrganizationsList($event)'
+                  [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                </ng-autocomplete>
 
+                <ng-template #itemTemplate let-item>
+                  <a [innerHTML]="item.company_name"></a>
+                  <!-- <span [innerHTML]="item.company_name"></span><i>({{item.company_name}})</i> -->
+                </ng-template>
+
+                <ng-template #notFoundTemplate let-notFound>
+                  <div [innerHTML]="notFound"></div>
+                </ng-template>
+              </div>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <!-- <th scope="col">Last</th> -->
+                    <!-- <th scope="col">Handle</th> -->
+                  </tr>
+                </thead>
+                <tbody class="org-table-body" *ngIf="selectedOrganization">
+                  <tr>
+                    <td class="td-left">Id</td>
+                    <td>{{selectedOrganization.id}}</td>
+                  </tr>
+                  <tr>
+                    <td class="td-left">Company Name</td>
+                    <td>{{selectedOrganization?.company_name}}</td>
+                  </tr>
+                  <tr>
+                    <td class="td-left">Company Address</td>
+                    <td>{{selectedOrganization?.company_address}}</td>
+                  </tr>
+                  <tr>
+                    <td class="td-left">Country</td>
+                    <td>{{selectedOrganization.country?.name}}</td>
+                  </tr>
+                  <tr>
+                    <td class="td-left">State</td>
+                    <td>{{selectedOrganization.state?.name}}</td>
+                  </tr>
+                 <tr>
+                    <td class="td-left">City</td>
+                    <td>{{selectedOrganization.city?.name}}</td>
+                  </tr>
+                    <tr>
+                    <td class="td-left">Zip Code</td>
+                    <td>{{selectedOrganization?.zipCode}}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="billing-details-td">Billing Details</td>
+                  </tr>
+                  <tr>
+                    <td class="td-left">Country</td>
+                    <td>{{selectedOrganization.billing_contact.billingCountry?.name}}</td>
+                  </tr>
+                  <tr>
+                    <td class="td-left">State</td>
+                    <td>{{selectedOrganization.billing_contact.billingState?.name}}</td>
+                  </tr>
+                  <tr>
+                    <td class="td-left">City</td>
+                    <td>{{selectedOrganization.billing_contact.billingCity?.name}}</td>
+                  </tr>
+                  <tr>
+                    <td class="td-left">Zip Code</td>
+                    <td>{{selectedOrganization.billing_contact?.billingZipCode}}</td>
+                  </tr>
+                  <tr>
+                    <td class="td-left">Name</td>
+                    <td>{{selectedOrganization.billing_contact?.name}}</td>
+                  </tr>
+                  <tr>
+                    <td class="td-left">Phone</td>
+                    <td>{{selectedOrganization.billing_contact?.phone}}</td>
+                  </tr>
+                  <tr>
+                    <td class="td-left">Cell</td>
+                    <td>{{selectedOrganization.billing_contact?.countryCode}}  {{selectedOrganization.billing_contact?.cell}}</td>
+                  </tr>
+                  <tr>
+                    <td class="td-left">Email</td>
+                    <td>{{selectedOrganization.billing_contact?.email}}</td>
+                  </tr>
+                </tbody>
+              </table>
 
               <div class="form-group text-right">
-                <button type="submit" [disabled]="true" class="btn btn-primary">Join</button>
+                <button type="submit" [disabled]="!selectedOrganization" class="btn btn-primary">Join</button>
               </div>
             </form>
           </div>

@@ -36,6 +36,11 @@ export class CreateExistingOrgComponent implements OnInit {
     triggered_by: 'Login Page',
     severity: 'Informational',
   };
+  keyword = 'company_name';
+  data: any;
+  errorMsg: string;
+  isLoadingResult: boolean;
+  selectedOrganization: any;
   constructor(
     private fb: FormBuilder,
     private customValidator: CustomvalidationService,
@@ -46,7 +51,9 @@ export class CreateExistingOrgComponent implements OnInit {
     private routes: Router,
     private http: HttpClient,
     private _logService: LogService
-  ) {}
+  ) {
+    // this.getOrganizationsList()
+  }
 
   ngOnInit() {
     this.getIPAddress();
@@ -106,7 +113,56 @@ export class CreateExistingOrgComponent implements OnInit {
       // ],
     });
   }
+  getOrganizationsList(event){
+    console.log("evenmt", event)
+    this.isLoadingResult = true;
+ 
+    this._userService.getOrganizationList()
+      .subscribe(data => {
+        this.data = data;
+        this.isLoadingResult = false;
+      });
+   
+  }
+  getOrganizationsListFilter(event){
+    this.isLoadingResult = true;
+ 
+    this._userService.getOrganizationListFilter(event)
+      .subscribe(data => {
+        this.data = data;
+        // if (data['Search'] == undefined) {
+        //   this.data = [];
+        //   this.errorMsg = data['Error'];
+        // } else {
+        //   this.data = data['Search'];
+        // }
+ 
+        this.isLoadingResult = false;
+      });
+   
+  }
+  selectEvent(item) {
+    console.log("item", item)
+    this.selectedOrganization= item
+    // this._userService.getUserOrganizationById(item.id)
+    // do something with selected item
+  }
+ 
+  onChangeSearch(val: string) {
+    console.log("val", val)
 
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+  
+  onFocused(e){
+    
+    // do something when input is focused
+  }
+  onInputClear(e){
+    console.log("========", e)
+    this.selectedOrganization = "";
+  }
   get organizationFormControl() {
     return this.organizationForm.controls;
   }
@@ -235,7 +291,27 @@ export class CreateExistingOrgComponent implements OnInit {
   //   //   this.activeModal.close();
   //   // }
 
-  onSubmitExistingOrg() {}
+  onSubmitExistingOrg(selectedOrganization) {
+    console.log("selectedOrganization", selectedOrganization)
+    const userRequest = {
+      request_type:"Join Organization",
+      message:"let me join organization",
+      status:"Submitted",
+      user_id:localStorage.getItem('user_id'),
+      organization_id:selectedOrganization.id,
+      }
+      this._userService.createJoinOrgReq(userRequest).subscribe((res:any) => {
+        console.log("updateUserByOrganization res", res)
+        // this.activeModal.close();
+        
+        this._toastService.showToastr("Your request to join Organiaztion sent successfully", "")
+        
+        // this.showToastr();
+      this.activeModal.close();
+
+        this.routes.navigate(['/request-status']);
+      });
+  }
 
   countries = [
     { id: 0, name: 'India' },

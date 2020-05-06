@@ -26,7 +26,7 @@ import { ToastService } from './shared/shared-service/toast-service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateExistingOrgComponent } from './modals/create-existing-org/create-existing-org.component';
 import { LogService } from './shared/shared-service/log.service';
-
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 
 
 @NgModule({
@@ -41,6 +41,7 @@ import { LogService } from './shared/shared-service/log.service';
     // ToastMessageComponent
   ],
   imports: [
+    AutocompleteLibModule,
     SharedModule,
     MainModule,
     BrowserModule,

@@ -7,6 +7,8 @@ import { HostManagementComponent } from './modules/main/host-management/host-man
 import { MobileVerifyComponent } from './modules/mobile-verification/mobile-verification.component';
 import {DashboardsModule} from './modules/dashboards/dashboards.module';
 import { OrganizationsModule } from './modules/organizations/organizations.module';
+import { UserOrgStatusModule } from './modules/userOrgStatus/userOrgStatus.module';
+import { RequestStatusComponent } from './modules/main/requestStatus/requestStatus.component';
 
 const routes: Routes = [
   { path: "login", component : LoginComponent },
@@ -44,6 +46,8 @@ const routes: Routes = [
   },
   { path: 'dashboards',canActivate : [AuthGuard], component: HomeComponent, loadChildren: ()=>DashboardsModule },
   { path: 'organization',canActivate : [AuthGuard], component: HomeComponent, loadChildren: ()=>OrganizationsModule },
+  { path: 'request-status',canActivate : [AuthGuard], component: RequestStatusComponent, loadChildren: ()=>UserOrgStatusModule}
+
 ];
 
 

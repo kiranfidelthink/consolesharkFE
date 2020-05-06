@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { Password } from '../../models/password';
 import { PaperTrail } from 'src/app/models/paper-trail';
 import { map } from 'rxjs/operators';
+import { ExistingOrganization } from 'src/app/models/join-existing-org';
 
 @Injectable()
 export class UserService {
@@ -101,7 +102,7 @@ export class UserService {
       update_password
     );
   }
-  
+
   updateUserprofile(user: User): Observable<User> {
     console.log('user inside auth service', user);
     this.user_id = localStorage.getItem('user_id');
@@ -124,5 +125,27 @@ export class UserService {
   getPaperTrailLog() {
     // return this.http.get<User>(`${this.baseUrl}get_Organization?organization_id=${user}`);
     return this.http.get<PaperTrail>(`${this.baseUrl}get_Logs`);
+  }
+  getOrganizationList() {
+    // return this.http.get<User>(`${this.baseUrl}get_Organization?organization_id=${user}`);
+    return this.http.get<PaperTrail>(
+      `${this.baseUrl}get_Organizations?filter=`
+    );
+  }
+  getOrganizationListFilter(event) {
+    console.log('----------', event);
+    // return this.http.get<User>(`${this.baseUrl}get_Organization?organization_id=${user}`);
+    return this.http.get<PaperTrail>(
+      `${this.baseUrl}get_Organizations?filter=${event}`
+    );
+  }
+  createJoinOrgReq(
+    existingOrganization: ExistingOrganization
+  ): Observable<ExistingOrganization> {
+    console.log("existingOrganization inside service", existingOrganization)
+    return this.http.post<ExistingOrganization>(
+      `${this.baseUrl}create_Request`,
+      existingOrganization
+    );
   }
 }

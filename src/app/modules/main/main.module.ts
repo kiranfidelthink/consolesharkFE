@@ -14,12 +14,13 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort'
+import { RequestStatusComponent } from './requestStatus/requestStatus.component';
 
 
 
 
 @NgModule({
-  declarations: [HomeComponent, HostManagementComponent],
+  declarations: [HomeComponent, HostManagementComponent, RequestStatusComponent],
   imports: [
     CommonModule,
     SharedModule,
@@ -34,6 +35,6 @@ import { MatSortModule } from '@angular/material/sort'
     MatPaginatorModule,
     MatSortModule
   ],
-  exports: [HomeComponent, HostManagementComponent],
+  exports: [HomeComponent, HostManagementComponent, RequestStatusComponent],
 })
 export class MainModule { }
