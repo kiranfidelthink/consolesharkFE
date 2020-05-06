@@ -15,6 +15,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort'
 import { OrganizationComponent } from './organization/organization.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 // *******************************************************************************
 //
@@ -30,7 +31,8 @@ import { OrganizationComponent } from './organization/organization.component';
     NgxIntlTelInputModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatSlideToggleModule
   ],
   declarations: [
     AccountDetailsComponent,

@@ -19,6 +19,7 @@ export class AuthService {
     return this.http.post<User>(`${this.baseUrl}signup_user`, user);
   }
   createUser(user: User): Observable<User> {
+    console.log("user ====", user)
     return this.http.post<User>(`${this.baseUrl}create_user`, user);
   }
  

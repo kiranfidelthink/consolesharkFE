@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from '@angular/router';
-import { Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { Validators, FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { CustomvalidationService } from 'src/app/shared/sharedService/customValidation.service';
 // import { ToastrService } from 'ngx-toastr';
 import { EmitService } from 'src/app/shared/shared-service/emit-service';
@@ -9,6 +9,7 @@ import { ToastService } from 'src/app/shared/shared-service/toast-service';
 import { CountryISO} from 'ngx-intl-tel-input';
 import { LogService } from 'src/app/shared/shared-service/log.service';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from 'src/app/auth/auth.service';
 
 
 @Component({
@@ -31,8 +32,10 @@ export class AccountDetailsComponent implements OnInit {
   updatePasswordForm: FormGroup;
   organizationForm: FormGroup;
   updateUserForm: FormGroup;
+  MFAForm: FormGroup;
   CountryISO:CountryISO; 
   organization_id: any;
+  autoRenew = new FormControl();
 
   log: any = {
     time: new Date().getTime(),
@@ -70,6 +73,11 @@ export class AccountDetailsComponent implements OnInit {
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
+      }
+    );
+    this.MFAForm = this.fb.group(
+      {
+        autoRenew: ['', Validators.required]
       }
     );
     this.updatePasswordForm = this.fb.group(
@@ -133,6 +141,9 @@ export class AccountDetailsComponent implements OnInit {
 
   get updateUserFormControl() {
     return this.updateUserForm.controls;
+  }
+  get MFAFormControl(){
+    return this.MFAForm.controls;
   }
   get updatePasswordFormControl() {
     return this.updatePasswordForm.controls;
@@ -262,5 +273,35 @@ export class AccountDetailsComponent implements OnInit {
       });
     }
   }
-  
+// onChange() {
+//   console.log(this.autoRenew.value);
+// }
+onSubmitMFAForm(currentUserData){  
+  console.log("currentUserData", currentUserData)
+  console.log("this.MFAFormControl----", this.autoRenew.value)
+  const user = {
+    mfa_enabled: this.autoRenew.value,
+    id: currentUserData.id,
+    first_name: currentUserData.first_name,
+    last_name: currentUserData.last_name,
+    mobile_number: currentUserData.mobile_number,
+    email: currentUserData.email,
+    password: currentUserData.password,
+    updatedAt: currentUserData.createdAt,
+    createdAt: currentUserData.updatedAt,
+    organization_id: localStorage.getItem('organization_id')
+}
+console.log("====", user)
+  this._userService.updateUserprofile(user).subscribe((res) => {
+    console.log("res of MFA", res)
+    // console.log("create user success", res)
+    // if(res){
+    //   this._toastService.showToastr("Registration successfully", "");
+    //   // this.showToastMessage = true;
+    // }
+    // setTimeout(() => {
+    //   this.activeModal.close();
+    // }, 4000);
+  });
+}
 }

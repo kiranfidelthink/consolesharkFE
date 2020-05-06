@@ -22,12 +22,20 @@ export class HomeComponent implements OnInit {
     this._userService.getUserAndOrganization(this.userEmail).subscribe((res:any) => {
       localStorage.setItem('user_id', res.id)
       // this.getOrganization(res)
-      console.log("res", res)
+      console.log("res of get user in home component", res)
       if(res.organization_id !== null){
+        console.log("Inside if")
+        if(res.mfa_enabled == true){
+          console.log("Inside mfs true")
+          // this.openModal();
+          // this.routes.navigate(['/login'], { queryParams: { mfa: res.mfa_enabled }});
+  
+          
+        }
+
       localStorage.setItem('organization_id', res.organization_id)
       }
       else{
-        // this.openModal();
         this.openPopup();
       }
     });

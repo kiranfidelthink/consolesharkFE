@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -8,6 +8,8 @@ import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { LogService } from 'src/app/shared/shared-service/log.service';
 import { HttpClient } from '@angular/common/http';
 import { Log } from 'src/app/models/log';
+import { CustomvalidationService } from 'src/app/shared/sharedService/customValidation.service';
+import { UserService } from 'src/app/shared/shared-service/user-service';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +19,13 @@ import { Log } from 'src/app/models/log';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  mobileVerificationForm: FormGroup;
+  clientId:string;
+  username:string;
+  code:string;
+  emailId: string;
+  currentUserDetail:any;
+  mobileNumber:number;
   submitted = false;
 
   log: any = {
@@ -26,16 +35,26 @@ export class LoginComponent implements OnInit {
     triggered_by: 'Login Page',
     severity: 'Informational',
   };
+  getQueryParam: string;
+  userEmail: any;
+  currentUserDetails: any;
   constructor(
     private _auth: AuthService,
     private routes: Router,
     private modalService: NgbModal,
     private fb: FormBuilder,
     private _logService: LogService,
-    private http: HttpClient
+    private http: HttpClient,
+    private customValidator: CustomvalidationService,
+    private _userService: UserService
+
   ) {}
   msg;
   ngOnInit() {
+    this.getCurrentUserDetails();
+    const urlParams = new URLSearchParams(window.location.search);
+    this.getQueryParam = urlParams.get('mfa');
+    console.log("mfa", this.getQueryParam)
     this.getIPAddress();
     // localStorage.removeItem('organizationDetails');
     // localStorage.removeItem('jwtToken');
@@ -45,7 +64,15 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.compose([Validators.required])],
       rememberMe: [''],
     });
+    this.mobileVerificationForm = this.fb.group({
+      contactNumber: [{value:'',disabled: true}, [Validators.required]],
+      otp: ['', Validators.compose([
+        Validators.required,
+        this.customValidator.otpPatternValidator(),
+      ]),],
+    });
   }
+  
   get loginFormControl() {
     return this.loginForm.controls;
   }
@@ -132,5 +159,94 @@ export class LoginComponent implements OnInit {
     //   },
     //   (reason) => {}
     // );
+  }
+  getCurrentUserDetails() {
+    this.userEmail = localStorage.getItem('userEmail')
+    this._userService.getUserAndOrganization(this.userEmail).subscribe((res:any) => {
+      localStorage.setItem('user_id', res.id)
+      // this.getOrganization(res)
+      console.log("res of get user in login component", res)
+      this.currentUserDetails = res
+      // if(res.organization_id !== null){
+      //   console.log("Inside if")
+      //   if(res.mfa_enabled == true){
+      //     console.log("Inside mfs true")
+      //     // this.openModal();
+      //     this.routes.navigate(['/login'], { queryParams: { mfa: res.mfa_enabled }});
+  
+          
+      //   }
+
+      // localStorage.setItem('organization_id', res.organization_id)
+      // }
+      // else{
+      //   this.openPopup();
+      // }
+    });
+  }
+  resendOTP(){
+    this.getUserDetails(localStorage.getItem('userEmail'));
+  }
+  getUserDetails(emailId) {
+    
+    console.log("emailId in mobile verification", emailId)    
+
+    this._userService.getUserAndOrganization(emailId).subscribe((res:any) => {
+      console.log("getUSerOrganization res in mobile verification", res)
+      this.sendOTP(res)
+      this.currentUserDetail = res;
+      this.mobileNumber = this.currentUserDetail.mobile_number; 
+
+      // if(!res.organization_id){
+      // }
+    });
+    // if (localStorage.getItem('organizationDetails') != null) {
+    //   console.log('Inside if');
+    //   this.openModal();
+    // } else {
+    //   console.log('Inside else');
+    //   // this.routes.navigate(['/login']);
+    //   // return false;
+    // }
+  }
+  sendOTP(userData){
+    this._userService.sendMobileOTP(userData).subscribe((res:any) => {
+      // console.log("resssssss--------", res)
+    });
+  }
+  get mobileVerificationFormControl() {
+    return this.mobileVerificationForm.controls;
+  }
+  onSubmitMFA() {
+    // console.log("mobile",this.currentUserDetail)
+    // console.log("this.mobileVerificationForm.value",this.mobileVerificationForm.value)
+    this.submitted = true;
+    const userData:any= {
+      otp:this.mobileVerificationForm.value.otp,
+      mobile_number:this.currentUserDetail.mobile_number
+    }
+    this._userService.verifyMobile(userData).subscribe((res) => {
+      // console.log("ressss", res)
+      this.log.event_type = 'Mobile verification';
+        this.log.message = 'User mobile verified successfully';
+        this.log.email = this.currentUserDetail.email
+        console.log("this.log", this.log)
+        this._logService.createLog(this.log).subscribe((res: any) => {
+          console.log('craete log in login', res);
+        });
+      this.routes.navigate(['dashboards']);
+
+      // this.verfiEmail();
+    });
+    if (this.mobileVerificationForm.valid) {
+      
+      // console.log('this.mobileVerificationForm.valid', this.mobileVerificationForm.value);
+      console.warn(this.mobileVerificationForm.value);
+      
+    }
+  }
+
+  skipMobileVerification(){
+    this.routes.navigate(['/login']);
   }
 }
