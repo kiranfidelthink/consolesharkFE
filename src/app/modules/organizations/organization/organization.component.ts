@@ -29,7 +29,6 @@ export class OrganizationComponent implements OnInit {
   CountryISO: CountryISO;
   checkboxValue: boolean;
 
-
   log: any = {
     time: new Date().getTime(),
     email: localStorage.getItem('userEmail'),
@@ -64,7 +63,8 @@ export class OrganizationComponent implements OnInit {
     console.log('CountryISO==', CountryISO.India);
     this.organizationForm = this.fb.group({
       companyName: ['', Validators.required],
-      companyAddress: ['', Validators.required],
+      addressLineOne: ['', Validators.required],
+      addressLineTwo: ['', Validators.required],
       copyAddress: [''],
       country: ['', Validators.required],
       state: ['', Validators.required],
@@ -74,6 +74,8 @@ export class OrganizationComponent implements OnInit {
       billingState: ['', Validators.required],
       billingCity: ['', Validators.required],
       billingZipCode: ['', Validators.required],
+      billingAddressLineOne: ['', Validators.required],
+      billingAddressLineTwo: ['', Validators.required],
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phone: [
@@ -120,29 +122,32 @@ export class OrganizationComponent implements OnInit {
     //   this.email= this.currentUserData.email
     // });
   }
-  copyAddressField(){
-    console.log("checkboxValue", this.checkboxValue)
+  copyAddressField() {
+    console.log('checkboxValue', this.checkboxValue);
     if (this.checkboxValue == true) {
-     console.log('inside if');
-     this.organizationForm.controls.billingCountry.setValue(
-       this.organizationForm.value.country
-     );
-     this.organizationForm.controls.billingState.setValue(
-       this.organizationForm.value.state
-     );
-     this.organizationForm.controls.billingCity.setValue(
-       this.organizationForm.value.city
-     );
-     this.organizationForm.controls.billingZipCode.setValue(
-       this.organizationForm.value.zipCode
-     );
-   }
-   else{
-     console.log('inside else');
-   
-   }
-       
-       }
+      console.log('inside if');
+      this.organizationForm.controls.billingAddressLineOne.setValue(
+        this.organizationForm.value.addressLineOne
+      );
+      this.organizationForm.controls.billingAddressLineTwo.setValue(
+        this.organizationForm.value.addressLineTwo
+      );
+      this.organizationForm.controls.billingCountry.setValue(
+        this.organizationForm.value.country
+      );
+      this.organizationForm.controls.billingState.setValue(
+        this.organizationForm.value.state
+      );
+      this.organizationForm.controls.billingCity.setValue(
+        this.organizationForm.value.city
+      );
+      this.organizationForm.controls.billingZipCode.setValue(
+        this.organizationForm.value.zipCode
+      );
+    } else {
+      console.log('inside else');
+    }
+  }
 
   onSubmitupdateUserOrganization() {
     console.log('Insdie submit', this.organizationForm.value);
@@ -155,7 +160,8 @@ export class OrganizationComponent implements OnInit {
     if (this.organizationForm.valid) {
       const organization: any = {
         company_name: this.organizationForm.value.companyName,
-        company_address: this.organizationForm.value.companyAddress,
+        addressLineOne: this.organizationForm.value.addressLineOne,
+        addressLineTwo: this.organizationForm.value.addressLineTwo,
         country: this.organizationForm.value.country,
         state: this.organizationForm.value.state,
         city: this.organizationForm.value.city,
@@ -169,6 +175,10 @@ export class OrganizationComponent implements OnInit {
           email: this.organizationForm.value.email,
           phone: this.organizationForm.value.phone,
           cell: this.organizationForm.value.cell.number,
+          billing_address_line_one: this.organizationForm.value
+            .billingAddressLineOne,
+          billing_address_line_two: this.organizationForm.value
+            .billingAddressLineTwo,
           countryCode: this.organizationForm.value.cell.dialCode,
           countryISO: this.organizationForm.value.cell.countryCode,
         },
@@ -202,15 +212,5 @@ export class OrganizationComponent implements OnInit {
     { id: 0, name: 'India' },
     { id: 1, name: 'USA' },
     { id: 2, name: 'Australia' },
-  ];
-  states = [
-    { id: 0, name: 'Maharastra' },
-    { id: 1, name: 'Madhya Pradesh' },
-    { id: 2, name: 'Gujrat' },
-  ];
-  cities = [
-    { id: 0, name: 'Pune' },
-    { id: 1, name: 'Mulbai' },
-    { id: 2, name: 'Delhi' },
   ];
 }

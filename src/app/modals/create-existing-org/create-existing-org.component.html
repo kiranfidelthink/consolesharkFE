@@ -27,20 +27,45 @@
               </div>
               <form class="form" [formGroup]="organizationForm" (ngSubmit)="onSubmit()">
                 <div class="form-group">
-                  <label>Company Name</label>
+                  <label>Organization Name</label>
                   <input type="text" class="form-control" formControlName="companyName">
                   <span class="text-danger"
                     *ngIf="(organizationFormControl.companyName.touched || submitted) && organizationFormControl.companyName.errors?.required">
-                    Company Name is required
+                    Organization Name is required
                   </span>
                 </div>
                 <div class="form-group">
-                  <label>Company Address</label>
-                  <input type="text" class="form-control" formControlName="companyAddress">
-                  <span class="text-danger"
-                    *ngIf="(organizationFormControl.companyAddress.touched || submitted) && organizationFormControl.companyAddress.errors?.required">
-                    Company Address is required
-                  </span>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Address Line 1</label>
+                      <input type="text" class="form-control" formControlName="addressLineOne">
+                      <span class="text-danger"
+                        *ngIf="(organizationFormControl.addressLineOne.touched || submitted) && organizationFormControl.addressLineOne.errors?.required">
+                        Address Line 1 is required
+                      </span>
+                    </div>
+                    <div class="col-md-6">
+                      <label>Address Line 2</label>
+                      <input type="text" class="form-control" formControlName="addressLineTwo">
+                      <span class="text-danger"
+                        *ngIf="(organizationFormControl.addressLineTwo.touched || submitted) && organizationFormControl.addressLineTwo.errors?.required">
+                        Address Line 2 is required
+                      </span>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>City </label>
+                      <input type="text" class="form-control" formControlName="city">
+                    </div>
+                    <div class="col-md-6">
+                      <label>State </label>
+                      <input type="text" class="form-control" formControlName="state">
+                    </div>
+                  </div>
                 </div>
                 <div class="form-group">
                   <div class="row">
@@ -52,69 +77,12 @@
                       </select>
                     </div>
                     <div class="col-md-6">
-                      <label>State </label>
-                      <select class="form-control" formControlName="state">
-                        <option value="" [disabled]="true">Select state</option>
-                        <option *ngFor="let state of states" [ngValue]="state">{{state.name}}</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <label>City </label>
-                      <select class="form-control" formControlName="city">
-                        <option value="" [disabled]="true">Select city</option>
-                        <option *ngFor="let city of cities" [ngValue]="city">{{city.name}}</option>
-                      </select>
-                    </div>
-                    <div class="col-md-6">
                       <label>Zip Code </label>
                       <input type="text" class="form-control" formControlName="zipCode">
                     </div>
                   </div>
                 </div>
-                <div class="billing-address-css mb-2">Billing Address</div>
-                <div class="form-group">
-                  <label class="custom-control custom-checkbox m-0">
-                    <input [(ngModel)]="checkboxValue" (change)="copyAddressField()" formControlName="copyAddress"
-                      type="checkbox" name="onoffswitch" class="custom-control-input" checked>
-                    <span class="custom-control-label">Copy Address</span></label>
-                </div>
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <label>Country </label>
-                      <select class="form-control" formControlName="billingCountry">
-                        <option value="" [disabled]="true">Select country</option>
-                        <option *ngFor="let country of countries" [ngValue]="country">{{country.name}}</option>
-                      </select>
-                    </div>
-                    <div class="col-md-6">
-                      <label>State </label>
-                      <select class="form-control" formControlName="billingState">
-                        <option value="" [disabled]="true">Select state</option>
-                        <option *ngFor="let state of states" [ngValue]="state">{{state.name}}</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <label>City </label>
-                      <select class="form-control" formControlName="billingCity">
-                        <option value="" [disabled]="true">Select city</option>
-                        <option *ngFor="let city of cities" [ngValue]="city">{{city.name}}</option>
-                      </select>
-                    </div>
-                    <div class="col-md-6">
-                      <label>Zip Code </label>
-                      <input type="text" class="form-control" formControlName="billingZipCode">
-                    </div>
-                  </div>
-                </div>
+                <div class="billing-address-css mb-2">Billing Details</div>
                 <div class="form-group">
                   <div class="row">
                     <div class="col-md-6">
@@ -173,6 +141,62 @@
                   </div>
 
                 </div>
+                <div class="form-group">
+                  <label class="custom-control custom-checkbox m-0">
+                    <input [(ngModel)]="checkboxValue" (change)="copyAddressField()" formControlName="copyAddress"
+                      type="checkbox" name="onoffswitch" class="custom-control-input" checked>
+                    <span class="custom-control-label">Copy Address</span></label>
+                </div>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Address Line 1</label>
+                      <input type="text" class="form-control" formControlName="billingAddressLineOne">
+                      <span class="text-danger"
+                        *ngIf="(organizationFormControl.billingAddressLineOne.touched || submitted) && organizationFormControl.billingAddressLineOne.errors?.required">
+                        Address Line 1 is required
+                      </span>
+                    </div>
+                    <div class="col-md-6">
+                      <label>Address Line 2</label>
+                      <input type="text" class="form-control" formControlName="billingAddressLineTwo">
+                      <span class="text-danger"
+                        *ngIf="(organizationFormControl.billingAddressLineTwo.touched || submitted) && organizationFormControl.billingAddressLineTwo.errors?.required">
+                        Address Line 2 is required
+                      </span>
+                    </div>
+                  </div>
+
+                </div>
+                
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>City </label>
+                      <input type="text" class="form-control" formControlName="billingCity">
+                    </div>
+                    <div class="col-md-6">
+                      <label>State </label>
+                      <input type="text" class="form-control" formControlName="billingState">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Country </label>
+                      <select class="form-control" formControlName="billingCountry">
+                        <option value="" [disabled]="true">Select country</option>
+                        <option *ngFor="let country of countries" [ngValue]="country">{{country.name}}</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label>Zip Code </label>
+                      <input type="text" class="form-control" formControlName="billingZipCode">
+                    </div>
+                  </div>
+                </div>
+
                 <div class="form-group text-right">
                   <button type="submit" [disabled]="organizationForm.status == 'INVALID'"
                     class="btn btn-primary">Create</button>
@@ -180,13 +204,19 @@
               </form>
             </div>
           </div>
-          <div class="tab-pane fade custom-modal-height" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-            <form class="form" [formGroup]="existingOrganizationForm" (ngSubmit)="onSubmitExistingOrg(selectedOrganization)">
+          <div class="tab-pane fade custom-modal-height" id="nav-profile" role="tabpanel"
+            aria-labelledby="nav-profile-tab">
+            <div class="text-center text-muted mb-2">
+              <h4 class="text-lighter">Please select organization to join</h4>
+            </div>
+            <form class="form" [formGroup]="existingOrganizationForm"
+              (ngSubmit)="onSubmitExistingOrg(selectedOrganization)">
               <div class="form-group">
-                <label>Organization ID</label>
+                <label>Search by organization</label>
                 <ng-autocomplete [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)'
-                  (inputChanged)='getOrganizationsListFilter($event)' (inputCleared)="onInputClear($event)" (inputFocused)='getOrganizationsList($event)'
-                  [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                  (inputChanged)='getOrganizationsListFilter($event)' (inputCleared)="onInputClear($event)"
+                  (inputFocused)='getOrganizationsList($event)' [itemTemplate]="itemTemplate"
+                  [notFoundTemplate]="notFoundTemplate">
                 </ng-autocomplete>
 
                 <ng-template #itemTemplate let-item>
@@ -226,11 +256,11 @@
                     <td class="td-left">State</td>
                     <td>{{selectedOrganization.state?.name}}</td>
                   </tr>
-                 <tr>
+                  <tr>
                     <td class="td-left">City</td>
                     <td>{{selectedOrganization.city?.name}}</td>
                   </tr>
-                    <tr>
+                  <tr>
                     <td class="td-left">Zip Code</td>
                     <td>{{selectedOrganization?.zipCode}}</td>
                   </tr>
@@ -263,7 +293,8 @@
                   </tr>
                   <tr>
                     <td class="td-left">Cell</td>
-                    <td>{{selectedOrganization.billing_contact?.countryCode}}  {{selectedOrganization.billing_contact?.cell}}</td>
+                    <td>{{selectedOrganization.billing_contact?.countryCode}}
+                      {{selectedOrganization.billing_contact?.cell}}</td>
                   </tr>
                   <tr>
                     <td class="td-left">Email</td>
@@ -273,7 +304,7 @@
               </table>
 
               <div class="form-group text-right">
-                <button type="submit" [disabled]="!selectedOrganization" class="btn btn-primary">Join</button>
+                <button type="submit" [disabled]="!selectedOrganization" class="btn btn-primary">Request to join</button>
               </div>
             </form>
           </div>

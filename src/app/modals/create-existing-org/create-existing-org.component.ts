@@ -65,7 +65,8 @@ export class CreateExistingOrgComponent implements OnInit {
     // console.log('this.fromParent', this.fromParent);
     this.organizationForm = this.fb.group({
       companyName: ['', Validators.required],
-      companyAddress: ['', Validators.required],
+      addressLineOne: ['', Validators.required],
+      addressLineTwo: ['', Validators.required],
       copyAddress: [''],
       country: ['', Validators.required],
       state: ['', Validators.required],
@@ -75,6 +76,8 @@ export class CreateExistingOrgComponent implements OnInit {
       billingState: ['', Validators.required],
       billingCity: ['', Validators.required],
       billingZipCode: ['', Validators.required],
+      billingAddressLineOne: ['', Validators.required],
+      billingAddressLineTwo: ['', Validators.required],
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phone: [
@@ -113,55 +116,50 @@ export class CreateExistingOrgComponent implements OnInit {
       // ],
     });
   }
-  getOrganizationsList(event){
-    console.log("evenmt", event)
+  getOrganizationsList(event) {
+    console.log('evenmt', event);
     this.isLoadingResult = true;
- 
-    this._userService.getOrganizationList()
-      .subscribe(data => {
-        this.data = data;
-        this.isLoadingResult = false;
-      });
-   
+
+    this._userService.getOrganizationList().subscribe((data) => {
+      this.data = data;
+      this.isLoadingResult = false;
+    });
   }
-  getOrganizationsListFilter(event){
+  getOrganizationsListFilter(event) {
     this.isLoadingResult = true;
- 
-    this._userService.getOrganizationListFilter(event)
-      .subscribe(data => {
-        this.data = data;
-        // if (data['Search'] == undefined) {
-        //   this.data = [];
-        //   this.errorMsg = data['Error'];
-        // } else {
-        //   this.data = data['Search'];
-        // }
- 
-        this.isLoadingResult = false;
-      });
-   
+
+    this._userService.getOrganizationListFilter(event).subscribe((data) => {
+      this.data = data;
+      // if (data['Search'] == undefined) {
+      //   this.data = [];
+      //   this.errorMsg = data['Error'];
+      // } else {
+      //   this.data = data['Search'];
+      // }
+
+      this.isLoadingResult = false;
+    });
   }
   selectEvent(item) {
-    console.log("item", item)
-    this.selectedOrganization= item
+    console.log('item', item);
+    this.selectedOrganization = item;
     // this._userService.getUserOrganizationById(item.id)
     // do something with selected item
   }
- 
+
   onChangeSearch(val: string) {
-    console.log("val", val)
+    console.log('val', val);
 
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
   }
-  
-  onFocused(e){
-    
+
+  onFocused(e) {
     // do something when input is focused
   }
-  onInputClear(e){
-    console.log("========", e)
-    this.selectedOrganization = "";
+  onInputClear(e) {
+    console.log('========', e);
+    this.selectedOrganization = '';
   }
   get organizationFormControl() {
     return this.organizationForm.controls;
@@ -173,6 +171,12 @@ export class CreateExistingOrgComponent implements OnInit {
     console.log('checkboxValue', this.checkboxValue);
     if (this.checkboxValue == true) {
       console.log('inside if');
+      this.organizationForm.controls.billingAddressLineOne.setValue(
+        this.organizationForm.value.addressLineOne
+      );
+      this.organizationForm.controls.billingAddressLineTwo.setValue(
+        this.organizationForm.value.addressLineTwo
+      );
       this.organizationForm.controls.billingCountry.setValue(
         this.organizationForm.value.country
       );
@@ -221,21 +225,26 @@ export class CreateExistingOrgComponent implements OnInit {
     if (this.organizationForm.valid) {
       const organization = {
         company_name: this.organizationForm.value.companyName,
-        company_address: this.organizationForm.value.companyAddress,
+        addressLineOne: this.organizationForm.value.addressLineOne,
+        addressLineTwo: this.organizationForm.value.addressLineTwo,
         country: this.organizationForm.value.country,
         state: this.organizationForm.value.state,
         city: this.organizationForm.value.city,
         zipCode: this.organizationForm.value.zipCode,
         // user_id: this.user_id,
         billing_contact: {
-          billingCountry: this.organizationForm.value.billingCountry,
-          billingState: this.organizationForm.value.billingState,
-          billingCity: this.organizationForm.value.billingCity,
-          billingZipCode: this.organizationForm.value.billingZipCode,
           name: this.organizationForm.value.name,
           email: this.organizationForm.value.email,
           phone: this.organizationForm.value.phone,
           cell: this.organizationForm.value.cell.number,
+          billing_address_line_one: this.organizationForm.value
+            .billingAddressLineOne,
+          billing_address_line_two: this.organizationForm.value
+            .billingAddressLineTwo,
+          billingCountry: this.organizationForm.value.billingCountry,
+          billingState: this.organizationForm.value.billingState,
+          billingCity: this.organizationForm.value.billingCity,
+          billingZipCode: this.organizationForm.value.billingZipCode,
           countryCode: this.organizationForm.value.cell.dialCode,
           countryISO: this.organizationForm.value.cell.countryCode,
         },
@@ -292,25 +301,28 @@ export class CreateExistingOrgComponent implements OnInit {
   //   // }
 
   onSubmitExistingOrg(selectedOrganization) {
-    console.log("selectedOrganization", selectedOrganization)
+    console.log('selectedOrganization', selectedOrganization);
     const userRequest = {
-      request_type:"Join Organization",
-      message:"let me join organization",
-      status:"Submitted",
-      user_id:localStorage.getItem('user_id'),
-      organization_id:selectedOrganization.id,
-      }
-      this._userService.createJoinOrgReq(userRequest).subscribe((res:any) => {
-        console.log("updateUserByOrganization res", res)
-        // this.activeModal.close();
-        
-        this._toastService.showToastr("Your request to join Organiaztion sent successfully", "")
-        
-        // this.showToastr();
+      request_type: 'Join Organization',
+      message: 'let me join organization',
+      status: 'Submitted',
+      user_id: localStorage.getItem('user_id'),
+      organization_id: selectedOrganization.id,
+    };
+    this._userService.createJoinOrgReq(userRequest).subscribe((res: any) => {
+      console.log('updateUserByOrganization res', res);
+      // this.activeModal.close();
+
+      this._toastService.showToastr(
+        'Your request to join Organiaztion sent successfully',
+        ''
+      );
+
+      // this.showToastr();
       this.activeModal.close();
 
-        this.routes.navigate(['/request-status']);
-      });
+      this.routes.navigate(['/request-status']);
+    });
   }
 
   countries = [
@@ -328,6 +340,4 @@ export class CreateExistingOrgComponent implements OnInit {
     { id: 1, name: 'Mulbai' },
     { id: 2, name: 'Delhi' },
   ];
-
-  
 }

@@ -53,7 +53,7 @@
         </div>
       </div>
     </div> -->
-    <h4 class="py-3 mb-4">
+    <h4 class="py-3">
         Account settings
       </h4>
       
@@ -263,20 +263,24 @@
                     <td>{{userOrganizationInfo.company_name}}</td>
                   </tr>
                   <tr>
-                    <td class="td-left">Company Address</td>
-                    <td>{{userOrganizationInfo.company_address}}</td>
+                    <td class="td-left">Address Line 1</td>
+                    <td>{{userOrganizationInfo.addressLineOne}}</td>
+                  </tr>
+                  <tr>
+                    <td class="td-left">Address Line 2</td>
+                    <td>{{userOrganizationInfo.addressLineTwo}}</td>
+                  </tr>
+                  <tr>
+                    <td class="td-left">City</td>
+                    <td>{{userOrganizationInfo.city}}</td>
+                  </tr>
+                  <tr>
+                    <td class="td-left">State</td>
+                    <td>{{userOrganizationInfo.state}}</td>
                   </tr>
                   <tr>
                     <td class="td-left">Country</td>
                     <td>{{userOrganizationInfo.country.name}}</td>
-                  </tr>
-                  <tr>
-                    <td class="td-left">State</td>
-                    <td>{{userOrganizationInfo.state.name}}</td>
-                  </tr>
-                  <tr>
-                    <td class="td-left">City</td>
-                    <td>{{userOrganizationInfo.city.name}}</td>
                   </tr>
                   <tr>
                     <td class="td-left">Zip Code</td>
@@ -284,22 +288,6 @@
                   </tr>
                   <tr>
                     <td colspan="2" class="billing-details-td">Billing Details</td>
-                  </tr>
-                  <tr>
-                    <td class="td-left">Country</td>
-                    <td>{{userOrganizationInfo.billing_contact.billingCountry.name}}</td>
-                  </tr>
-                  <tr>
-                    <td class="td-left">State</td>
-                    <td>{{userOrganizationInfo.billing_contact.billingState.name}}</td>
-                  </tr>
-                  <tr>
-                    <td class="td-left">City</td>
-                    <td>{{userOrganizationInfo.billing_contact.billingCity.name}}</td>
-                  </tr>
-                  <tr>
-                    <td class="td-left">Zip Code</td>
-                    <td>{{userOrganizationInfo.billing_contact.billingZipCode}}</td>
                   </tr>
                   <tr>
                     <td class="td-left">Name</td>
@@ -317,6 +305,31 @@
                     <td class="td-left">Email</td>
                     <td>{{userOrganizationInfo.billing_contact.email}}</td>
                   </tr>
+                  <tr>
+                    <td class="td-left">Address Line 1</td>
+                    <td>{{userOrganizationInfo.billing_contact.billing_address_line_one}}</td>
+                  </tr>
+                  <tr>
+                    <td class="td-left">Address Line 2</td>
+                    <td>{{userOrganizationInfo.billing_contact.billing_address_line_two}}</td>
+                  </tr>
+                  <tr>
+                    <td class="td-left">City</td>
+                    <td>{{userOrganizationInfo.billing_contact.billingCity}}</td>
+                  </tr>
+                  <tr>
+                    <td class="td-left">State</td>
+                    <td>{{userOrganizationInfo.billing_contact.billingState}}</td>
+                  </tr>
+                  <tr>
+                    <td class="td-left">Country</td>
+                    <td>{{userOrganizationInfo.billing_contact.billingCountry.name}}</td>
+                  </tr>
+                  <tr>
+                    <td class="td-left">Zip Code</td>
+                    <td>{{userOrganizationInfo.billing_contact.billingZipCode}}</td>
+                  </tr>
+                  
                 </tbody>
               </table>
             </div>
