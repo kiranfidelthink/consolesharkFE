@@ -22,9 +22,6 @@
         <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
           <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
             <div class="modal-body p-2rem">
-              <div class="text-center text-muted mb-2">
-                <h4 class="text-lighter">Create New Organization</h4>
-              </div>
               <form class="form" [formGroup]="organizationForm" (ngSubmit)="onSubmit()">
                 <div class="form-group">
                   <label>Organization Name</label>
@@ -212,7 +209,7 @@
             <form class="form" [formGroup]="existingOrganizationForm"
               (ngSubmit)="onSubmitExistingOrg(selectedOrganization)">
               <div class="form-group">
-                <label>Search by organization</label>
+                <label>Search by organization name</label>
                 <ng-autocomplete [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)'
                   (inputChanged)='getOrganizationsListFilter($event)' (inputCleared)="onInputClear($event)"
                   (inputFocused)='getOrganizationsList($event)' [itemTemplate]="itemTemplate"
@@ -263,42 +260,6 @@
                   <tr>
                     <td class="td-left">Zip Code</td>
                     <td>{{selectedOrganization?.zipCode}}</td>
-                  </tr>
-                  <tr>
-                    <td colspan="2" class="billing-details-td">Billing Details</td>
-                  </tr>
-                  <tr>
-                    <td class="td-left">Country</td>
-                    <td>{{selectedOrganization.billing_contact.billingCountry?.name}}</td>
-                  </tr>
-                  <tr>
-                    <td class="td-left">State</td>
-                    <td>{{selectedOrganization.billing_contact.billingState?.name}}</td>
-                  </tr>
-                  <tr>
-                    <td class="td-left">City</td>
-                    <td>{{selectedOrganization.billing_contact.billingCity?.name}}</td>
-                  </tr>
-                  <tr>
-                    <td class="td-left">Zip Code</td>
-                    <td>{{selectedOrganization.billing_contact?.billingZipCode}}</td>
-                  </tr>
-                  <tr>
-                    <td class="td-left">Name</td>
-                    <td>{{selectedOrganization.billing_contact?.name}}</td>
-                  </tr>
-                  <tr>
-                    <td class="td-left">Phone</td>
-                    <td>{{selectedOrganization.billing_contact?.phone}}</td>
-                  </tr>
-                  <tr>
-                    <td class="td-left">Cell</td>
-                    <td>{{selectedOrganization.billing_contact?.countryCode}}
-                      {{selectedOrganization.billing_contact?.cell}}</td>
-                  </tr>
-                  <tr>
-                    <td class="td-left">Email</td>
-                    <td>{{selectedOrganization.billing_contact?.email}}</td>
                   </tr>
                 </tbody>
               </table>

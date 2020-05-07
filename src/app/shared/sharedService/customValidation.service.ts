@@ -36,7 +36,7 @@ export class CustomvalidationService {
       if (!control.value) {
         return null;
       }
-      const regex = new RegExp('^\\+?\\d{4}$');
+      const regex = new RegExp('^\\+?\\d([0-9]{4})$');
       const valid = regex.test(control.value);
       return valid ? null : { invalidOTP: true };
     };

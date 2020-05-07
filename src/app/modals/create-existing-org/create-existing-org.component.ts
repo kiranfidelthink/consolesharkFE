@@ -28,7 +28,6 @@ export class CreateExistingOrgComponent implements OnInit {
   current_time: number;
   userEmail: string;
   checkboxValue: boolean;
-  // products: any = (data as any).default;
   log: any = {
     time: new Date().getTime(),
     email: localStorage.getItem('userEmail'),
@@ -51,18 +50,13 @@ export class CreateExistingOrgComponent implements OnInit {
     private routes: Router,
     private http: HttpClient,
     private _logService: LogService
-  ) {
-    // this.getOrganizationsList()
-  }
+  ) {}
 
   ngOnInit() {
     this.getIPAddress();
     const epochNow = new Date().getTime();
     this.current_time = epochNow;
     this.userEmail = localStorage.getItem('userEmail');
-    // to print only path eg:"/login"
-    // console.log("this.router.url", this.routes.url.split('?')[0])
-    // console.log('this.fromParent', this.fromParent);
     this.organizationForm = this.fb.group({
       companyName: ['', Validators.required],
       addressLineOne: ['', Validators.required],
@@ -97,23 +91,6 @@ export class CreateExistingOrgComponent implements OnInit {
     });
     this.existingOrganizationForm = this.fb.group({
       organizationId: ['', Validators.required],
-      // companyAddress: ['', Validators.required],
-      // name: ['', Validators.required],
-      // email: ['', [Validators.required, Validators.email]],
-      // phone: [
-      //   '',
-      //   Validators.compose([
-      //     Validators.required,
-      //     this.customValidator.phonePatternValidator(),
-      //   ]),
-      // ],
-      // cell: [
-      //   '',
-      //   Validators.compose([
-      //     Validators.required,
-      //     this.customValidator.cellPatternValidator(),
-      //   ]),
-      // ],
     });
   }
   getOrganizationsList(event) {
@@ -130,33 +107,19 @@ export class CreateExistingOrgComponent implements OnInit {
 
     this._userService.getOrganizationListFilter(event).subscribe((data) => {
       this.data = data;
-      // if (data['Search'] == undefined) {
-      //   this.data = [];
-      //   this.errorMsg = data['Error'];
-      // } else {
-      //   this.data = data['Search'];
-      // }
-
       this.isLoadingResult = false;
     });
   }
   selectEvent(item) {
     console.log('item', item);
     this.selectedOrganization = item;
-    // this._userService.getUserOrganizationById(item.id)
-    // do something with selected item
   }
 
   onChangeSearch(val: string) {
     console.log('val', val);
-
-    // fetch remote data from here
-    // And reassign the 'data' which is binded to 'data' property.
   }
 
-  onFocused(e) {
-    // do something when input is focused
-  }
+  onFocused(e) {}
   onInputClear(e) {
     console.log('========', e);
     this.selectedOrganization = '';
@@ -290,15 +253,11 @@ export class CreateExistingOrgComponent implements OnInit {
       .updateUserByOrganization(organizationId)
       .subscribe((res: any) => {
         console.log('updateUserByOrganization res', res);
-        // this.activeModal.close();
       });
   }
   closeModal(sendData) {
     this.activeModal.close(sendData);
   }
-  //  closeModal() {
-  //   //   this.activeModal.close();
-  //   // }
 
   onSubmitExistingOrg(selectedOrganization) {
     console.log('selectedOrganization', selectedOrganization);
@@ -317,8 +276,6 @@ export class CreateExistingOrgComponent implements OnInit {
         'Your request to join Organiaztion sent successfully',
         ''
       );
-
-      // this.showToastr();
       this.activeModal.close();
 
       this.routes.navigate(['/request-status']);
@@ -329,15 +286,5 @@ export class CreateExistingOrgComponent implements OnInit {
     { id: 0, name: 'India' },
     { id: 1, name: 'USA' },
     { id: 2, name: 'Australia' },
-  ];
-  states = [
-    { id: 0, name: 'Maharastra' },
-    { id: 1, name: 'Madhya Pradesh' },
-    { id: 2, name: 'Gujrat' },
-  ];
-  cities = [
-    { id: 0, name: 'Pune' },
-    { id: 1, name: 'Mulbai' },
-    { id: 2, name: 'Delhi' },
   ];
 }

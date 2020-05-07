@@ -25,13 +25,13 @@ export class HomeComponent implements OnInit {
       console.log("res of get user in home component", res)
       if(res.organization_id !== null){
         console.log("Inside if")
-        if(res.mfa_enabled == true){
-          console.log("Inside mfs true")
-          // this.openModal();
-          // this.routes.navigate(['/login'], { queryParams: { mfa: res.mfa_enabled }});
+        // if(res.mfa_enabled == true){
+        //   console.log("Inside mfs true")
+        //   // this.openModal();
+        //   // this.routes.navigate(['/login'], { queryParams: { mfa: res.mfa_enabled }});
   
           
-        }
+        // }
 
       localStorage.setItem('organization_id', res.organization_id)
       }
