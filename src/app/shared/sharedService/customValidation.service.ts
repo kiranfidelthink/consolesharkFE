@@ -31,12 +31,12 @@ export class CustomvalidationService {
       return valid ? null : { invalidContactNumber: true };
     };
   }
-  otpPatternValidator(): ValidatorFn {
+otpPatternValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } => {
       if (!control.value) {
         return null;
       }
-      const regex = new RegExp('^\\+?\\d([0-9]{4})$');
+      const regex = new RegExp('^\\+?\\d{4}$');
       const valid = regex.test(control.value);
       return valid ? null : { invalidOTP: true };
     };

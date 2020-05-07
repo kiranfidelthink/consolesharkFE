@@ -94,7 +94,7 @@ export class RegisterModalComponent implements OnInit {
     this.submitted = true;
     // console.log("this.registerForm", this.registerForm)
     if (this.registerForm.valid) {
-      const user = {
+      const user:any = {
         first_name: this.registerForm.value.firstName,
         last_name: this.registerForm.value.lastName,
         mobile_number: this.registerForm.value.contactNumber.dialCode+this.registerForm.value.contactNumber.number,
@@ -107,7 +107,6 @@ export class RegisterModalComponent implements OnInit {
         this.log.event_type = 'User registered';
         this.log.message = 'User has successfully registered';
         this._logService.createLog(this.log).subscribe((res: any) => {
-          console.log('craete log in login', res);
         });
         // console.log("register success", res)
         this.createUser(user);
@@ -116,7 +115,6 @@ export class RegisterModalComponent implements OnInit {
         this.log.event_type = 'Registration Failure';
         this.log.message = 'Failed to register user';
         this._logService.createLog(this.log).subscribe((res: any) => {
-          console.log('craete log in login', res);
         });
       });
     }

@@ -68,16 +68,6 @@ export class UserService {
       { params: params }
     );
   }
-  updateUserByOrganization(user: User): Observable<User> {
-    this.user_id = localStorage.getItem('user_id');
-    const orgId = {
-      organization_id: user,
-    };
-    return this.http.patch<User>(
-      `${this.baseUrl}update_user?user_id=${this.user_id}`,
-      orgId
-    );
-  }
   updatePassword(password: Password): Observable<Password> {
     this.user_email = localStorage.getItem('userEmail');
     const update_password = {
@@ -90,20 +80,39 @@ export class UserService {
       update_password
     );
   }
-  updateUserPassword(password: Password): Observable<Password> {
-    console.log('Insdie updateUserPassword', password);
-    this.user_id = localStorage.getItem('user_id');
-    console.log('Insdie updateUserPassword', this.user_id);
-    const update_password = {
-      password: password,
-    };
-    return this.http.patch<Password>(
-      `${this.baseUrl}update_user?user_id=${this.user_id}`,
-      update_password
-    );
-  }
+  // updateUserByOrganization(user: User): Observable<User> {
+  //   this.user_id = localStorage.getItem('user_id');
+  //   const orgId = {
+  //     organization_id: user,
+  //   };
+  //   return this.http.patch<User>(
+  //     `${this.baseUrl}update_user?user_id=${this.user_id}`,
+  //     orgId
+  //   );
+  // }
+  
+  // updateUserPassword(password: Password): Observable<Password> {
+  //   console.log('Insdie updateUserPassword', password);
+  //   this.user_id = localStorage.getItem('user_id');
+  //   console.log('Insdie updateUserPassword', this.user_id);
+  //   const update_password = {
+  //     password: password,
+  //   };
+  //   return this.http.patch<Password>(
+  //     `${this.baseUrl}update_user?user_id=${this.user_id}`,
+  //     update_password
+  //   );
+  // }
 
-  updateUserprofile(user: User): Observable<User> {
+  // updateUserprofile(user: User): Observable<User> {
+  //   console.log('user inside auth service', user);
+  //   this.user_id = localStorage.getItem('user_id');
+  //   return this.http.patch<User>(
+  //     `${this.baseUrl}update_user?user_id=${this.user_id}`,
+  //     user
+  //   );
+  // }
+  updateUser(user: User): Observable<User> {
     console.log('user inside auth service', user);
     this.user_id = localStorage.getItem('user_id');
     return this.http.patch<User>(

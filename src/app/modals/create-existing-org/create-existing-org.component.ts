@@ -226,7 +226,6 @@ export class CreateExistingOrgComponent implements OnInit {
           this.log.message = 'Organization created Successfully';
           console.log('this.log', this.log);
           this._logService.createLog(this.log).subscribe((res: any) => {
-            console.log('craete log in login', res);
           });
 
           this._emitService.reloadOrganizationDetails('');
@@ -241,7 +240,6 @@ export class CreateExistingOrgComponent implements OnInit {
           this.log.event_type = 'Organization not created';
           this.log.message = 'Failed to create organization';
           this._logService.createLog(this.log).subscribe((res: any) => {
-            console.log('craete log in login', res);
           });
         }
       );
@@ -249,10 +247,14 @@ export class CreateExistingOrgComponent implements OnInit {
   }
   updateUser(organizationId) {
     console.log('organizationId', organizationId);
+    const user:any = {
+      organization_id:organizationId,
+      user_role: "admin"
+    }
     this._userService
-      .updateUserByOrganization(organizationId)
+      .updateUser(user)
       .subscribe((res: any) => {
-        console.log('updateUserByOrganization res', res);
+        console.log('updateUser res', res);
       });
   }
   closeModal(sendData) {
@@ -269,7 +271,7 @@ export class CreateExistingOrgComponent implements OnInit {
       organization_id: selectedOrganization.id,
     };
     this._userService.createJoinOrgReq(userRequest).subscribe((res: any) => {
-      console.log('updateUserByOrganization res', res);
+      console.log('updateUser res', res);
       // this.activeModal.close();
 
       this._toastService.showToastr(

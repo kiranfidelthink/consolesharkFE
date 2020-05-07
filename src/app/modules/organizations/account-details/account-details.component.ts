@@ -62,7 +62,6 @@ export class AccountDetailsComponent implements OnInit {
       console.log(m);
       this.updateOrganizationDetails(m);
     });
-    this.organization_id = localStorage.getItem('organization_id');
   }
   updateOrganizationDetails(event) {
     this.getUserDetailsOrg();
@@ -160,7 +159,8 @@ export class AccountDetailsComponent implements OnInit {
     this._userService
       .getUserAndOrganization(this.userEmail)
       .subscribe((res: any) => {
-        console.log('resssssss of user--', res);
+        console.log('user details in account details component', res);
+        this.organization_id = res.organization_id
         this.currentUserData = res;
         this.firstName = this.currentUserData.first_name;
         this.lastName = this.currentUserData.last_name;
@@ -168,11 +168,11 @@ export class AccountDetailsComponent implements OnInit {
       });
   }
 
-  showOrganization() {
-    console.log('organization_id', this.organization_id);
+  showOrganization(organization_id) {
+    console.log('organization_id', organization_id);
     this.curTab = 'organization';
     this._userService
-      .getUserOrganizationById(this.organization_id)
+      .getUserOrganizationById(organization_id)
       .subscribe((res: any) => {
         console.log('org', res);
         this.userOrganizationInfo = res;
@@ -195,7 +195,6 @@ export class AccountDetailsComponent implements OnInit {
           this.log.message = 'Password update successfully';
           console.log('this.log', this.log);
           this._logService.createLog(this.log).subscribe((res: any) => {
-            console.log('craete log in login', res);
           });
 
           this.updateUserDetail(this.updatePasswordForm.value.newPassword);
@@ -205,15 +204,14 @@ export class AccountDetailsComponent implements OnInit {
           this.log.event_type = 'Password not updated';
           this.log.message = 'Failed to update password ';
           this._logService.createLog(this.log).subscribe((res: any) => {
-            console.log('craete log in login', res);
           });
         }
       );
     }
   }
   updateUserDetail(newPassword) {
-    this._userService.updateUserPassword(newPassword).subscribe((res: any) => {
-      console.log('updateUserByOrganization res', res);
+    this._userService.updateUser(newPassword).subscribe((res: any) => {
+      console.log('updateUser res', res);
       this._toastService.showToastr('User updated successfully', '');
       this.routes.navigate(['/login']);
     });
@@ -257,13 +255,12 @@ export class AccountDetailsComponent implements OnInit {
         last_name: this.updateUserForm.value.lastName,
         email: this.updateUserForm.value.email,
       };
-      this._userService.updateUserprofile(user).subscribe(
+      this._userService.updateUser(user).subscribe(
         (res) => {
           this.log.event_type = 'Profile update';
           this.log.message = 'Profile update  Successfully';
           console.log('this.log', this.log);
           this._logService.createLog(this.log).subscribe((res: any) => {
-            console.log('craete log in login', res);
           });
           this._toastService.showToastr('Profile Updated successfully', '');
         },
@@ -271,14 +268,13 @@ export class AccountDetailsComponent implements OnInit {
           this.log.event_type = 'Profile not updated';
           this.log.message = 'Failed to update user';
           this._logService.createLog(this.log).subscribe((res: any) => {
-            console.log('craete log in login', res);
           });
         }
       );
     }
   }
   onSubmitMFAForm(currentUserData) {
-    const user = {
+    const user:any = {
       mfa_enabled: this.autoRenew.value,
       id: currentUserData.id,
       first_name: currentUserData.first_name,
@@ -290,7 +286,7 @@ export class AccountDetailsComponent implements OnInit {
       createdAt: currentUserData.updatedAt,
       organization_id: localStorage.getItem('organization_id'),
     };
-    this._userService.updateUserprofile(user).subscribe((res) => {
+    this._userService.updateUser(user).subscribe((res) => {
       console.log('res of MFA', res);
     });
   }

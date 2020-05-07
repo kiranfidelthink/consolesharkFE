@@ -36,7 +36,6 @@ export class HeaderComponent implements OnInit {
     this.log.message = 'User logout Successfully';
 
     this._logService.createLog(this.log).subscribe((res: any) => {
-      console.log('craete log in login', res);
     });
 
     localStorage.removeItem('organizationDetails');

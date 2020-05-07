@@ -83,9 +83,8 @@ export class LoginComponent implements OnInit {
         this.log.event_type = 'Login Success';
         this.log.message = 'Authenticate Successfully';
         this.log.email = this.loginForm.value.email;
-        console.log('this.log', this.log);
+        console.log('this.log----', this.log);
         this._logService.createLog(this.log).subscribe((res: any) => {
-          console.log('craete log in login', res);
         });
         localStorage.setItem('jwtToken', res.accessToken.jwtToken);
         localStorage.setItem('userEmail', res.idToken.payload.email);
@@ -95,7 +94,6 @@ export class LoginComponent implements OnInit {
         this.log.event_type = 'Login Failure';
         this.log.message = 'Failed to authenticate correctly';
         this._logService.createLog(this.log).subscribe((res: any) => {
-          console.log('craete log in login', res);
         });
       }
     );
@@ -160,7 +158,6 @@ export class LoginComponent implements OnInit {
       this.log.email = this.currentUserDetail.email;
       console.log('this.log', this.log);
       this._logService.createLog(this.log).subscribe((res: any) => {
-        console.log('craete log in login', res);
       });
       this.routes.navigate(['dashboards']);
     });

@@ -191,7 +191,6 @@ export class OrganizationComponent implements OnInit {
           this.log.message = 'Organization updated successfully';
           console.log('this.log', this.log);
           this._logService.createLog(this.log).subscribe((res: any) => {
-            console.log('craete log in login', res);
           });
           this._toastService.showToastr('Organization update successfully', '');
 
@@ -202,7 +201,6 @@ export class OrganizationComponent implements OnInit {
           this.log.event_type = 'Organization not updated';
           this.log.message = 'Failed to update organization';
           this._logService.createLog(this.log).subscribe((res: any) => {
-            console.log('craete log in login', res);
           });
         }
       );
