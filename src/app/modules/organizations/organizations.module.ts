@@ -16,7 +16,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort'
 import { OrganizationComponent } from './organization/organization.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-
+import { UserManagementComponent } from './user-management/user-management.component';
 // *******************************************************************************
 //
 
@@ -37,7 +37,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
   declarations: [
     AccountDetailsComponent,
     PaperTrailComponent,
-    OrganizationComponent
+    OrganizationComponent,
+    UserManagementComponent
   ]
 })
 export class OrganizationsModule { }

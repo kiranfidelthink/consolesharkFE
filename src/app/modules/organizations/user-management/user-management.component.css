@@ -1,0 +1,75 @@
+.list-group-item {
+    outline: 0;
+    cursor: pointer;
+  }
+  
+  .w-100px {
+    width: 100px;
+  }
+  
+  .border-custom {
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-left: none;
+    border-top: none;
+  }
+  
+  .table th,
+  .table td {
+    padding: .75rem;
+  }
+  
+  .color-active {
+    color: green;
+  }
+  
+  td.mat-cell,
+  td.mat-footer-cell,
+  th.mat-header-cell {
+    padding: 10px !important;
+  }
+  th{
+    font-weight: 800 !important;
+    font-size: 14px !important;
+  }
+  .consoleshark-severity {
+    border-radius: 10px;
+    padding: .2rem .5rem;
+    font-size: .75rem;
+    line-height: 1.5;
+  }
+  
+  .informational {
+    border-color: rgba(0, 0, 0, 0);
+    background: #28c3d7;
+    color: #fff;
+  }
+  
+  .warning {
+    border-color: rgba(0, 0, 0, 0);
+    background: #FFD950;
+    color: #665720;
+  }
+  
+  .critical {
+    border-color: rgba(0, 0, 0, 0);
+    background: #d9534f;
+    color: #fff;
+  }
+  
+  .notification {
+    border-color: rgba(0, 0, 0, 0);
+    background: #02BC77;
+    color: #fff;
+  }
+  .mat-column-action{
+    cursor: pointer;
+  }
+  .approve_btn{
+    background-color: green;
+    padding: 5px 25px;
+    border-radius: 20px;
+    color: #fff;
+  }
+  .card-body{
+    min-height: 44vh;
+  }

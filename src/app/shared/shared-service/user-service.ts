@@ -8,6 +8,7 @@ import { Password } from '../../models/password';
 import { PaperTrail } from 'src/app/models/paper-trail';
 import { map } from 'rxjs/operators';
 import { ExistingOrganization } from 'src/app/models/join-existing-org';
+import { UserRequest } from 'src/app/models/user-request';
 
 @Injectable()
 export class UserService {
@@ -155,6 +156,20 @@ export class UserService {
     return this.http.post<ExistingOrganization>(
       `${this.baseUrl}create_Request`,
       existingOrganization
+    );
+  }
+  getApprovedUserList() {
+    // return this.http.get<User>(`${this.baseUrl}get_Organization?organization_id=${user}`);
+    return this.http.get(`${this.baseUrl}get_Requests?filter=Approved`);
+  }
+  getPendingUserList(){
+    return this.http.get(`${this.baseUrl}get_Requests?filter=Submitted`);
+  }
+  approveUserRequest(user: UserRequest, userStatus): Observable<UserRequest> {
+    console.log('user inside auth service', user);
+    return this.http.patch<UserRequest>(
+      `${this.baseUrl}update_Request?Request_id=${user}`,
+      userStatus
     );
   }
 }

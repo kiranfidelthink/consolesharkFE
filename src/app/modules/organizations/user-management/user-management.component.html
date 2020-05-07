@@ -1,0 +1,73 @@
+<h4 class="py-3">
+  User management
+</h4>
+<div class="card ">
+  <div class="card-body">
+    <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8" class="w-100">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+      <ng-container matColumnDef="request_type">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Request Type</th>
+        <td mat-cell *matCellDef="let element"> {{element.request_type}} </td>
+      </ng-container>
+      <ng-container matColumnDef="message">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Message</th>
+        <td mat-cell *matCellDef="let element">{{element.message}}</td>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+      </ng-container>
+      <ng-container matColumnDef="user_id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>User Id</th>
+        <td mat-cell *matCellDef="let element">{{element.user_id}} </td>
+      </ng-container>
+      <ng-container matColumnDef="organization_id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Organization Id</th>
+        <td mat-cell *matCellDef="let element"> {{element.organization_id}} </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSize]="5" [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>
+<div class="card mt-2">
+  <div class="card-body">
+    <table mat-table matSort [dataSource]="dataSource1" class="mat-elevation-z8" class="w-100">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+      <ng-container matColumnDef="request_type">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Request Type</th>
+        <td mat-cell *matCellDef="let element"> {{element.request_type}} </td>
+      </ng-container>
+      <ng-container matColumnDef="message">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Message</th>
+        <td mat-cell *matCellDef="let element">{{element.message}}</td>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+      </ng-container>
+      <ng-container matColumnDef="user_id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>User Id</th>
+        <td mat-cell *matCellDef="let element">{{element.user_id}} </td>
+      </ng-container>
+      <ng-container matColumnDef="organization_id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Organization Id</th>
+        <td mat-cell *matCellDef="let element"> {{element.organization_id}} </td>
+      </ng-container>
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+        <td mat-cell *matCellDef="let element" (click)="cliclFunction(element)"> <span class="approve_btn">Approve</span> </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
+    </table>
+    <mat-paginator [pageSize]="5" [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

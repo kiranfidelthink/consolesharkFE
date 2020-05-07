@@ -240,7 +240,7 @@ export class SidenavComponent implements OnInit {
         },
         {
           label: 'User management',
-          link: '/',
+          link: '/organization/user-management',
           activeIcon: 'favorite',
           expanded: true,
           navigationExtras: {

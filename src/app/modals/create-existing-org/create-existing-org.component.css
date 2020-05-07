@@ -83,7 +83,7 @@ section .section-title {
 }
 .custom-control-label::before {
   position: absolute;
-  top: .1rem;
+  top: .0rem;
   left: -1.563rem;
   display: block;
   width: 1.125rem;
@@ -91,7 +91,7 @@ section .section-title {
   pointer-events: none;
   content: "";
   background-color: #fff;
-  border: rgba(24,28,33,0.1) solid 1px;
+  border:rgba(22, 26, 31, 0.4) solid 1px
 }
 .component-host-scrollable{
   height: 900px !important;
