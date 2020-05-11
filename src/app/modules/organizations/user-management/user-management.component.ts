@@ -7,21 +7,19 @@ import { MatSort } from '@angular/material/sort';
 import { UserService } from 'src/app/shared/shared-service/user-service';
 import { ToastService } from 'src/app/shared/shared-service/toast-service';
 export interface UserList {
-  id: string;
-  request_type: string;
-  message: string;
-  status: string;
-  user_id: string;
-  organization_id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  status:string;
+  action: string
+ 
 }
 export interface PendingUserList {
-  id: string;
-  request_type: string;
-  message: string;
-  status: string;
-  user_id: string;
-  organization_id: string;
-  action: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  status:string;
+  action: string
 }
 @Component({
   selector: 'app-user-management',
@@ -31,29 +29,28 @@ export interface PendingUserList {
 })
 export class UserManagementComponent implements OnInit {
   displayedColumns: string[] = [
-    'id',
-    'request_type',
-    'message',
+    'first_name',
+    'last_name',
+    'email',
     'status',
-    'user_id',
-    'organization_id',
+    'action'
+    
   ];
-  // dataSource = new MatTableDataSource<UserList>(ELEMENT_DATA)
-  dataSource: MatTableDataSource<UserList>;
+  // dataTableUsers = new MatTableDataSource<UserList>(ELEMENT_DATA)
+  dataTableUsers: MatTableDataSource<UserList>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   displayedColumns1: string[] = [
-    'id',
-    'request_type',
-    'message',
+    'first_name',
+    'last_name',
+    'email',
     'status',
-    'user_id',
-    'organization_id',
-    'action',
+    'action'
   ];
-  // dataSource = new MatTableDataSource<UserList>(ELEMENT_DATA)
-  dataSource1: MatTableDataSource<PendingUserList>;
+  // dataTableUsers = new MatTableDataSource<UserList>(ELEMENT_DATA)
+  dataTablePendingUsers: MatTableDataSource<PendingUserList>;
+  organization_id: string;
   // @ViewChild(MatPaginator, { static: true }) paginator1: MatPaginator;
   // @ViewChild(MatSort, { static: true }) sort1: MatSort;
 
@@ -63,44 +60,86 @@ export class UserManagementComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.dataSource = new MatTableDataSource(); // create new object
-    this.getUsersList(); // forgeted this line
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.organization_id = localStorage.getItem('organization_id')
+    this.dataTableUsers = new MatTableDataSource(); // create new object
+    this.getApprovedUsersList(this.organization_id); // forgeted this line
+    this.dataTableUsers.paginator = this.paginator;
+    this.dataTableUsers.sort = this.sort;
 
-    this.dataSource1 = new MatTableDataSource(); // create new object
-    this.getPendingUsersList(); // forgeted this line
-    // this.dataSource1.paginator = this.paginator1;
-    // this.dataSource1.sort = this.sort1;
+    this.dataTablePendingUsers = new MatTableDataSource(); // create new object
+    this.getSubmittedUsersList(this.organization_id); // forgeted this line
+    // this.dataTablePendingUsers.paginator = this.paginator1;
+    // this.dataTablePendingUsers.sort = this.sort1;
   }
-  getUsersList() {
-    this._userService.getApprovedUserList().subscribe((data: any) => {
+  getApprovedUsersList(organization_id) {
+    this._userService.getApprovedUserList(organization_id).subscribe((data: any) => {
       console.log(data);
       console.log('Laps', data);
-      this.dataSource.data = data; // on data receive populate dataSource.data array
+      this.dataTableUsers.data = data; // on data receive populate dataTableUsers.data array
       return data;
     });
   }
 
-  getPendingUsersList() {
-    this._userService.getPendingUserList().subscribe((data1: any) => {
+  getSubmittedUsersList(organization_id) {
+    this._userService.getSubmittedUserList(organization_id).subscribe((data1: any) => {
       console.log(data1);
       console.log('Laps-----', data1);
-      this.dataSource1.data = data1; // on data1 receive populate dataSource.data array
+      this.dataTablePendingUsers.data = data1; // on data1 receive populate dataTableUsers.data array
       return data1;
     });
   }
-  cliclFunction(element) {
-    console.log('inside function', element);
+  onEditUser(element){
+    console.log('element inside on onEditUser', element);
+  }
+  onDeleteUser(element){
+    console.log('element inside on onRejectRequest', element);
+    const userStatus = {
+      status: 'Rejected',
+    };
+    this._userService
+      .approveUserRequest(element.id, userStatus)
+      .subscribe((res: any) => {
+        this.getApprovedUsersList(this.organization_id); // forgeted this line
+        this.getSubmittedUsersList(this.organization_id);
+        this._toastService.showToastr('User request rejected', '');
+      });
+  }
+  onApproveRequest(element){
+    console.log('inside function onApproveRequest', element);
     const userStatus = {
       status: 'Approved',
     };
     this._userService
       .approveUserRequest(element.id, userStatus)
       .subscribe((res: any) => {
-        this.getUsersList(); // forgeted this line
-        this.getPendingUsersList();
+        console.log("res of onApproveRequest", res)
+        this.updateUser(element);
+        this.getApprovedUsersList(this.organization_id); // forgeted this line
+        this.getSubmittedUsersList(this.organization_id);
         this._toastService.showToastr('User approved successfully', '');
+      });
+  }
+
+  updateUser(element){
+    const user: any = {
+      organization_id : this.organization_id
+    };
+    this._userService.updateUser(user, element.user.id).subscribe(
+      (res) => {
+      
+      });
+  }
+  onRejectRequest(element){
+    console.log('element inside on onRejectRequest', element);
+    const userStatus = {
+      status: 'Rejected',
+    };
+    this._userService
+      .approveUserRequest(element.id, userStatus)
+      .subscribe((res: any) => {
+        this.getApprovedUsersList(this.organization_id); // forgeted this line
+        this.getSubmittedUsersList(this.organization_id);
+        this._toastService.showToastr('User request rejected', '');
       });
   }
 }

@@ -238,12 +238,16 @@
                     <td>{{selectedOrganization.id}}</td>
                   </tr>
                   <tr>
-                    <td class="td-left">Company Name</td>
+                    <td class="td-left">Organization Name</td>
                     <td>{{selectedOrganization?.company_name}}</td>
                   </tr>
                   <tr>
-                    <td class="td-left">Company Address</td>
-                    <td>{{selectedOrganization?.company_address}}</td>
+                    <td class="td-left">Address Line 1</td>
+                    <td>{{selectedOrganization?.addressLineOne}}</td>
+                  </tr>
+                  <tr>
+                    <td class="td-left">Address Line 2</td>
+                    <td>{{selectedOrganization?.addressLineTwo}}</td>
                   </tr>
                   <tr>
                     <td class="td-left">Country</td>
@@ -251,11 +255,11 @@
                   </tr>
                   <tr>
                     <td class="td-left">State</td>
-                    <td>{{selectedOrganization.state?.name}}</td>
+                    <td>{{selectedOrganization.state}}</td>
                   </tr>
                   <tr>
                     <td class="td-left">City</td>
-                    <td>{{selectedOrganization.city?.name}}</td>
+                    <td>{{selectedOrganization.city}}</td>
                   </tr>
                   <tr>
                     <td class="td-left">Zip Code</td>

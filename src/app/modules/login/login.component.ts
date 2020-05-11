@@ -124,7 +124,20 @@ export class LoginComponent implements OnInit {
           this.getQueryParam = res.mfa_enabled;
           this.resendOTP();
         } else {
-          this.routes.navigate(['/']);
+          console.log("inside else in login component")
+          if(res.organization_id == null){
+            console.log("inside if of login with condition")
+            if(res.requests.length == 0){
+              this.routes.navigate(['/']);
+            }
+            else{
+              this.routes.navigate(['/request-status']);
+            }
+          }
+          else{
+            this.routes.navigate(['/']);
+          }
+
         }
       });
   }

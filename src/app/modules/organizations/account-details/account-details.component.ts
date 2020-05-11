@@ -210,7 +210,7 @@ export class AccountDetailsComponent implements OnInit {
     }
   }
   updateUserDetail(newPassword) {
-    this._userService.updateUser(newPassword).subscribe((res: any) => {
+    this._userService.updateUser(newPassword, localStorage.getItem('user_id')).subscribe((res: any) => {
       console.log('updateUser res', res);
       this._toastService.showToastr('User updated successfully', '');
       this.routes.navigate(['/login']);
@@ -255,7 +255,7 @@ export class AccountDetailsComponent implements OnInit {
         last_name: this.updateUserForm.value.lastName,
         email: this.updateUserForm.value.email,
       };
-      this._userService.updateUser(user).subscribe(
+      this._userService.updateUser(user, localStorage.getItem('user_id')).subscribe(
         (res) => {
           this.log.event_type = 'Profile update';
           this.log.message = 'Profile update  Successfully';
@@ -286,7 +286,7 @@ export class AccountDetailsComponent implements OnInit {
       createdAt: currentUserData.updatedAt,
       organization_id: localStorage.getItem('organization_id'),
     };
-    this._userService.updateUser(user).subscribe((res) => {
+    this._userService.updateUser(user, localStorage.getItem('user_id')).subscribe((res) => {
       console.log('res of MFA', res);
     });
   }

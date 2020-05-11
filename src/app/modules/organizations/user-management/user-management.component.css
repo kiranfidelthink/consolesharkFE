@@ -70,6 +70,28 @@
     border-radius: 20px;
     color: #fff;
   }
+  .user_status{
+    color: green;
+    font-weight: 500;
+  }
   .card-body{
     min-height: 44vh;
+  }
+  .action-btn{
+    padding: 5px;
+    border-radius: 3px;
+    color: white;
+    margin: 5px;
+  }
+  .edit-btn{
+    background-color: #339dd4;
+  }
+  .delete-btn{
+    background-color: #f44336;
+  }
+  .approve-btn{
+    background-color: green;
+  }
+  .reject-btn{
+    background-color: #f44336;
   }

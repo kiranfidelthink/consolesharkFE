@@ -132,7 +132,7 @@ export class MobileVerifyComponent implements OnInit {
     }
     this._userService.verifyEmailAddress(verifyEmailDetails).subscribe((res) => {
       console.log("ressss=-=-=--==-=", res)
-      this.routes.navigate(['/']);
+      this.routes.navigate(['/login']);
     });
 
   }

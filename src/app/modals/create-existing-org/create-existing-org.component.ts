@@ -252,7 +252,7 @@ export class CreateExistingOrgComponent implements OnInit {
       user_role: "admin"
     }
     this._userService
-      .updateUser(user)
+      .updateUser(user, localStorage.getItem('user_id'))
       .subscribe((res: any) => {
         console.log('updateUser res', res);
       });

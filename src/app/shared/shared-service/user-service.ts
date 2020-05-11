@@ -113,11 +113,11 @@ export class UserService {
   //     user
   //   );
   // }
-  updateUser(user: User): Observable<User> {
+  updateUser(user: User, userId): Observable<User> {
     console.log('user inside auth service', user);
     this.user_id = localStorage.getItem('user_id');
     return this.http.patch<User>(
-      `${this.baseUrl}update_user?user_id=${this.user_id}`,
+      `${this.baseUrl}update_user?user_id=${userId}`,
       user
     );
   }
@@ -158,15 +158,16 @@ export class UserService {
       existingOrganization
     );
   }
-  getApprovedUserList() {
+  getApprovedUserList(organization_id) {
     // return this.http.get<User>(`${this.baseUrl}get_Organization?organization_id=${user}`);
-    return this.http.get(`${this.baseUrl}get_Requests?filter=Approved`);
+    return this.http.get(`${this.baseUrl}get_Requests?status=Approved&organization_id=${organization_id}`);
   }
-  getPendingUserList(){
-    return this.http.get(`${this.baseUrl}get_Requests?filter=Submitted`);
+  getSubmittedUserList(organization_id){
+    return this.http.get(`${this.baseUrl}get_Requests?status=Submitted&organization_id=${organization_id}`);
+    // status=Submitted&organization_id=1
   }
   approveUserRequest(user: UserRequest, userStatus): Observable<UserRequest> {
-    console.log('user inside auth service', user);
+    console.log('user inside approveUserRequest', user);
     return this.http.patch<UserRequest>(
       `${this.baseUrl}update_Request?Request_id=${user}`,
       userStatus
