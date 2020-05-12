@@ -1,3 +1,4 @@
+<ngx-spinner></ngx-spinner>
 <h4 class="">
   Users List
 </h4>
@@ -31,6 +32,7 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+    <div class="no-records-found" *ngIf="isEmptyApprovedUsersList">No records found</div>
     <mat-paginator [pageSize]="5" [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
   </div>
 </div>
@@ -73,6 +75,7 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
     </table>
+    <div class="no-records-found" *ngIf="isEmptySubmittedUserList">No records found</div>
     <mat-paginator [pageSize]="5" [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
   </div>
 </div>

@@ -17,6 +17,8 @@ import { MatSortModule } from '@angular/material/sort'
 import { OrganizationComponent } from './organization/organization.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { UserManagementComponent } from './user-management/user-management.component';
+import { NgxSpinnerModule } from "ngx-spinner";
+
 // *******************************************************************************
 //
 
@@ -32,7 +34,8 @@ import { UserManagementComponent } from './user-management/user-management.compo
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    NgxSpinnerModule
   ],
   declarations: [
     AccountDetailsComponent,

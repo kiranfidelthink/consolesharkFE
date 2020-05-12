@@ -57,16 +57,16 @@ export class UserService {
     return this.http.post<User>(`${this.baseUrl}send_otp`, mobileNumber);
   }
   createOrganization(
-    organization: Organization,
-    log_details
+    organization: Organization
   ): Observable<Organization> {
-    const params = {
-      log: JSON.stringify(log_details),
-    };
+    // const params = {
+    //   log: JSON.stringify(log_details),
+    // };
+    // console.log("log details insisde create organization", params)
+    console.log("organization insisde create organization", organization)
     return this.http.post<Organization>(
       `${this.baseUrl}create_Organization`,
-      organization,
-      { params: params }
+      organization
     );
   }
   updatePassword(password: Password): Observable<Password> {

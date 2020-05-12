@@ -19,5 +19,12 @@ body {
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .min-vh-100 {
-  min-height: 174vh!important;
+  /* min-height: 174vh!important; */
 }
+.min-vh-custom{
+  min-height: 85.3vh !important;
+  max-height: 85.3vh !important;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.min-vh-custom::-webkit-scrollbar { width: 0 !important }

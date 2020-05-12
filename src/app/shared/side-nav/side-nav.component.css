@@ -4,9 +4,16 @@
 
 .bg-custom {
   color: #9d9fa1;
-  min-height: 100vh;
+  /* min-height: 100vh; */
 }
-
+.bg-dark-grey{
+  background-color: #2f3337 !important;
+  color: #9d9fa1;
+  padding: 3% 10%;
+}
+.w-90{
+  width: 70%;
+}
 .list-group-item {
   background-color: #2f3337 !important;
   /* border-color: rgba(255, 255, 255, 0.06) !important; */

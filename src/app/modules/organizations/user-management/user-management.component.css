@@ -95,3 +95,9 @@
   .reject-btn{
     background-color: #f44336;
   }
+  .no-records-found{
+    text-align: center;
+    font-size: 20px;
+    padding: 50px;
+    color: grey;
+  }

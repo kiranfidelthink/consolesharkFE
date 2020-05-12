@@ -27,6 +27,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateExistingOrgComponent } from './modals/create-existing-org/create-existing-org.component';
 import { LogService } from './shared/shared-service/log.service';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
     BsDropdownModule.forRoot(),
     NgxIntlTelInputModule,
     ToastrModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxSpinnerModule
   ],
   // entryComponents:[
   //   RegisterModalComponent

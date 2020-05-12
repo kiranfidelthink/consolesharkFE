@@ -8,6 +8,8 @@ import { ToastService } from 'src/app/shared/shared-service/toast-service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { LogService } from 'src/app/shared/shared-service/log.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+
 // import * as data from '../../shared/shared-service/countryList.json';
 
 @Component({
@@ -49,7 +51,9 @@ export class CreateExistingOrgComponent implements OnInit {
     private _toastService: ToastService,
     private routes: Router,
     private http: HttpClient,
-    private _logService: LogService
+    private _logService: LogService,
+    private spinner: NgxSpinnerService
+    
   ) {}
 
   ngOnInit() {
@@ -177,6 +181,7 @@ export class CreateExistingOrgComponent implements OnInit {
   getIPAddress() {
     this.http.get('http://api.ipify.org/?format=json').subscribe((res: any) => {
       this.log.ip_address = res.ip;
+      console.log("ip address inside create new organization", this.log.ip_address);
     });
   }
   onSubmit() {
@@ -213,14 +218,15 @@ export class CreateExistingOrgComponent implements OnInit {
         },
       };
       const log_details = {
-        ip_address: this.ipAddress,
         triggered_by: this.routes.url.split('?')[0],
         email_id: this.userEmail,
         user_id: this.user_id,
         time: this.current_time,
       };
-      this._userService.createOrganization(organization, log_details).subscribe(
+      this.spinner.show();
+      this._userService.createOrganization(organization).subscribe(
         (res: any) => {
+      this.spinner.hide();
           console.log('create organization res', res);
           this.log.event_type = 'Organization created';
           this.log.message = 'Organization created Successfully';
@@ -229,7 +235,7 @@ export class CreateExistingOrgComponent implements OnInit {
           });
 
           this._emitService.reloadOrganizationDetails('');
-          this._toastService.showToastr(
+          this._toastService.showSuccessToastr(
             'Organization created successfully',
             ''
           );
@@ -237,6 +243,17 @@ export class CreateExistingOrgComponent implements OnInit {
           this.activeModal.close();
         },
         (err: any) => {
+          console.log("error inside create new organization", err.error);
+          if(err.error == 'Validation error'){
+            this._toastService.showErrorToastr(
+              'Organization already exist',
+              ''
+            );
+            setTimeout(() => {
+              /** spinner ends after 5 seconds */
+              this.spinner.hide();
+            }, 3000);
+          }
           this.log.event_type = 'Organization not created';
           this.log.message = 'Failed to create organization';
           this._logService.createLog(this.log).subscribe((res: any) => {
@@ -274,7 +291,7 @@ export class CreateExistingOrgComponent implements OnInit {
       console.log('updateUser res', res);
       // this.activeModal.close();
 
-      this._toastService.showToastr(
+      this._toastService.showSuccessToastr(
         'Your request to join Organiaztion sent successfully',
         ''
       );

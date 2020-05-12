@@ -9,6 +9,7 @@ import { ToastService } from 'src/app/shared/shared-service/toast-service';
 import { CountryISO } from 'ngx-intl-tel-input';
 import { LogService } from 'src/app/shared/shared-service/log.service';
 import { HttpClient } from '@angular/common/http';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'organization', // tslint:disable-line
@@ -45,7 +46,8 @@ export class OrganizationComponent implements OnInit {
     private _userService: UserService,
     private _toastService: ToastService,
     private _logService: LogService,
-    private http: HttpClient
+    private http: HttpClient,
+    private spinner: NgxSpinnerService
   ) {
     this._emitService.listen().subscribe((m: any) => {
       console.log(m);
@@ -59,6 +61,7 @@ export class OrganizationComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.spinner.show();
     this.getIPAddress();
     console.log('CountryISO==', CountryISO.India);
     this.organizationForm = this.fb.group({
@@ -110,6 +113,7 @@ export class OrganizationComponent implements OnInit {
     this._userService
       .getUserOrganizationById(this.organization_id)
       .subscribe((res: any) => {
+        this.spinner.hide();
         console.log('org', res);
         this.userOrganizationInfo = res;
       });
@@ -190,9 +194,11 @@ export class OrganizationComponent implements OnInit {
           this.log.event_type = 'Organization updated';
           this.log.message = 'Organization updated successfully';
           console.log('this.log', this.log);
-          this._logService.createLog(this.log).subscribe((res: any) => {
-          });
-          this._toastService.showToastr('Organization update successfully', '');
+          this._logService.createLog(this.log).subscribe((res: any) => {});
+          this._toastService.showSuccessToastr(
+            'Organization update successfully',
+            ''
+          );
 
           // this.updateUser(res.organization_id);
           // this.activeModal.close();
@@ -200,8 +206,7 @@ export class OrganizationComponent implements OnInit {
         (err: any) => {
           this.log.event_type = 'Organization not updated';
           this.log.message = 'Failed to update organization';
-          this._logService.createLog(this.log).subscribe((res: any) => {
-          });
+          this._logService.createLog(this.log).subscribe((res: any) => {});
         }
       );
     }

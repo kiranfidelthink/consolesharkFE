@@ -5,6 +5,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { UserService } from 'src/app/shared/shared-service/user-service';
+import { NgxSpinnerService } from 'ngx-spinner';
+
 export interface PeriodicElement {
   id: string;
   time: string;
@@ -57,9 +59,10 @@ export class PaperTrailComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   tableData: any;
   todayData: Date;
-  constructor(private _userService: UserService) {}
+  constructor(private _userService: UserService, private spinner: NgxSpinnerService) {}
 
   ngOnInit() {
+    this.spinner.show();
     this.dataSource = new MatTableDataSource(); // create new object
     this.getPaperTrail(); // forgeted this line
     this.dataSource.paginator = this.paginator;
@@ -76,6 +79,7 @@ export class PaperTrailComponent implements OnInit {
  }
   getPaperTrail() {
     this._userService.getPaperTrailLog().subscribe((data: any) => {
+      this.spinner.hide();
       console.log(data);
       this.todayData = new Date()
       console.log('Laps');

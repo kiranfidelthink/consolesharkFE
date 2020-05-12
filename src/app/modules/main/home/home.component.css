@@ -1,3 +1,8 @@
 .bg-custom-dark{
     background-color: #2e323a;
 }
+.content-height{
+    max-height: 87vh;
+    overflow-y: scroll;
+}
+.content-height::-webkit-scrollbar { width: 0 !important }

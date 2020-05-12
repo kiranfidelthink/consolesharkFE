@@ -9,6 +9,8 @@ import { LogService } from 'src/app/shared/shared-service/log.service';
 import { HttpClient } from '@angular/common/http';
 import { CustomvalidationService } from 'src/app/shared/sharedService/customValidation.service';
 import { UserService } from 'src/app/shared/shared-service/user-service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastService } from 'src/app/shared/shared-service/toast-service';
 
 @Component({
   selector: 'app-login',
@@ -45,7 +47,10 @@ export class LoginComponent implements OnInit {
     private _logService: LogService,
     private http: HttpClient,
     private customValidator: CustomvalidationService,
-    private _userService: UserService
+    private _userService: UserService,
+    private spinner: NgxSpinnerService,
+    private _toastService: ToastService,
+
   ) {}
   msg;
   ngOnInit() {
@@ -77,24 +82,40 @@ export class LoginComponent implements OnInit {
   }
   onSubmit() {
     this.submitted = true;
+    this.spinner.show();
     this._auth.loginUser(this.loginForm.value).subscribe(
       (res: any) => {
+        this._toastService.showSuccessToastr(
+          'Login Successful',
+          ''
+        );
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 3000);
         console.log('res', res);
         this.log.event_type = 'Login Success';
         this.log.message = 'Authenticate Successfully';
         this.log.email = this.loginForm.value.email;
         console.log('this.log----', this.log);
-        this._logService.createLog(this.log).subscribe((res: any) => {
-        });
+        this._logService.createLog(this.log).subscribe((res: any) => {});
         localStorage.setItem('jwtToken', res.accessToken.jwtToken);
         localStorage.setItem('userEmail', res.idToken.payload.email);
         this.getCurrentUserDetails();
       },
       (err: any) => {
+        console.log("err in login", err.error)
+        this._toastService.showErrorToastr(
+          err.error,
+          ''
+        );
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 3000);
         this.log.event_type = 'Login Failure';
         this.log.message = 'Failed to authenticate correctly';
-        this._logService.createLog(this.log).subscribe((res: any) => {
-        });
+        this._logService.createLog(this.log).subscribe((res: any) => {});
       }
     );
   }
@@ -124,20 +145,17 @@ export class LoginComponent implements OnInit {
           this.getQueryParam = res.mfa_enabled;
           this.resendOTP();
         } else {
-          console.log("inside else in login component")
-          if(res.organization_id == null){
-            console.log("inside if of login with condition")
-            if(res.requests.length == 0){
+          console.log('inside else in login component');
+          if (res.organization_id == null) {
+            console.log('inside if of login with condition');
+            if (res.requests.length == 0) {
               this.routes.navigate(['/']);
-            }
-            else{
+            } else {
               this.routes.navigate(['/request-status']);
             }
-          }
-          else{
+          } else {
             this.routes.navigate(['/']);
           }
-
         }
       });
   }
@@ -170,8 +188,7 @@ export class LoginComponent implements OnInit {
       this.log.message = 'User mobile verified successfully';
       this.log.email = this.currentUserDetail.email;
       console.log('this.log', this.log);
-      this._logService.createLog(this.log).subscribe((res: any) => {
-      });
+      this._logService.createLog(this.log).subscribe((res: any) => {});
       this.routes.navigate(['dashboards']);
     });
     if (this.mobileVerificationForm.valid) {

@@ -53,6 +53,7 @@
         </div>
       </div>
     </div> -->
+    <ngx-spinner></ngx-spinner>
     <h4 class="py-3">
         Account settings
       </h4>
@@ -111,7 +112,7 @@
               </div>
               <div class="form-group">
                 <label class="form-label">Organization</label>
-                <input type="text" class="form-control" [disabled]="true">
+                <input type="text" class="form-control" [value]="currentUserData?.organization.company_name" [disabled]="true">
               </div>
             </div>
       
@@ -260,7 +261,7 @@
                     <td>{{userOrganizationInfo.id}}</td>
                   </tr>
                   <tr>
-                    <td class="td-left">Company Name</td>
+                    <td class="td-left">Organization Name</td>
                     <td>{{userOrganizationInfo.company_name}}</td>
                   </tr>
                   <tr>

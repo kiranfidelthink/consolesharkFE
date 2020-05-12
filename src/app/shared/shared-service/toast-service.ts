@@ -5,8 +5,11 @@ import { ToastrService } from 'ngx-toastr';
 export class ToastService {
  
   constructor(private toastr: ToastrService) {}
-  showToastr(title, message) {
+  showSuccessToastr(title, message) {
     this.toastr.success(title, message);
+  }
+  showErrorToastr(title, message) {
+    this.toastr.error(title, message);
   }
   
 }

@@ -14,7 +14,7 @@ import { ToastService } from 'src/app/shared/shared-service/toast-service';
 import { CountryISO } from 'ngx-intl-tel-input';
 import { LogService } from 'src/app/shared/shared-service/log.service';
 import { HttpClient } from '@angular/common/http';
-import { AuthService } from 'src/app/auth/auth.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'account-details', // tslint:disable-line
@@ -56,7 +56,8 @@ export class AccountDetailsComponent implements OnInit {
     private _userService: UserService,
     private _toastService: ToastService,
     private _logService: LogService,
-    private http: HttpClient
+    private http: HttpClient,
+    private spinner: NgxSpinnerService
   ) {
     this._emitService.listen().subscribe((m: any) => {
       console.log(m);
@@ -132,6 +133,7 @@ export class AccountDetailsComponent implements OnInit {
         ]),
       ],
     });
+    this.spinner.show();
     this.getUserDetailsOrg();
   }
   getIPAddress() {
@@ -159,8 +161,9 @@ export class AccountDetailsComponent implements OnInit {
     this._userService
       .getUserAndOrganization(this.userEmail)
       .subscribe((res: any) => {
+        this.spinner.hide();
         console.log('user details in account details component', res);
-        this.organization_id = res.organization_id
+        this.organization_id = res.organization_id;
         this.currentUserData = res;
         this.firstName = this.currentUserData.first_name;
         this.lastName = this.currentUserData.last_name;
@@ -169,11 +172,13 @@ export class AccountDetailsComponent implements OnInit {
   }
 
   showOrganization(organization_id) {
+    this.spinner.show();
     console.log('organization_id', organization_id);
     this.curTab = 'organization';
     this._userService
       .getUserOrganizationById(organization_id)
       .subscribe((res: any) => {
+        this.spinner.hide();
         console.log('org', res);
         this.userOrganizationInfo = res;
         console.log('userOrganizationInfo', this.userOrganizationInfo);
@@ -190,31 +195,38 @@ export class AccountDetailsComponent implements OnInit {
       };
       this._userService.updatePassword(password).subscribe(
         (res: any) => {
+          this.curTab = 'overview';
           console.log('updateUser res', res);
           this.log.event_type = 'Password update';
           this.log.message = 'Password update successfully';
           console.log('this.log', this.log);
-          this._logService.createLog(this.log).subscribe((res: any) => {
-          });
+          this._logService.createLog(this.log).subscribe((res: any) => {});
 
           this.updateUserDetail(this.updatePasswordForm.value.newPassword);
-          this._toastService.showToastr('User profile update successfully', '');
+          this._toastService.showSuccessToastr(
+            'User profile update successfully',
+            ''
+          );
         },
         (err: any) => {
           this.log.event_type = 'Password not updated';
           this.log.message = 'Failed to update password ';
-          this._logService.createLog(this.log).subscribe((res: any) => {
-          });
+          this._logService.createLog(this.log).subscribe((res: any) => {});
         }
       );
     }
   }
   updateUserDetail(newPassword) {
-    this._userService.updateUser(newPassword, localStorage.getItem('user_id')).subscribe((res: any) => {
-      console.log('updateUser res', res);
-      this._toastService.showToastr('User updated successfully', '');
-      this.routes.navigate(['/login']);
-    });
+    const user: any = {
+      password: newPassword,
+    };
+    this._userService
+      .updateUser(user, localStorage.getItem('user_id'))
+      .subscribe((res: any) => {
+        console.log('updateUser res', res);
+        this._toastService.showSuccessToastr('User updated successfully', '');
+        this.routes.navigate(['/login']);
+      });
   }
 
   onSubmitupdateUserOrganization() {
@@ -242,7 +254,10 @@ export class AccountDetailsComponent implements OnInit {
         .updateOrganization(organization)
         .subscribe((res: any) => {
           console.log('create organization res', res);
-          this._toastService.showToastr('Organization update successfully', '');
+          this._toastService.showSuccessToastr(
+            'Organization update successfully',
+            ''
+          );
         });
     }
   }
@@ -255,26 +270,30 @@ export class AccountDetailsComponent implements OnInit {
         last_name: this.updateUserForm.value.lastName,
         email: this.updateUserForm.value.email,
       };
-      this._userService.updateUser(user, localStorage.getItem('user_id')).subscribe(
-        (res) => {
-          this.log.event_type = 'Profile update';
-          this.log.message = 'Profile update  Successfully';
-          console.log('this.log', this.log);
-          this._logService.createLog(this.log).subscribe((res: any) => {
-          });
-          this._toastService.showToastr('Profile Updated successfully', '');
-        },
-        (err: any) => {
-          this.log.event_type = 'Profile not updated';
-          this.log.message = 'Failed to update user';
-          this._logService.createLog(this.log).subscribe((res: any) => {
-          });
-        }
-      );
+      this._userService
+        .updateUser(user, localStorage.getItem('user_id'))
+        .subscribe(
+          (res) => {
+            this.curTab = 'overview';
+            this.log.event_type = 'Profile update';
+            this.log.message = 'Profile update  Successfully';
+            console.log('this.log', this.log);
+            this._logService.createLog(this.log).subscribe((res: any) => {});
+            this._toastService.showSuccessToastr(
+              'Profile Updated successfully',
+              ''
+            );
+          },
+          (err: any) => {
+            this.log.event_type = 'Profile not updated';
+            this.log.message = 'Failed to update user';
+            this._logService.createLog(this.log).subscribe((res: any) => {});
+          }
+        );
     }
   }
   onSubmitMFAForm(currentUserData) {
-    const user:any = {
+    const user: any = {
       mfa_enabled: this.autoRenew.value,
       id: currentUserData.id,
       first_name: currentUserData.first_name,
@@ -286,8 +305,10 @@ export class AccountDetailsComponent implements OnInit {
       createdAt: currentUserData.updatedAt,
       organization_id: localStorage.getItem('organization_id'),
     };
-    this._userService.updateUser(user, localStorage.getItem('user_id')).subscribe((res) => {
-      console.log('res of MFA', res);
-    });
+    this._userService
+      .updateUser(user, localStorage.getItem('user_id'))
+      .subscribe((res) => {
+        console.log('res of MFA', res);
+      });
   }
 }

@@ -39,7 +39,7 @@ export class SidenavComponent implements OnInit {
   config = {
     paddingAtStart: true,
     interfaceWithRoute: true,
-    classname: 'min-vh-100 p-3',
+    classname: 'min-vh-custom p-3',
     listBackgroundColor: `#2f3337`,
     fontColor: `#9d9fa1`,
     backgroundColor: `#2f3337`,
@@ -50,13 +50,13 @@ export class SidenavComponent implements OnInit {
   };
   expandCollapseStatus = 'expand';
   appitems = [
-    {
-      label: 'Consoleshark',
-      imageIcon: '../../../assets/img/favicon_96x96.png',
-      link: 'https://dev.dashboard.consoleshark.com',
-      externalRedirect: true,
-      hrefTargetType: '_blank', // _blank|_self|_parent|_top|framename
-    },
+    // {
+    //   label: 'Consoleshark',
+    //   imageIcon: '../../../assets/img/favicon_96x96.png',
+    //   link: 'https://dev.dashboard.consoleshark.com',
+    //   externalRedirect: true,
+    //   hrefTargetType: '_blank', // _blank|_self|_parent|_top|framename
+    // },
     {
       label: 'Overview',
       disabled: true,

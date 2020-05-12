@@ -125,3 +125,13 @@ section .section-title {
 .modal-body{
   padding: 0rem 1rem;
 }
+.custom-control-label::after {
+  position: absolute;
+  top: .07rem;
+  left: -1.5rem;
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  content: "";
+  background: no-repeat 50%/50% 50%;
+}

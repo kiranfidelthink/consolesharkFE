@@ -13,6 +13,7 @@
   <!-- <toast-message-modal *ngIf="showToastMessage" [toastMessage]="messageForToast"></toast-message-modal> -->
   <div class="text-center text-muted mb-2">
     <h4 class="text-lighter">Register</h4>
+    <ngx-spinner></ngx-spinner>
   </div>
   <form class="form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
@@ -33,7 +34,7 @@
     </div>
     <div class="form-group d-grid">
       <label>Contact Number</label>
-      <ngx-intl-tel-input type="number" [searchCountryFlag]="true" [phoneValidation]="true" class="d-block" formControlName="contactNumber" [maxLength]="10" minlength="10"></ngx-intl-tel-input>
+      <ngx-intl-tel-input type="number" [searchCountryFlag]="true" [preferredCountries]="['us']" [phoneValidation]="true" class="d-block" formControlName="contactNumber" [maxLength]="10" minlength="10"></ngx-intl-tel-input>
       <!-- <ngx-intl-tel-input
     [cssClass]="control-form"
     [preferredCountries]="[]"
