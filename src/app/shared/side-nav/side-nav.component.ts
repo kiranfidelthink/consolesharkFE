@@ -105,7 +105,7 @@ export class SidenavComponent implements OnInit {
         },
         {
           label: 'Site Management',
-          link: '/',
+          link: '/host-management/site-management',
           activeIcon: 'favorite',
           expanded: true,
           navigationExtras: {

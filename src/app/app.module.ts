@@ -28,6 +28,7 @@ import { CreateExistingOrgComponent } from './modals/create-existing-org/create-
 import { LogService } from './shared/shared-service/log.service';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { HostManagementService } from './shared/shared-service/host-management-service';
 
 
 @NgModule({
@@ -59,7 +60,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
   // entryComponents:[
   //   RegisterModalComponent
   // ],
-  providers: [AuthGuard, SidenavService, AuthService, UserService, EmitService, ToastService, LogService],
+  providers: [AuthGuard, SidenavService, AuthService, UserService, EmitService, ToastService, LogService, HostManagementService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

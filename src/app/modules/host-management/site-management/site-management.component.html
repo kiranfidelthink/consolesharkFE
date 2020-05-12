@@ -1,0 +1,51 @@
+<ngx-spinner></ngx-spinner>
+<div class="row">
+  <div class="col-md-8">
+    <h4 class="py-3">
+      Paper Trail
+    </h4>
+  </div>
+  <div class="col-md-4">
+    <div class="text-right">
+      <button type="submit" class="btn btn-primary">Add New Site</button>
+    </div>
+  </div>
+</div>
+<div class="card ">
+  <div class="card-body">
+    <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8" class="w-100">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+      <ng-container matColumnDef="addressLineOne">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Address Line One</th>
+        <td mat-cell *matCellDef="let element"> {{element.addressLineOne}} </td>
+      </ng-container>
+      <ng-container matColumnDef="addressLineTwo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Address Line Two</th>
+        <td mat-cell *matCellDef="let element"> {{element.addressLineTwo}} </td>
+      </ng-container>
+      <ng-container matColumnDef="country">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Country</th>
+        <td mat-cell *matCellDef="let element"> {{element.country.name}} </td>
+      </ng-container>
+      <ng-container matColumnDef="city">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>City</th>
+        <td mat-cell *matCellDef="let element"> {{element.city.name}} </td>
+      </ng-container>
+      <ng-container matColumnDef="state">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>State</th>
+        <td mat-cell *matCellDef="let element"> {{element.state.name}} </td>
+      </ng-container>
+      <ng-container matColumnDef="zipCode">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>zip code</th>
+        <td mat-cell *matCellDef="let element"> {{element.zipCode}} </td>
+      </ng-container>
+      
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 15]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>
