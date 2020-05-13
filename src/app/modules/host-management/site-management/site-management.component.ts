@@ -6,8 +6,9 @@ import { MatSort } from '@angular/material/sort';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { HostManagementService } from 'src/app/shared/shared-service/host-management-service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AddNewSiteComponent } from 'src/app/modals/add-new-site/add-new-site.component';
+import { EditSiteComponent } from 'src/app/modals/edit-site/edit-site.component';
 import { EmitService } from 'src/app/shared/shared-service/emit-service';
+import { AddNewSiteComponent } from 'src/app/modals/add-new-site/add-new-site.component';
 
 export interface PeriodicElement {
   name: string;
@@ -16,7 +17,8 @@ export interface PeriodicElement {
   country: any;
   city: string;
   state: string;
-  zipCode: string
+  zipCode: string;
+  action: string;
 }
 
 @Component({
@@ -32,7 +34,8 @@ export class SiteManagementComponent implements OnInit {
     'country',
     'city',
     'state',
-    'zipCode'
+    'zipCode',
+    'action'
   ];
   dataSource: MatTableDataSource<PeriodicElement>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -78,5 +81,33 @@ export class SiteManagementComponent implements OnInit {
       keyboard: false,
       windowClass: 'myCustomModalClass',
     });
+  }
+  onEditSite(element){
+    console.log("On edit site", element)
+    const modalRef = this.modalService.open(EditSiteComponent, {
+      scrollable: true,
+      size:'lg',
+      backdrop: 'static',
+      keyboard: false,
+      windowClass: 'myCustomModalClass',
+    });
+    let data = {
+      siteInfo: element,
+    };
+
+    modalRef.componentInstance.fromSiteComponent = data;
+    // modalRef.result.then(
+    //   (result) => {
+        
+    //     console.log('result--', result);
+    //   },
+    //   (reason) => {
+    //     console.log('reason--', reason);
+
+    //   }
+    // );
+  }
+  onDeleteSite(element){
+    console.log("On delete site", element)
   }
 }

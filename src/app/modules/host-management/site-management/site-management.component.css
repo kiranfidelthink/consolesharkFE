@@ -27,10 +27,12 @@ td.mat-footer-cell,
 th.mat-header-cell {
   padding: 10px !important;
 }
-th{
+
+th {
   font-weight: 800 !important;
   font-size: 14px !important;
 }
+
 .consoleshark-severity {
   border-radius: 10px;
   padding: .2rem .5rem;
@@ -60,4 +62,20 @@ th{
   border-color: rgba(0, 0, 0, 0);
   background: #02BC77;
   color: #fff;
+}
+
+.action-btn {
+  padding: 5px;
+  border-radius: 3px;
+  color: white;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.edit-btn {
+  background-color: #339dd4;
+}
+
+.delete-btn {
+  background-color: #f44336;
 }

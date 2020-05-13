@@ -30,6 +30,7 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { HostManagementService } from './shared/shared-service/host-management-service';
 import { AddNewSiteComponent } from './modals/add-new-site/add-new-site.component';
+import { EditSiteComponent } from './modals/edit-site/edit-site.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { AddNewSiteComponent } from './modals/add-new-site/add-new-site.componen
     MobileVerifyComponent,
     // OrganizationModalComponent,
     CreateExistingOrgComponent,
-    AddNewSiteComponent
+    AddNewSiteComponent,
+    EditSiteComponent
     // ToastMessageComponent
   ],
   imports: [

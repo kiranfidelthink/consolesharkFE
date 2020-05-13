@@ -1,0 +1,87 @@
+<ngx-spinner></ngx-spinner>
+<div class="modal-header">
+  <div class="text-center w-100">
+    <img src="../../../assets/img/login-form-icon.png" class="w-15" alt="image" />
+  </div>
+  <button type="button" class="close" data-dismiss="modal" (click)="closeModal('dismiss')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body p-4">
+  <div class="text-center text-muted mb-2">
+    <h4 class="text-lighter">Edit Site</h4>
+    <ngx-spinner></ngx-spinner>
+  </div>
+  <form class="form" [formGroup]="updateSiteForm" (ngSubmit)="onUpdateSite()">
+    <div class="form-group">
+      <label>Site Name</label>
+      <input type="text" class="form-control" [ngModel]="siteDetails.siteInfo.name" formControlName="siteName">
+      <span class="text-danger"
+        *ngIf="(updateSiteFormControl.siteName.touched || submitted) && updateSiteFormControl.siteName.errors?.required">
+        Site Name is required
+      </span>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-6">
+          <label>Address Line 1</label>
+          <input type="text" class="form-control" [ngModel]="siteDetails.siteInfo.addressLineOne" formControlName="addressLineOne">
+          <span class="text-danger"
+            *ngIf="(updateSiteFormControl.addressLineOne.touched || submitted) && updateSiteFormControl.addressLineOne.errors?.required">
+            Address Line 1 is required
+          </span>
+        </div>
+        <div class="col-md-6">
+          <label>Address Line 2</label>
+          <input type="text" class="form-control" [ngModel]="siteDetails.siteInfo.addressLineTwo" formControlName="addressLineTwo">
+          <span class="text-danger"
+            *ngIf="(updateSiteFormControl.addressLineTwo.touched || submitted) && updateSiteFormControl.addressLineTwo.errors?.required">
+            Address Line 2 is required
+          </span>
+        </div>
+      </div>
+
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-6">
+          <label>City </label>
+          <input type="text" class="form-control" [ngModel]="siteDetails.siteInfo.city" formControlName="city">
+        </div>
+        <div class="col-md-6">
+          <label>State </label>
+          <input type="text" class="form-control" [ngModel]="siteDetails.siteInfo.state" formControlName="state">
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-6">
+          <label>Country </label>
+          <!-- <select class="form-control" formControlName="country">
+            <option value="" [disabled]="true">Select country</option>
+            <option *ngFor="let country of countries" [ngValue]="country">{{country.name}}</option>
+          </select> -->
+          <!-- <select  class="form-control" [(ngModel)]="selectedOption" formControlName="country">
+            <option 
+            *ngFor="let mes of countries"
+            [ngValue]="mes"
+           class="dropdown-item">{{mes.name}}</option>
+           </select> -->
+           <select class="form-control" [(ngModel)]="selectedOption" formControlName="country">
+            <option *ngFor="let item of countries" [ngValue]="item"
+              >{{item.name}}</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label>Zip Code </label>
+          <input type="text" class="form-control" [ngModel]="siteDetails.siteInfo.zipCode" formControlName="zipCode">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group text-right">
+      <button type="submit" [disabled]="updateSiteForm.status == 'INVALID'" class="btn btn-primary">Update Site</button>
+    </div>
+  </form>
+</div>
