@@ -1,0 +1,17 @@
+<div class="modal-header">
+</div>
+<div class="modal-body p-5">
+  <div class="text-center text-muted mb-4 mt-2">
+    <h5 class="text-lighter">Are you sure want to delete site : <strong>{{site.name}}</strong></h5>
+    <div class="row mt-5">
+      <div class="col-md-2 col-md-offset-2"></div>
+      <div class="col-md-4">
+        <button (click)="onConfirm(true)" type="button" class="btn btn-primary w-100">Yes</button>
+      </div>
+      <div class="col-md-4">
+        <button (click)="onConfirm(false)" type="button" class="btn btn-primary w-100">No</button>
+      </div>
+      <div class="col-md-2 col-md-offset-2"></div>
+    </div>
+  </div>
+</div>

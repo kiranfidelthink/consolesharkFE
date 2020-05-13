@@ -26,4 +26,13 @@ export class HostManagementService {
     // console.log('site insisde create site', site);
     // return this.http.post<SiteManagement>(`${this.baseUrl}create_Site`, site);
   }
+  deleteSite(site_id): Observable<SiteManagement> {
+    console.log("site id", site_id)
+    return this.http.delete<SiteManagement>(
+      `${this.baseUrl}delete_Site?Site_id=${site_id}`
+    );
+
+    // console.log('site insisde create site', site);
+    // return this.http.post<SiteManagement>(`${this.baseUrl}create_Site`, site);
+  }
 }

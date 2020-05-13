@@ -15,6 +15,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { SharedModule } from 'src/app/shared/shared.module';
 
 // *******************************************************************************
 //
@@ -32,7 +33,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
     MatPaginatorModule,
     MatSortModule,
     MatSlideToggleModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    SharedModule
   ],
   declarations: [
     SiteManagementComponent
