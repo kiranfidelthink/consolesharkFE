@@ -29,6 +29,7 @@ import { LogService } from './shared/shared-service/log.service';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { HostManagementService } from './shared/shared-service/host-management-service';
+import { AddNewSiteComponent } from './modals/add-new-site/add-new-site.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { HostManagementService } from './shared/shared-service/host-management-s
     ForgotPasswordModalComponent,
     MobileVerifyComponent,
     // OrganizationModalComponent,
-    CreateExistingOrgComponent
+    CreateExistingOrgComponent,
+    AddNewSiteComponent
     // ToastMessageComponent
   ],
   imports: [
