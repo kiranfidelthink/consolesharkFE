@@ -6,6 +6,6 @@ export class ManagedHosts {
     manufacture: string;
     model: string;
     status: string;
-    site_id: string;
+    Site_id: string;
   }
   

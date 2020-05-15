@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { EmitService } from 'src/app/shared/shared-service/emit-service';
@@ -11,12 +11,13 @@ import { HostManagementService } from 'src/app/shared/shared-service/host-manage
 // import * as data from '../../shared/shared-service/countryList.json';
 
 @Component({
-  selector: 'add-new-host-modal',
-  templateUrl: './add-new-host.component.html',
-  styleUrls: ['./add-new-host.component.css'],
+  selector: 'edit-managed-host-modal',
+  templateUrl: './edit-managed-host.component.html',
+  styleUrls: ['./edit-managed-host.component.css'],
 })
-export class AddNewHostComponent implements OnInit {
-  managedHostForm: FormGroup;
+export class EditManagedHostComponent implements OnInit {
+  @Input() fromManagedHostsComponent;
+  updateManagedHostForm: FormGroup;
   submitted = false;
   ipAddress = '';
   current_time: number;
@@ -31,6 +32,8 @@ export class AddNewHostComponent implements OnInit {
   data: any;
   userEmail: any;
   user_id: any;
+  hostDetails: any;
+  selectedOption: any;
   constructor(
     private fb: FormBuilder,
     public activeModal: NgbActiveModal,
@@ -43,10 +46,13 @@ export class AddNewHostComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.selectedOption = this.countries[0];
+    console.log('this.fromManagedHostsComponent', this.fromManagedHostsComponent);
+    this.hostDetails = this.fromManagedHostsComponent
     this.getIPAddress();
     const epochNow = new Date().getTime();
     this.current_time = epochNow;
-    this.managedHostForm = this.fb.group({
+    this.updateManagedHostForm = this.fb.group({
       hostName: ['', Validators.required],
       hostType: ['', Validators.required],
       description: ['', Validators.required],
@@ -54,12 +60,12 @@ export class AddNewHostComponent implements OnInit {
       manufacture: ['', Validators.required],
       model: ['', Validators.required],
       status: ['', Validators.required],
-      SiteId: ['', Validators.required]
+      siteId: ['', Validators.required],
     });
   }
 
-  get managedHostFormControl() {
-    return this.managedHostForm.controls;
+  get updateManagedHostFormControl() {
+    return this.updateManagedHostForm.controls;
   }
   getIPAddress() {
     this.http.get('http://api.ipify.org/?format=json').subscribe((res: any) => {
@@ -70,45 +76,40 @@ export class AddNewHostComponent implements OnInit {
       );
     });
   }
-  onSubmit() {
-    console.log('Insdie submit', this.managedHostForm.value);
-    console.log('this.managedHostForm', this.managedHostForm);
+  onUpdateHost() {
+    console.log('Insdie submit', this.updateManagedHostForm.value);
+    console.log('this.updateManagedHostForm', this.updateManagedHostForm);
 
     this.submitted = true;
-    if (this.managedHostForm.valid) {
-      const managedHosts = {
-        host_name: this.managedHostForm.value.hostName,
-        host_type: this.managedHostForm.value.hostType,
-        description: this.managedHostForm.value.description,
-        serial_number: this.managedHostForm.value.serialNumber,
-        manufacture: this.managedHostForm.value.manufacture,
-        model: this.managedHostForm.value.model,
-        status: this.managedHostForm.value.status,
-        Site_id: this.managedHostForm.value.SiteId
+    if (this.updateManagedHostForm.valid) {
+      const hostDetails = {
+        host_name: this.updateManagedHostForm.value.hostName,
+        host_type: this.updateManagedHostForm.value.hostType,
+        description: this.updateManagedHostForm.value.description,
+        serial_number: this.updateManagedHostForm.value.serialNumber,
+        manufacture: this.updateManagedHostForm.value.manufacture,
+        model: this.updateManagedHostForm.value.model,
+        status: this.updateManagedHostForm.value.status,
+        Site_id: this.updateManagedHostForm.value.siteId
       };
-      // const log_details = {
-      //   triggered_by: this.routes.url.split('?')[0],
-      //   email_id: this.userEmail,
-      //   user_id: this.user_id,
-      //   time: this.current_time,
-      // };
       this.spinner.show();
-      this._hostManagementService.createHost(managedHosts).subscribe(
+      this._hostManagementService.updateHost(hostDetails, this.hostDetails.managedHostsInfo.id).subscribe(
         (res: any) => {
           this.spinner.hide();
           console.log('create Host res', res);
-          this.log.event_type = 'Host created';
-          this.log.message = 'Host created Successfully';
+          this.log.event_type = 'Host updated';
+          this.log.message = 'Host updated Successfully';
           console.log('this.log', this.log);
           this._logService.createLog(this.log).subscribe((res: any) => {});
           this._emitService.reloadOrganizationDetails('');
           this._toastService.showSuccessToastr(
-            'Host created successfully',
+            'Host updated successfully',
             ''
           );
           this.activeModal.close();
         },
         (err: any) => {
+          console.log('error inside create new Host', err.error);
           if(err.error == 'insert or update on table "host" violates foreign key constraint "host_Site_id_fkey"'){
             this._toastService.showErrorToastr('Invalid Site Id','');
             setTimeout(() => {
@@ -116,8 +117,6 @@ export class AddNewHostComponent implements OnInit {
               this.spinner.hide();
             }, 3000);
           }
-          console.log('error inside create new Host', err.error);
-          console.log('error inside create new Host', err);
           if (err.error == 'Validation error') {
             this._toastService.showErrorToastr(
               'Host already exist',
@@ -128,7 +127,7 @@ export class AddNewHostComponent implements OnInit {
               this.spinner.hide();
             }, 3000);
           }
-          this.log.event_type = 'Host not created';
+          this.log.event_type = 'Host not updated';
           this.log.message = 'Failed to create Host';
           this._logService.createLog(this.log).subscribe((res: any) => {});
         }

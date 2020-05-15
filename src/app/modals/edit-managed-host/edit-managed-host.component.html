@@ -1,0 +1,99 @@
+<ngx-spinner></ngx-spinner>
+<div class="modal-header">
+  <div class="text-center w-100">
+    <img src="../../../assets/img/login-form-icon.png" class="w-15" alt="image" />
+  </div>
+  <button type="button" class="close" data-dismiss="modal" (click)="closeModal('dismiss')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body p-4">
+  <div class="text-center text-muted mb-2">
+    <h4 class="text-lighter">Edit Managed Host</h4>
+  </div>
+  <form class="form" [formGroup]="updateManagedHostForm" (ngSubmit)="onUpdateHost()">
+    <div class="form-group">
+      <label>Host Name</label>
+      <input type="text" class="form-control" [ngModel]="hostDetails.managedHostsInfo.host_name" formControlName="hostName">
+      <span class="text-danger"
+        *ngIf="(updateManagedHostFormControl.hostName.touched || submitted) && updateManagedHostFormControl.hostName.errors?.required">
+        Host Name is required
+      </span>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-6">
+          <label>Host Type</label>
+          <input type="text" class="form-control" [ngModel]="hostDetails.managedHostsInfo.host_type" formControlName="hostType">
+          <span class="text-danger"
+            *ngIf="(updateManagedHostFormControl.hostType.touched || submitted) && updateManagedHostFormControl.hostType.errors?.required">
+            Host Type is required
+          </span>
+        </div>
+        <div class="col-md-6">
+          <label>Description</label>
+          <input type="text" class="form-control" [ngModel]="hostDetails.managedHostsInfo.description"  formControlName="description">
+          <span class="text-danger"
+            *ngIf="(updateManagedHostFormControl.description.touched || submitted) && updateManagedHostFormControl.description.errors?.required">
+            Description is required
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-6">
+          <label>Serial Number</label>
+          <input type="text" class="form-control" [ngModel]="hostDetails.managedHostsInfo.serial_number" formControlName="serialNumber">
+          <span class="text-danger"
+            *ngIf="(updateManagedHostFormControl.serialNumber.touched || submitted) && updateManagedHostFormControl.serialNumber.errors?.required">
+            Serial Number is required
+          </span>
+        </div>
+        <div class="col-md-6">
+          <label>Manufacture</label>
+          <input type="text" class="form-control" [ngModel]="hostDetails.managedHostsInfo.manufacture"  formControlName="manufacture">
+          <span class="text-danger"
+            *ngIf="(updateManagedHostFormControl.manufacture.touched || submitted) && updateManagedHostFormControl.manufacture.errors?.required">
+            Manufacture is required
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-6">
+          <label>Model</label>
+          <input type="text" class="form-control" [ngModel]="hostDetails.managedHostsInfo.model" formControlName="model">
+          <span class="text-danger"
+            *ngIf="(updateManagedHostFormControl.model.touched || submitted) && updateManagedHostFormControl.model.errors?.required">
+            Model is required
+          </span>
+        </div>
+        <div class="col-md-6">
+          <label>Status</label>
+          <input type="text" class="form-control" [ngModel]="hostDetails.managedHostsInfo.status"  formControlName="status">
+          <span class="text-danger"
+            *ngIf="(updateManagedHostFormControl.status.touched || submitted) && updateManagedHostFormControl.status.errors?.required">
+            Status is required
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-6">
+          <label>Site Id</label>
+          <input type="text" class="form-control" [ngModel]="hostDetails.managedHostsInfo.Site_id" formControlName="siteId">
+          <span class="text-danger"
+            *ngIf="(updateManagedHostFormControl.siteId.touched || submitted) && updateManagedHostFormControl.siteId.errors?.required">
+            Site Id is required
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group text-right">
+      <button type="submit" [disabled]="updateManagedHostForm.status == 'INVALID'" class="btn btn-primary">Update Host</button>
+    </div>
+  </form>
+</div>

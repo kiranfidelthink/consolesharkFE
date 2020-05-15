@@ -6,13 +6,13 @@ import { MatSort } from '@angular/material/sort';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { HostManagementService } from 'src/app/shared/shared-service/host-management-service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { EditSiteComponent } from 'src/app/modals/edit-site/edit-site.component';
 import { EmitService } from 'src/app/shared/shared-service/emit-service';
 import { ConfirmDialogCOmponent } from 'src/app/modals/confirm-dialog/confirm-dialog.component';
 import { ToastService } from 'src/app/shared/shared-service/toast-service';
 import { LogService } from 'src/app/shared/shared-service/log.service';
 import { HttpClient } from '@angular/common/http';
 import { AddNewHostComponent } from 'src/app/modals/add-new-host/add-new-host.component';
+import { EditManagedHostComponent } from 'src/app/modals/edit-managed-host/edit-managed-host.component';
 
 export interface PeriodicElement {
   host_name: string;
@@ -108,7 +108,7 @@ export class ManagedHostsComponent implements OnInit {
   }
   onEditManagedHosts(element) {
     console.log('On edit managed hosts', element);
-    const modalRef = this.modalService.open(EditSiteComponent, {
+    const modalRef = this.modalService.open(EditManagedHostComponent, {
       scrollable: true,
       size: 'lg',
       backdrop: 'static',

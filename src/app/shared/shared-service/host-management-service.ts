@@ -44,4 +44,15 @@ export class HostManagementService {
     console.log('host insisde create host', host);
     return this.http.post<ManagedHosts>(`${this.baseUrl}create_Host`, host);
   }
+  updateHost(host: ManagedHosts, host_id): Observable<ManagedHosts> {
+    console.log('user inside host management service update site', host);
+    // this.host_id = localStorage.getItem('host_id');
+    return this.http.patch<ManagedHosts>(
+      `${this.baseUrl}update_Host?Host_id=${host_id}`,
+      host
+    );
+
+    // console.log('site insisde create site', site);
+    // return this.http.post<SiteManagement>(`${this.baseUrl}create_Site`, site);
+  }
 }
