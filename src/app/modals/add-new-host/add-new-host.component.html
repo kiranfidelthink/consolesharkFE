@@ -1,0 +1,101 @@
+<ngx-spinner></ngx-spinner>
+<div class="modal-header">
+  <div class="text-center w-100">
+    <img src="../../../assets/img/login-form-icon.png" class="w-15" alt="image" />
+  </div>
+  <button type="button" class="close" data-dismiss="modal" (click)="closeModal('dismiss')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body p-4">
+  <div class="text-center text-muted mb-2">
+    <h4 class="text-lighter">Add New Host</h4>
+  </div>
+  <form class="form" [formGroup]="managedHostForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>Host Name</label>
+      <input type="text" class="form-control" formControlName="hostName">
+      <span class="text-danger"
+        *ngIf="(managedHostFormControl.hostName.touched || submitted) && managedHostFormControl.hostName.errors?.required">
+        Host Name is required
+      </span>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-6">
+          <label>Host Type</label>
+          <input type="text" class="form-control" formControlName="hostType">
+          <span class="text-danger"
+            *ngIf="(managedHostFormControl.hostType.touched || submitted) && managedHostFormControl.hostType.errors?.required">
+            Host Type is required
+          </span>
+        </div>
+        <div class="col-md-6">
+          <label>Description</label>
+          <input type="text" class="form-control" formControlName="description">
+          <span class="text-danger"
+            *ngIf="(managedHostFormControl.description.touched || submitted) && managedHostFormControl.description.errors?.required">
+            Description is required
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-6">
+          <label>Serial Number</label>
+          <input type="text" class="form-control" formControlName="serialNumber">
+          <span class="text-danger"
+            *ngIf="(managedHostFormControl.serialNumber.touched || submitted) && managedHostFormControl.serialNumber.errors?.required">
+            Serial Number is required
+          </span>
+        </div>
+        <div class="col-md-6">
+          <label>Manufacture</label>
+          <input type="text" class="form-control" formControlName="manufacture">
+          <span class="text-danger"
+            *ngIf="(managedHostFormControl.manufacture.touched || submitted) && managedHostFormControl.manufacture.errors?.required">
+            Manufacture is required
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-6">
+          <label>Model</label>
+          <input type="text" class="form-control" formControlName="model">
+          <span class="text-danger"
+            *ngIf="(managedHostFormControl.model.touched || submitted) && managedHostFormControl.model.errors?.required">
+            Model is required
+          </span>
+        </div>
+        <div class="col-md-6">
+          <label>Status</label>
+          <input type="text" class="form-control" formControlName="status">
+          <span class="text-danger"
+            *ngIf="(managedHostFormControl.status.touched || submitted) && managedHostFormControl.status.errors?.required">
+            Status is required
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-6">
+          <label>Site Id</label>
+          <input type="text" class="form-control" formControlName="SiteId">
+          <span class="text-danger"
+            *ngIf="(managedHostFormControl.SiteId.touched || submitted) && managedHostFormControl.SiteId.errors?.required">
+            Site Id is required
+          </span>
+        </div>
+        
+      </div>
+    </div>
+
+    <div class="form-group text-right">
+      <button type="submit" [disabled]="managedHostForm.status == 'INVALID'" class="btn btn-primary">Add Host</button>
+    </div>
+  </form>
+</div>

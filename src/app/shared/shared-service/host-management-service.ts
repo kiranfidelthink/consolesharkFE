@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { SiteManagement } from '../../models/site-management';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { ManagedHosts } from 'src/app/models/managed-hosts';
 @Injectable()
 export class HostManagementService {
   baseUrl: string = environment.baseUrl;
@@ -34,5 +35,13 @@ export class HostManagementService {
 
     // console.log('site insisde create site', site);
     // return this.http.post<SiteManagement>(`${this.baseUrl}create_Site`, site);
+  }
+
+  getManagedHosts(): Observable<SiteManagement> {
+    return this.http.get<SiteManagement>(`${this.baseUrl}get_Hosts`);
+  }
+  createHost(host: ManagedHosts): Observable<ManagedHosts> {
+    console.log('host insisde create host', host);
+    return this.http.post<ManagedHosts>(`${this.baseUrl}create_Host`, host);
   }
 }

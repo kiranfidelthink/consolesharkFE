@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { SiteManagementComponent } from './site-management/site-management.component';
+import { ManagedHostsComponent } from './managed-hosts/managed-hosts.component';
 
 
 
@@ -10,7 +11,8 @@ import { SiteManagementComponent } from './site-management/site-management.compo
 
 @NgModule({
   imports: [RouterModule.forChild([
-    { path: 'site-management', component: SiteManagementComponent }
+    { path: 'site-management', component: SiteManagementComponent },
+    { path: 'managed-hosts', component: ManagedHostsComponent }
   ])],
   exports: [RouterModule]
 })

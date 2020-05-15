@@ -16,6 +16,7 @@ import { MatSortModule } from '@angular/material/sort'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ManagedHostsComponent } from './managed-hosts/managed-hosts.component';
 
 // *******************************************************************************
 //
@@ -37,7 +38,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     SharedModule
   ],
   declarations: [
-    SiteManagementComponent
+    SiteManagementComponent,
+    ManagedHostsComponent
   ]
 })
 export class HostManagementModule { }

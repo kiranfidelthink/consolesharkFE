@@ -99,7 +99,7 @@ export class SidenavComponent implements OnInit {
       items: [
         {
           label: 'Managed Host',
-          link: '/',
+          link: '/host-management/managed-hosts',
           activeIcon: 'favorite',
           expanded: true,
         },

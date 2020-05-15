@@ -33,6 +33,7 @@ import { AddNewSiteComponent } from './modals/add-new-site/add-new-site.componen
 import { EditSiteComponent } from './modals/edit-site/edit-site.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDialogCOmponent } from './modals/confirm-dialog/confirm-dialog.component';
+import { AddNewHostComponent } from './modals/add-new-host/add-new-host.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { ConfirmDialogCOmponent } from './modals/confirm-dialog/confirm-dialog.c
     CreateExistingOrgComponent,
     AddNewSiteComponent,
     EditSiteComponent,
+    AddNewHostComponent,
     ConfirmDialogCOmponent,
     // ToastMessageComponent
   ],
