@@ -17,7 +17,6 @@ import { EditManagedHostComponent } from 'src/app/modals/edit-managed-host/edit-
 export interface PeriodicElement {
   host_name: string;
   host_type: string;
-  description: string;
   serial_number: any;
   manufacture: string;
   model: string;
@@ -34,7 +33,6 @@ export class ManagedHostsComponent implements OnInit {
   displayedColumns: string[] = [
     'host_name',
     'host_type',
-    'description',
     'serial_number',
     'manufacture',
     'model',

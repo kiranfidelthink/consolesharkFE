@@ -49,7 +49,7 @@ export class AddNewHostComponent implements OnInit {
     this.managedHostForm = this.fb.group({
       hostName: ['', Validators.required],
       hostType: ['', Validators.required],
-      description: ['', Validators.required],
+      // description: ['', Validators.required],
       serialNumber: ['', Validators.required],
       manufacture: ['', Validators.required],
       model: ['', Validators.required],
@@ -79,7 +79,7 @@ export class AddNewHostComponent implements OnInit {
       const managedHosts = {
         host_name: this.managedHostForm.value.hostName,
         host_type: this.managedHostForm.value.hostType,
-        description: this.managedHostForm.value.description,
+        // description: this.managedHostForm.value.description,
         serial_number: this.managedHostForm.value.serialNumber,
         manufacture: this.managedHostForm.value.manufacture,
         model: this.managedHostForm.value.model,

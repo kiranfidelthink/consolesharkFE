@@ -1,7 +1,7 @@
 export class ManagedHosts {
     host_name: string;
     host_type: string;
-    description: string;
+    // description: string;
     serial_number: string;
     manufacture: string;
     model: string;
