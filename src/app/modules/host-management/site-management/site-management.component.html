@@ -15,40 +15,59 @@
   <div class="card-body">
     <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8" class="w-100">
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Site Name</th>
         <td mat-cell *matCellDef="let element"> {{element.name}} </td>
       </ng-container>
-      <ng-container matColumnDef="addressLineOne">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Address Line One</th>
-        <td mat-cell *matCellDef="let element"> {{element.addressLineOne}} </td>
+      <ng-container matColumnDef="site_address">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Site Address</th>
+        <td mat-cell *matCellDef="let element">
+          {{element.addressLineOne}}
+          <br>{{element.addressLineTwo}}
+          <br>{{element.city}}
+          <br>{{element.country.name}}
+        </td>
       </ng-container>
-      <ng-container matColumnDef="addressLineTwo">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Address Line Two</th>
-        <td mat-cell *matCellDef="let element"> {{element.addressLineTwo}} </td>
+      <ng-container matColumnDef="site_contact">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Site Contact</th>
+        <td mat-cell *matCellDef="let element">
+          <i class="fa fa-user pr-1"></i> {{element.site_contact.name}}<br>
+          <i class="fa fa-tags pr-1"></i> {{element.site_contact.position}}<br>
+          <i class="fa fa-phone pr-1"></i> {{element.site_contact.phone.internationalNumber}}
+        </td>
       </ng-container>
-      <ng-container matColumnDef="country">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Country</th>
-        <td mat-cell *matCellDef="let element"> {{element.country.name}} </td>
+      <ng-container matColumnDef="hours_of_operation">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Hours of Operation</th>
+        <td mat-cell *matCellDef="let element">
+          Monday - Friday: {{element.start_time}} -
+          {{element.end_time}}<br>
+          Saturday - Sunday: Closed
+        </td>
       </ng-container>
-      <ng-container matColumnDef="city">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>City</th>
-        <td mat-cell *matCellDef="let element"> {{element.city}} </td>
+      <ng-container matColumnDef="lat_lng">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Latitude<br>Longitude</th>
+        <td mat-cell *matCellDef="let element">
+          {{element.latitude}} "N<br>
+          {{element.longitude}} "N
+        </td>
       </ng-container>
-      <ng-container matColumnDef="state">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>State</th>
-        <td mat-cell *matCellDef="let element"> {{element.state}} </td>
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Created</th>
+        <td mat-cell *matCellDef="let element"> {{element.createdAt | date :'MMMM d, y, h:mm:ss'}} </td>
       </ng-container>
-      <ng-container matColumnDef="zipCode">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>zip code</th>
-        <td mat-cell *matCellDef="let element"> {{element.zipCode}} </td>
+      <ng-container matColumnDef="lastModified">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>last Modified</th>
+        <td mat-cell *matCellDef="let element"> 
+        <div *ngIf="element.createdAt == element.updatedAt">Never</div>  
+        <div *ngIf="element.createdAt != element.updatedAt">{{element.updatedAt| date :'MMMM d, y, h:mm:ss'}}</div>  
+        </td>
       </ng-container>
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
         <td mat-cell *matCellDef="let element">
           <span class="edit-btn action-btn" (click)="onEditSite(element)"><i class="fa fa-pencil"
-            aria-hidden="true"></i></span>
-          <span class="delete-btn  action-btn" (click)="onDeleteSite(element)" ><i class="fa fa-trash"
-            aria-hidden="true"></i></span> </td>
+              aria-hidden="true"></i></span>
+          <span class="delete-btn  action-btn" (click)="onDeleteSite(element)"><i class="fa fa-trash"
+              aria-hidden="true"></i></span> </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

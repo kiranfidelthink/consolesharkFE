@@ -5,6 +5,10 @@ export class SiteManagement {
     country: any;
     state: any;
     city: any;
-    zipCode: string;
+    zipCode: any;
+    start_time: any;
+    end_time: any;
+    latitude: string;
+    longitude: string;
   }
   

@@ -16,12 +16,12 @@ import { HttpClient } from '@angular/common/http';
 
 export interface PeriodicElement {
   name: string;
-  addressLineOne: string;
-  addressLineTwo: string;
-  country: any;
-  city: string;
-  state: string;
-  zipCode: string;
+  site_address: string;
+  site_contact: any;
+  hours_of_operation: string;
+  lat_lng: string;
+  createdAt: string;
+  lastModified: string
   action: string;
 }
 
@@ -33,12 +33,12 @@ export interface PeriodicElement {
 export class SiteManagementComponent implements OnInit {
   displayedColumns: string[] = [
     'name',
-    'addressLineOne',
-    'addressLineTwo',
-    'country',
-    'city',
-    'state',
-    'zipCode',
+    'site_address',
+    'site_contact',
+    'hours_of_operation',
+    'lat_lng',
+    'createdAt',
+    'lastModified',
     'action',
   ];
   log: any = {
@@ -73,7 +73,7 @@ export class SiteManagementComponent implements OnInit {
 
   ngOnInit() {
     this.getIPAddress();
-    this.spinner.show();
+    // this.spinner.show();
     this.dataSource = new MatTableDataSource();
     this.getSites();
     this.dataSource.paginator = this.paginator;

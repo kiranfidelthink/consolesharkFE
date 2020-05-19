@@ -78,7 +78,55 @@
         </div>
       </div>
     </div>
-
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-4">
+          <label>Name </label>
+          <input type="text" class="form-control" [ngModel]="siteDetails.siteInfo.site_contact.name" formControlName="sitePersonName">
+        </div>
+        <div class="col-md-4">
+          <label>Contact Number </label>
+          <ngx-intl-tel-input type="number" [searchCountryFlag]="true"
+                  [preferredCountries]="[siteDetails.siteInfo.site_contact?.phone.countryCode | lowercase]"
+                  [phoneValidation]="true" class="d-block" [ngModel]="siteDetails.siteInfo.site_contact?.phone.number"
+                  formControlName="sitePersonContactNumber" [maxLength]="10" minlength="10"></ngx-intl-tel-input>
+        </div>
+        <div class="col-md-4">
+          <label>Position </label>
+          <input type="text" class="form-control" [ngModel]="siteDetails.siteInfo.site_contact.position" formControlName="sitePersonposition">
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-6">
+          <label>Latitude </label>
+          <input type="text" class="form-control" [ngModel]="siteDetails.siteInfo.latitude" formControlName="latitude">
+        </div>
+        <div class="col-md-6">
+          <label>Longitude</label>
+          <input type="text" class="form-control" [ngModel]="siteDetails.siteInfo.longitude" formControlName="longitude">
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-6">
+          <label>Start Time </label>
+          <!-- <input class="form-control" [ngModel] ="siteDetails.siteInfo.start_time | date:'h:mm'" [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" formControlName="startDate">
+          <owl-date-time [pickerType]="'timer'" #dt4></owl-date-time> -->
+          <input placeholder="{{siteDetails.siteInfo.start_time}}" formControlName="startDate" class="form-control" aria-label="24hr format" [ngxTimepicker]="start_time" [format]="24" [(ngModel)]="siteDetails.siteInfo.start_time" readonly>
+            <ngx-material-timepicker #start_time></ngx-material-timepicker>
+        </div>
+        <div class="col-md-6">
+          <label>End Time </label>
+          <!-- <input class="form-control" [owlDateTimeTrigger]="dt5" [owlDateTime]="dt5" formControlName="endDate">
+          <owl-date-time [pickerType]="'timer'" #dt5></owl-date-time> -->
+          <input placeholder="{{siteDetails.siteInfo.end_time}}" formControlName="endDate" class="form-control" aria-label="24hr format" [ngxTimepicker]="end_time" [format]="24" [(ngModel)]="siteDetails.siteInfo.end_time" readonly>
+            <ngx-material-timepicker #end_time></ngx-material-timepicker>
+        </div>
+      </div>
+    </div>
     <div class="form-group text-right">
       <button type="submit" [disabled]="updateSiteForm.status == 'INVALID'" class="btn btn-primary">Update Site</button>
     </div>

@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { LogService } from 'src/app/shared/shared-service/log.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { HostManagementService } from 'src/app/shared/shared-service/host-management-service';
+import { CustomvalidationService } from 'src/app/shared/sharedService/customValidation.service';
 
 // import * as data from '../../shared/shared-service/countryList.json';
 
@@ -34,6 +35,11 @@ export class EditSiteComponent implements OnInit {
   user_id: any;
   siteDetails: any;
   selectedOption: any;
+  public min = new Date(2018, 3, 12, 10, 30);
+  public max = new Date(2018, 3, 25, 20, 30);
+  invalidDateTime1: Date;
+  // public invalidDateTime1 = new Date(2018, 3, 26, 20, 30);
+
   constructor(
     private fb: FormBuilder,
     public activeModal: NgbActiveModal,
@@ -42,13 +48,15 @@ export class EditSiteComponent implements OnInit {
     private _toastService: ToastService,
     private http: HttpClient,
     private _logService: LogService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private customValidator: CustomvalidationService
   ) {}
 
   ngOnInit() {
     this.selectedOption = this.countries[0];
     console.log('this.fromSiteComponent', this.fromSiteComponent);
     this.siteDetails = this.fromSiteComponent
+  this.invalidDateTime1 = new Date(this.siteDetails.siteInfo.start_time);
     this.getIPAddress();
     const epochNow = new Date().getTime();
     this.current_time = epochNow;
@@ -59,7 +67,20 @@ export class EditSiteComponent implements OnInit {
       country: ['', Validators.required],
       state: ['', Validators.required],
       city: ['', Validators.required],
-      zipCode: ['', Validators.required]
+      zipCode: ['', Validators.required],
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
+      sitePersonName: ['', Validators.required],
+      sitePersonposition: ['', Validators.required],
+      latitude: ['', Validators.required],
+      longitude: ['', Validators.required],
+      sitePersonContactNumber: [
+        '',
+        Validators.compose([
+          Validators.required,
+          this.customValidator.contactPatternValidator(),
+        ]),
+      ],
     });
   }
 
@@ -88,7 +109,16 @@ export class EditSiteComponent implements OnInit {
         country: this.updateSiteForm.value.country,
         state: this.updateSiteForm.value.state,
         city: this.updateSiteForm.value.city,
-        zipCode: this.updateSiteForm.value.zipCode
+        zipCode: this.updateSiteForm.value.zipCode,
+        site_contact:{
+          phone:this.updateSiteForm.value.sitePersonContactNumber,
+          name:this.updateSiteForm.value.sitePersonName,
+          position:this.updateSiteForm.value.sitePersonposition
+        },
+        start_time: this.updateSiteForm.value.startDate,
+        end_time: this.updateSiteForm.value.endDate,
+        latitude: this.updateSiteForm.value.latitude,
+        longitude: this.updateSiteForm.value.longitude
       };
       this.spinner.show();
       this._hostManagementService.updateSite(siteDetails, this.siteDetails.siteInfo.id).subscribe(

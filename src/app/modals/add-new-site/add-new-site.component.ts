@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { LogService } from 'src/app/shared/shared-service/log.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { HostManagementService } from 'src/app/shared/shared-service/host-management-service';
+import { CustomvalidationService } from 'src/app/shared/sharedService/customValidation.service';
 
 // import * as data from '../../shared/shared-service/countryList.json';
 
@@ -31,6 +32,7 @@ export class AddNewSiteComponent implements OnInit {
   data: any;
   userEmail: any;
   user_id: any;
+  time = {hour: 13, minute: 30};
   constructor(
     private fb: FormBuilder,
     public activeModal: NgbActiveModal,
@@ -39,7 +41,8 @@ export class AddNewSiteComponent implements OnInit {
     private _toastService: ToastService,
     private http: HttpClient,
     private _logService: LogService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private customValidator: CustomvalidationService,
   ) {}
 
   ngOnInit() {
@@ -53,7 +56,20 @@ export class AddNewSiteComponent implements OnInit {
       country: ['', Validators.required],
       state: ['', Validators.required],
       city: ['', Validators.required],
-      zipCode: ['', Validators.required]
+      zipCode: ['', Validators.required],
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
+      sitePersonName: ['', Validators.required],
+      sitePersonposition: ['', Validators.required],
+      latitude: ['', Validators.required],
+      longitude: ['', Validators.required],
+      sitePersonContactNumber: [
+        '',
+        Validators.compose([
+          Validators.required,
+          this.customValidator.contactPatternValidator(),
+        ]),
+      ],
     });
   }
 
@@ -82,7 +98,18 @@ export class AddNewSiteComponent implements OnInit {
         country: this.siteForm.value.country,
         state: this.siteForm.value.state,
         city: this.siteForm.value.city,
-        zipCode: this.siteForm.value.zipCode
+        zipCode: this.siteForm.value.zipCode,
+        site_contact:{
+          phone:this.siteForm.value.sitePersonContactNumber,
+          name:this.siteForm.value.sitePersonName,
+          position:this.siteForm.value.sitePersonposition
+        },
+        start_time: this.siteForm.value.startDate,
+        end_time: this.siteForm.value.endDate,
+        // start_time: Math.round(new Date(this.siteForm.value.startDate).getTime()/1000),
+        // end_time: Math.round(new Date(this.siteForm.value.endDate).getTime()/1000),
+        latitude: this.siteForm.value.latitude,
+        longitude: this.siteForm.value.longitude
       };
       // const log_details = {
       //   triggered_by: this.routes.url.split('?')[0],

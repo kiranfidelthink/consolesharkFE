@@ -135,3 +135,7 @@ section .section-title {
   content: "";
   background: no-repeat 50%/50% 50%;
 }
+ngx-material-timepicker-container{
+  position: absolute;
+  z-index: 9999999;
+}

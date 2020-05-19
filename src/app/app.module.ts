@@ -35,7 +35,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDialogCOmponent } from './modals/confirm-dialog/confirm-dialog.component';
 import { AddNewHostComponent } from './modals/add-new-host/add-new-host.component';
 import { EditManagedHostComponent } from './modals/edit-managed-host/edit-managed-host.component';
-
+import { IgxTimePickerModule } from 'igniteui-angular';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,6 +69,10 @@ import { EditManagedHostComponent } from './modals/edit-managed-host/edit-manage
     BrowserAnimationsModule,
     NgxSpinnerModule,
     MatDialogModule,
+    IgxTimePickerModule,
+    NgxMaterialTimepickerModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule
   ],
   // entryComponents:[
   //   RegisterModalComponent

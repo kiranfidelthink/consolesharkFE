@@ -68,6 +68,56 @@
         </div>
       </div>
     </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-4">
+          <label>Name </label>
+          <input type="text" class="form-control" formControlName="sitePersonName">
+        </div>
+        <div class="col-md-4">
+          <label>Contact Number </label>
+          <ngx-intl-tel-input type="number" [searchCountryFlag]="true" [preferredCountries]="['us']" [phoneValidation]="true" class="d-block" formControlName="sitePersonContactNumber" [maxLength]="10" minlength="10"></ngx-intl-tel-input>
+        </div>
+        <div class="col-md-4">
+          <label>Position </label>
+          <input type="text" class="form-control" formControlName="sitePersonposition">
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-6">
+          <label>Latitude </label>
+          <input type="text" class="form-control" formControlName="latitude">
+        </div>
+        <div class="col-md-6">
+          <label>Longitude</label>
+          <input type="text" class="form-control" formControlName="longitude">
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-6">
+          <label>Start Time </label>
+          <!-- <ngb-timepicker formControlName="startDate" [(ngModel)]="time" [hourStep]="hourStep" [minuteStep]="minuteStep"></ngb-timepicker> -->
+          <input placeholder="24hr format" formControlName="startDate" class="form-control" aria-label="24hr format" [ngxTimepicker]="fullTime" [format]="24"  readonly>
+            <ngx-material-timepicker #fullTime></ngx-material-timepicker>
+          <!-- <input class="form-control" [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" formControlName="startDate">
+          <owl-date-time [pickerType]="'timer'" #dt4></owl-date-time> -->
+        </div>
+        <div class="col-md-6">
+          <label>End Time </label>
+          <!-- <input class="form-control" [owlDateTimeTrigger]="dt5" [owlDateTime]="dt5" formControlName="endDate">
+          <owl-date-time [pickerType]="'timer'" #dt5></owl-date-time> -->
+          <input placeholder="24hr format" formControlName="endDate" class="form-control" aria-label="24hr format" [ngxTimepicker]="fullTime1" [format]="24"  readonly>
+            <ngx-material-timepicker #fullTime1></ngx-material-timepicker>
+          <!-- <input formControlName="endDate" class="form-control" placeholder="Default time 11:11 pm"  aria-label="default time"
+                [ngxTimepicker]="defaultTime1" readonly>
+            <ngx-material-timepicker #defaultTime1 [defaultTime]="'11:11 pm'"></ngx-material-timepicker> -->
+        </div>
+      </div>
+    </div>
 
     <div class="form-group text-right">
       <button type="submit" [disabled]="siteForm.status == 'INVALID'" class="btn btn-primary">Add Site</button>
