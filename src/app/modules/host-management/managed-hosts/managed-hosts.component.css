@@ -79,3 +79,6 @@ th {
 .delete-btn {
   background-color: #f44336;
 }
+.clr-active{
+  color: green;
+}
