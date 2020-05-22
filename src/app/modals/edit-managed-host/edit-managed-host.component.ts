@@ -55,7 +55,6 @@ export class EditManagedHostComponent implements OnInit {
     this.updateManagedHostForm = this.fb.group({
       hostName: ['', Validators.required],
       hostType: ['', Validators.required],
-      description: ['', Validators.required],
       serialNumber: ['', Validators.required],
       manufacture: ['', Validators.required],
       model: ['', Validators.required],
@@ -85,7 +84,6 @@ export class EditManagedHostComponent implements OnInit {
       const hostDetails = {
         host_name: this.updateManagedHostForm.value.hostName,
         host_type: this.updateManagedHostForm.value.hostType,
-        description: this.updateManagedHostForm.value.description,
         serial_number: this.updateManagedHostForm.value.serialNumber,
         manufacture: this.updateManagedHostForm.value.manufacture,
         model: this.updateManagedHostForm.value.model,

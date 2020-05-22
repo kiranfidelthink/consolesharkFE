@@ -136,6 +136,19 @@ export class UserService {
     // return this.http.get<User>(`${this.baseUrl}get_Organization?organization_id=${user}`);
     return this.http.get<PaperTrail>(`${this.baseUrl}get_Logs`);
   }
+  getSiteList() {
+    // return this.http.get<User>(`${this.baseUrl}get_Organization?organization_id=${user}`);
+    return this.http.get<PaperTrail>(
+      `${this.baseUrl}get_Sites?filter=`
+    );
+  }
+  getSiteListFilter(event) {
+    console.log('----------', event);
+    // return this.http.get<User>(`${this.baseUrl}get_Organization?organization_id=${user}`);
+    return this.http.get<PaperTrail>(
+      `${this.baseUrl}get_Sites?filter=${event}`
+    );
+  }
   getOrganizationList() {
     // return this.http.get<User>(`${this.baseUrl}get_Organization?organization_id=${user}`);
     return this.http.get<PaperTrail>(

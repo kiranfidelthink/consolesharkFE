@@ -128,8 +128,8 @@ export class SidenavComponent implements OnInit {
       icon: 'settings_input_composite',
       items: [
         {
-          label: 'Application Management',
-          link: '/',
+          label: 'Appliance Management',
+          link: '/shark-management/appliance',
           activeIcon: 'favorite',
           expanded: true,
         },
@@ -142,24 +142,24 @@ export class SidenavComponent implements OnInit {
             queryParams: { order: 'popular', filter: 'new' },
           },
         },
-        {
-          label: 'Power Management',
-          link: '/',
-          activeIcon: 'favorite',
-          expanded: true,
-          navigationExtras: {
-            queryParams: { order: 'popular', filter: 'new' },
-          },
-        },
-        {
-          label: 'Sensor Management',
-          link: '/',
-          activeIcon: 'favorite',
-          expanded: true,
-          navigationExtras: {
-            queryParams: { order: 'popular', filter: 'new' },
-          },
-        },
+        // {
+        //   label: 'Power Management',
+        //   link: '/',
+        //   activeIcon: 'favorite',
+        //   expanded: true,
+        //   navigationExtras: {
+        //     queryParams: { order: 'popular', filter: 'new' },
+        //   },
+        // },
+        // {
+        //   label: 'Sensor Management',
+        //   link: '/',
+        //   activeIcon: 'favorite',
+        //   expanded: true,
+        //   navigationExtras: {
+        //     queryParams: { order: 'popular', filter: 'new' },
+        //   },
+        // },
       ],
     },
     {

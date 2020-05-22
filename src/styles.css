@@ -17,23 +17,38 @@ body {
   color: #9d9fa1;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 .min-vh-100 {
   /* min-height: 174vh!important; */
 }
-.min-vh-custom{
+.min-vh-custom {
   min-height: 85.3vh !important;
   max-height: 85.3vh !important;
   overflow-x: hidden;
   overflow-y: scroll;
 }
-.min-vh-custom::-webkit-scrollbar { width: 0 !important }
-.cdk-overlay-container{
+.min-vh-custom::-webkit-scrollbar {
+  width: 0 !important;
+}
+.cdk-overlay-container {
   position: absolute;
   z-index: 9999;
 }
-ngx-material-timepicker-container{
+ngx-material-timepicker-container {
   position: absolute;
   z-index: 9999;
+}
+.autocomplete-container .input-container input {
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+.p-20{
+  padding: 20px;
 }

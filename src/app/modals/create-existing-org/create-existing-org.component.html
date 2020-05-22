@@ -211,6 +211,7 @@
               (ngSubmit)="onSubmitExistingOrg(selectedOrganization)">
               <div class="form-group">
                 <label>Search by organization name</label>
+                
                 <ng-autocomplete [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)'
                   (inputChanged)='getOrganizationsListFilter($event)' (inputCleared)="onInputClear($event)"
                   (inputFocused)='getOrganizationsList($event)' [itemTemplate]="itemTemplate"

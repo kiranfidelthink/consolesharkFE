@@ -4,42 +4,48 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { HostManagementService } from 'src/app/shared/shared-service/host-management-service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { EditSiteComponent } from 'src/app/modals/edit-site/edit-site.component';
+import { EditApplianceComponent } from 'src/app/modals/appliance/edit-appliance/edit-appliance.component';
 import { EmitService } from 'src/app/shared/shared-service/emit-service';
-import { AddNewSiteComponent } from 'src/app/modals/add-new-site/add-new-site.component';
+import { AddNewApplianceComponent } from 'src/app/modals/appliance/add-appliance/add-appliance.component';
 import { ConfirmDialogCOmponent } from 'src/app/modals/confirm-dialog/confirm-dialog.component';
 import { ToastService } from 'src/app/shared/shared-service/toast-service';
 import { LogService } from 'src/app/shared/shared-service/log.service';
 import { HttpClient } from '@angular/common/http';
+import { SharkManagementService } from 'src/app/shared/shared-service/shark-management-services';
 
 export interface PeriodicElement {
   name: string;
-  site_address: string;
-  site_contact: any;
-  hours_of_operation: string;
-  lat_lng: string;
-  createdAt: string;
-  lastModified: string
+  model: string;
+  appliance_serial: string;
+  ipv4_address: string;
+  organization_id: string;
+  Site_id: string;
+  firmware_version: string;
+  added: string;
+  last_seen: string;
+  status: string;
   action: string;
 }
 
 @Component({
-  selector: 'site-management',
-  templateUrl: './site-management.component.html',
-  styleUrls: ['./site-management.component.css'],
+  selector: 'appliance',
+  templateUrl: './appliance.component.html',
+  styleUrls: ['./appliance.component.css'],
 })
-export class SiteManagementComponent implements OnInit {
+export class ApplianceComponent implements OnInit {
   displayedColumns: string[] = [
     'name',
-    'site_address',
-    'site_contact',
-    'hours_of_operation',
-    'lat_lng',
-    'createdAt',
-    'lastModified',
-    'action',
+    'model',
+    'appliance_serial',
+    'ipv4_address',
+    'organization_id',
+    'Site_id',
+    'firmware_version',
+    'added',
+    'last_seen',
+    'status',
+    'action'
   ];
   log: any = {
     time: new Date().getTime(),
@@ -53,7 +59,7 @@ export class SiteManagementComponent implements OnInit {
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   constructor(
-    private _hostManagementService: HostManagementService,
+    private _sharkManagementService: SharkManagementService,
     private spinner: NgxSpinnerService,
     private modalService: NgbModal,
     private _emitService: EmitService,
@@ -63,11 +69,11 @@ export class SiteManagementComponent implements OnInit {
   ) {
     this._emitService.listen().subscribe((m: any) => {
       console.log(m);
-      this.updateSitesDetails(m);
+      this.updateAppliancesDetails(m);
     });
   }
-  updateSitesDetails(event) {
-    this.getSites();
+  updateAppliancesDetails(event) {
+    this.getAppliances();
     console.log('Fire onFilterClick: ', event);
   }
 
@@ -75,7 +81,7 @@ export class SiteManagementComponent implements OnInit {
     this.getIPAddress();
     // this.spinner.show();
     this.dataSource = new MatTableDataSource();
-    this.getSites();
+    this.getAppliances();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
@@ -83,13 +89,13 @@ export class SiteManagementComponent implements OnInit {
     this.http.get('http://api.ipify.org/?format=json').subscribe((res: any) => {
       this.log.ip_address = res.ip;
       console.log(
-        'ip address inside create new site',
+        'ip address inside create new appliance',
         this.log.ip_address
       );
     });
   }
-  getSites() {
-    this._hostManagementService.getSites().subscribe((data: any) => {
+  getAppliances() {
+    this._sharkManagementService.getAppliances().subscribe((data: any) => {
       this.spinner.hide();
       console.log(data);
       console.log('Laps');
@@ -98,7 +104,7 @@ export class SiteManagementComponent implements OnInit {
     });
   }
   openPopup() {
-    this.modalService.open(AddNewSiteComponent, {
+    this.modalService.open(AddNewApplianceComponent, {
       scrollable: true,
       size: 'lg',
       backdrop: 'static',
@@ -106,9 +112,9 @@ export class SiteManagementComponent implements OnInit {
       windowClass: 'myCustomModalClass',
     });
   }
-  onEditSite(element) {
-    console.log('On edit site', element);
-    const modalRef = this.modalService.open(EditSiteComponent, {
+  onEditAppliance(element) {
+    console.log('On edit appliance', element);
+    const modalRef = this.modalService.open(EditApplianceComponent, {
       scrollable: true,
       size: 'lg',
       backdrop: 'static',
@@ -116,39 +122,40 @@ export class SiteManagementComponent implements OnInit {
       windowClass: 'myCustomModalClass',
     });
     let data = {
-      siteInfo: element,
+      applianceInfo: element,
     };
 
-    modalRef.componentInstance.fromSiteComponent = data;
+    modalRef.componentInstance.fromApplianceComponent = data;
   }
   public user = {
     name: 'Izzat Nadiri',
     age: 26,
   };
-  onDeleteSite(element) {
-    element.module = "Site";
+  onDeleteAppliance(element) {
+    console.log("Insid edelete applicane", element)
+    element.module = "Appliance";
     const modalRef = this.modalService.open(ConfirmDialogCOmponent);
     modalRef.componentInstance.element = element;
     modalRef.result.then((result) => {
       if (result) {
         console.log('result--', result);
-        this._hostManagementService
-          .deleteSite(element.id)
+        this._sharkManagementService
+          .deleteAppliance(element.id)
           .subscribe((res: any) => {
-            this.log.event_type = 'Site deleted';
-          this.log.message = 'Site deleted Successfully';
-          this._logService.createLog(this.log).subscribe((res: any) => {});
+            this.log.event_type = 'Appliance deleted';
+            this.log.message = 'Appliance deleted Successfully';
+            this._logService.createLog(this.log).subscribe((res: any) => {});
             this._toastService.showSuccessToastr(
-              'Site deleted successfully',
+              'Appliance deleted successfully',
               ''
             );
-            this.getSites();
-            console.log('delete site res', res);
+            this.getAppliances();
+            console.log('delete appliance res', res);
           });
       }
     });
-    // this._hostManagementService.deleteSite(element.id).subscribe((res:any)=>{
-    //   console.log("delete site res", res)
+    // this._sharkManagementService.deleteAppliance(element.id).subscribe((res:any)=>{
+    //   console.log("delete Appliance res", res)
     // })
   }
 }

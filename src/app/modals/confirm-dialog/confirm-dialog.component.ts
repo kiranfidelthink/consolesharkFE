@@ -11,12 +11,12 @@ import { Validators, FormGroup, FormBuilder } from '@angular/forms';
   styleUrls: ['./confirm-dialog.component.css'],
 })
 export class ConfirmDialogCOmponent implements OnInit {
-  @Input() public site;
+  @Input() public element;
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
      constructor(public activeModal: NgbActiveModal) {}
 
      ngOnInit() {
-      console.log(this.site);
+      console.log("this.element", this.element);
      }
 
      onConfirm(value) {

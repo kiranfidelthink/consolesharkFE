@@ -38,6 +38,9 @@ import { EditManagedHostComponent } from './modals/edit-managed-host/edit-manage
 import { IgxTimePickerModule } from 'igniteui-angular';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { AddNewApplianceComponent } from './modals/appliance/add-appliance/add-appliance.component';
+import { EditApplianceComponent } from './modals/appliance/edit-appliance/edit-appliance.component';
+import { SharkManagementService } from './shared/shared-service/shark-management-services';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,6 +55,8 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     AddNewHostComponent,
     EditManagedHostComponent,
     ConfirmDialogCOmponent,
+    AddNewApplianceComponent,
+    EditApplianceComponent
     // ToastMessageComponent
   ],
   imports: [
@@ -86,6 +91,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     ToastService,
     LogService,
     HostManagementService,
+    SharkManagementService
   ],
   bootstrap: [AppComponent],
 })

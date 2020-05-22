@@ -10,6 +10,7 @@ import { OrganizationsModule } from './modules/organizations/organizations.modul
 import { HostManagementModule } from './modules/host-management/host-management.module';
 import { UserOrgStatusModule } from './modules/userOrgStatus/userOrgStatus.module';
 import { RequestStatusComponent } from './modules/main/requestStatus/requestStatus.component';
+import { SharkManagementModule } from './modules/shark-management/shark-management.module';
 
 const routes: Routes = [
   { path: "login", component : LoginComponent },
@@ -48,6 +49,7 @@ const routes: Routes = [
   { path: 'dashboards',canActivate : [AuthGuard], component: HomeComponent, loadChildren: ()=>DashboardsModule },
   { path: 'organization',canActivate : [AuthGuard], component: HomeComponent, loadChildren: ()=>OrganizationsModule },
   { path: 'host-management',canActivate : [AuthGuard], component: HomeComponent, loadChildren: ()=>HostManagementModule },
+  { path: 'shark-management',canActivate : [AuthGuard], component: HomeComponent, loadChildren: ()=>SharkManagementModule },
   { path: 'request-status',canActivate : [AuthGuard], component: RequestStatusComponent, loadChildren: ()=>UserOrgStatusModule}
 
 ];
