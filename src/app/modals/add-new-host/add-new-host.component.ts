@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { LogService } from 'src/app/shared/shared-service/log.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { HostManagementService } from 'src/app/shared/shared-service/host-management-service';
+import { UserService } from 'src/app/shared/shared-service/user-service';
 
 // import * as data from '../../shared/shared-service/countryList.json';
 
@@ -31,6 +32,10 @@ export class AddNewHostComponent implements OnInit {
   data: any;
   userEmail: any;
   user_id: any;
+  
+  search_site = 'name';
+  siteList: any;
+  selectedSite: any;
   constructor(
     private fb: FormBuilder,
     public activeModal: NgbActiveModal,
@@ -39,7 +44,9 @@ export class AddNewHostComponent implements OnInit {
     private _toastService: ToastService,
     private http: HttpClient,
     private _logService: LogService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private _userService: UserService,
+
   ) {}
 
   ngOnInit() {
@@ -53,7 +60,6 @@ export class AddNewHostComponent implements OnInit {
       serialNumber: ['', Validators.required],
       manufacture: ['', Validators.required],
       model: ['', Validators.required],
-      status: ['', Validators.required],
       SiteId: ['', Validators.required]
     });
   }
@@ -70,6 +76,39 @@ export class AddNewHostComponent implements OnInit {
       );
     });
   }
+  getSiteList(event) {
+    console.log('evenmt', event);
+    this.isLoadingResult = true;
+    this._userService.getSiteList().subscribe((data: any) => {
+      this.siteList = data;
+      console.log("site list----", data)
+      console.log("site list", this.siteList)
+      this.isLoadingResult = false;
+    });
+    
+  }
+  getSiteListFilter(event) {
+    this.isLoadingResult = true;
+
+    this._userService.getSiteListFilter(event).subscribe((data) => {
+      this.data = data;
+      this.isLoadingResult = false;
+    });
+  }
+  selectEvent(item) {
+    console.log('item', item);
+    this.selectedSite = item;
+  }
+
+  onChangeSearch(val: string) {
+    console.log('val', val);
+  }
+
+  onFocused(e) {}
+  onInputClear(e) {
+    console.log('========', e);
+    this.selectedSite = '';
+  }
   onSubmit() {
     console.log('Insdie submit', this.managedHostForm.value);
     console.log('this.managedHostForm', this.managedHostForm);
@@ -83,8 +122,8 @@ export class AddNewHostComponent implements OnInit {
         serial_number: this.managedHostForm.value.serialNumber,
         manufacture: this.managedHostForm.value.manufacture,
         model: this.managedHostForm.value.model,
-        status: this.managedHostForm.value.status,
-        Site_id: this.managedHostForm.value.SiteId
+        status: "Available",
+        Site_id: this.managedHostForm.value.SiteId.id
       };
       // const log_details = {
       //   triggered_by: this.routes.url.split('?')[0],

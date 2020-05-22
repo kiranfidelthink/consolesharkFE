@@ -67,10 +67,15 @@
             [ngValue]="mes"
            class="dropdown-item">{{mes.name}}</option>
            </select> -->
-           <select class="form-control" [(ngModel)]="selectedOption" formControlName="country">
+           <!-- [(ngModel)]="selectedCountry.id" -->
+           <select class="form-control"  formControlName="country" [(ngModel)]="selectedCountry">
             <option *ngFor="let item of countries" [ngValue]="item"
               >{{item.name}}</option>
           </select>
+           <!-- <select class="form-control" [(ngModel)]="selectedOption" formControlName="country">
+            <option *ngFor="let item of countries" [ngValue]="item"
+              >{{item.name}}</option>
+          </select> -->
         </div>
         <div class="col-md-6">
           <label>Zip Code </label>

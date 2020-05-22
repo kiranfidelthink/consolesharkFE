@@ -58,7 +58,6 @@ export class EditManagedHostComponent implements OnInit {
       serialNumber: ['', Validators.required],
       manufacture: ['', Validators.required],
       model: ['', Validators.required],
-      status: ['', Validators.required],
       siteId: ['', Validators.required],
     });
   }
@@ -87,7 +86,7 @@ export class EditManagedHostComponent implements OnInit {
         serial_number: this.updateManagedHostForm.value.serialNumber,
         manufacture: this.updateManagedHostForm.value.manufacture,
         model: this.updateManagedHostForm.value.model,
-        status: this.updateManagedHostForm.value.status,
+        status: "Available",
         Site_id: this.updateManagedHostForm.value.siteId
       };
       this.spinner.show();

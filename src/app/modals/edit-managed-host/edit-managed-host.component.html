@@ -70,14 +70,6 @@
             Model is required
           </span>
         </div>
-        <div class="col-md-6">
-          <label>Status</label>
-          <input type="text" class="form-control" [ngModel]="hostDetails.managedHostsInfo.status"  formControlName="status">
-          <span class="text-danger"
-            *ngIf="(updateManagedHostFormControl.status.touched || submitted) && updateManagedHostFormControl.status.errors?.required">
-            Status is required
-          </span>
-        </div>
       </div>
     </div>
     <div class="form-group text-right">

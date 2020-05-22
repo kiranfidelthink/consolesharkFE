@@ -39,12 +39,27 @@
           </span>
         </div> -->
         <div class="col-md-6">
-          <label>Site Id</label>
+          <!-- <label>Site Id</label>
           <input type="text" class="form-control" formControlName="SiteId">
           <span class="text-danger"
             *ngIf="(managedHostFormControl.SiteId.touched || submitted) && managedHostFormControl.SiteId.errors?.required">
             Site Id is required
-          </span>
+          </span> -->
+          <label>Search by Site name</label>
+          <ng-autocomplete [data]="siteList" [searchKeyword]="search_site" (selected)='selectEvent($event)'
+            (inputChanged)='getSiteListFilter($event)' (inputCleared)="onInputClear($event)"
+            (inputFocused)='getSiteList($event)' [itemTemplate]="itemSite" [notFoundTemplate]="notFoundTemplate"
+            formControlName="SiteId">
+          </ng-autocomplete>
+
+          <ng-template #itemSite let-item>
+            <a [innerHTML]="item.name"></a>
+            <!-- <span [innerHTML]="item.company_name"></span><i>({{item.company_name}})</i> -->
+          </ng-template>
+
+          <ng-template #notFoundTemplate let-notFound>
+            <div [innerHTML]="notFound"></div>
+          </ng-template>
         </div>
       </div>
     </div>
@@ -78,14 +93,14 @@
             Model is required
           </span>
         </div>
-        <div class="col-md-6">
+        <!-- <div class="col-md-6">
           <label>Status</label>
           <input type="text" class="form-control" formControlName="status">
           <span class="text-danger"
             *ngIf="(managedHostFormControl.status.touched || submitted) && managedHostFormControl.status.errors?.required">
             Status is required
           </span>
-        </div>
+        </div> -->
       </div>
     </div>
     <!-- <div class="form-group">

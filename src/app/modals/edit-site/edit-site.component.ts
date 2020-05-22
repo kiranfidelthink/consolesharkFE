@@ -38,6 +38,7 @@ export class EditSiteComponent implements OnInit {
   public min = new Date(2018, 3, 12, 10, 30);
   public max = new Date(2018, 3, 25, 20, 30);
   invalidDateTime1: Date;
+  selectedCountry: any;
   // public invalidDateTime1 = new Date(2018, 3, 26, 20, 30);
 
   constructor(
@@ -56,6 +57,7 @@ export class EditSiteComponent implements OnInit {
     this.selectedOption = this.countries[0];
     console.log('this.fromSiteComponent', this.fromSiteComponent);
     this.siteDetails = this.fromSiteComponent
+    this.onDefaultSelectCountry(this.siteDetails.siteInfo.country);
   this.invalidDateTime1 = new Date(this.siteDetails.siteInfo.start_time);
     this.getIPAddress();
     const epochNow = new Date().getTime();
@@ -83,7 +85,15 @@ export class EditSiteComponent implements OnInit {
       ],
     });
   }
-
+  onDefaultSelectCountry(countryId) { 
+    this.selectedCountry = null;
+    for (var i = 0; i < this.countries.length; i++)
+    {
+      if (this.countries[i].id == countryId.id) {
+        this.selectedCountry = this.countries[i];
+      }
+    }
+}
   get updateSiteFormControl() {
     return this.updateSiteForm.controls;
   }
