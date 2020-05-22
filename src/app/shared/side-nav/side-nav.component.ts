@@ -135,7 +135,7 @@ export class SidenavComponent implements OnInit {
         },
         {
           label: 'Dongle Management',
-          link: '/',
+          link: '/shark-management/dongle',
           activeIcon: 'favorite',
           expanded: true,
           navigationExtras: {

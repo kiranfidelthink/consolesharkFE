@@ -14,9 +14,9 @@
   <form class="form" [formGroup]="updateManagedHostForm" (ngSubmit)="onUpdateHost()">
     <div class="form-group">
       <label>Host Name</label>
-      <input type="text" class="form-control" [ngModel]="hostDetails.managedHostsInfo.host_name" formControlName="hostName">
+      <input type="text" class="form-control" [ngModel]="hostDetails.managedHostsInfo.name" formControlName="name">
       <span class="text-danger"
-        *ngIf="(updateManagedHostFormControl.hostName.touched || submitted) && updateManagedHostFormControl.hostName.errors?.required">
+        *ngIf="(updateManagedHostFormControl.name.touched || submitted) && updateManagedHostFormControl.name.errors?.required">
         Host Name is required
       </span>
     </div>
@@ -31,12 +31,28 @@
           </span>
         </div>
         <div class="col-md-6">
-          <label>Site Id</label>
+          <!-- <label>Site Id</label>
           <input type="text" class="form-control" [ngModel]="hostDetails.managedHostsInfo.Site_id" formControlName="siteId">
           <span class="text-danger"
             *ngIf="(updateManagedHostFormControl.siteId.touched || submitted) && updateManagedHostFormControl.siteId.errors?.required">
             Site Id is required
-          </span>
+          </span> -->
+          <label>Search by Site name</label>
+          <ng-autocomplete [data]="siteList" [searchKeyword]="search_site" (selected)='selectEvent($event)'
+            (inputChanged)='getSiteListFilter($event)' (inputCleared)="onInputClear($event)"
+            (inputFocused)='getSiteList($event)' [itemTemplate]="itemSite"
+            [notFoundTemplate]="notFoundTemplate" formControlName="siteId"
+            [ngModel]="hostDetails.managedHostsInfo.site.name">
+          </ng-autocomplete>
+
+          <ng-template #itemSite let-item>
+            <a [innerHTML]="item.name"></a>
+            <!-- <span [innerHTML]="item.company_name"></span><i>({{item.company_name}})</i> -->
+          </ng-template>
+
+          <ng-template #notFoundTemplate let-notFound>
+            <div [innerHTML]="notFound"></div>
+          </ng-template>
         </div>
       </div>
     </div>

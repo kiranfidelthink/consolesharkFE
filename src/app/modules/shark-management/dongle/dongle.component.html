@@ -1,0 +1,81 @@
+<ngx-spinner></ngx-spinner>
+<div class="row">
+  <div class="col-md-8">
+    <h4 class="py-3">
+      Dongle Management
+    </h4>
+  </div>
+  <div class="col-md-4">
+    <div class="text-right">
+      <button type="submit" (click)="openPopup()" class="btn btn-primary">Add New Dongle</button>
+    </div>
+  </div>
+</div>
+<div class="card ">
+  <div class="card-body">
+    <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8" class="w-100">
+      <ng-container matColumnDef="dongle_serial">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Serial Number</th>
+        <td mat-cell *matCellDef="let element"> {{element.dongle_serial}} </td>
+      </ng-container>
+      <ng-container matColumnDef="date_added">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Date Added</th>
+        <td mat-cell *matCellDef="let element"> {{element.mfg_date | date :'MMMM d, y, h:mm:ss'}} </td>
+      </ng-container>
+      <ng-container matColumnDef="mfg_date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>MFG Date</th>
+        <td mat-cell *matCellDef="let element"> {{element.mfg_date | date :'MMMM d, y, h:mm:ss'}} </td>
+      </ng-container>
+      <ng-container matColumnDef="managed_host">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Managed Host</th>
+        <td mat-cell *matCellDef="let element"> {{element.host?.name}} </td>
+      </ng-container>
+      <ng-container matColumnDef="site">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Site</th>
+        <td mat-cell *matCellDef="let element"> {{element.site?.name}} </td>
+      </ng-container>
+      <ng-container matColumnDef="appliance">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Appliance</th>
+        <td mat-cell *matCellDef="let element"> {{element.appliance?.name}} </td>
+      </ng-container>
+      <ng-container matColumnDef="license">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>license</th>
+        <td mat-cell *matCellDef="let element"> Assigned: {{element.licence?.Assigned | date :'MMMM d, y, h:mm:ss'}}<br>
+          Expires: {{element.licence?.Expires | date :'MMMM d, y, h:mm:ss'}} </td>
+      </ng-container>
+      <ng-container matColumnDef="parameters">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Parameters</th>
+        <td mat-cell *matCellDef="let element"> BAUD: {{element.parameters.baud.value}},
+          Data Bits: {{element.parameters.data_bits.value}},
+          Parity: {{element.parameters.parity?.value}},
+          Stop Bits: {{element.parameters.stop_bits.value}},
+          DTR/DSR: {{element.parameters.dtr_dsr.value}},
+          RTS/CTS: {{element.parameters.rts_cts.value}},
+          XON/XOFF: {{element.parameters.xon_xoff.value}},
+         </td>
+      </ng-container>
+      <!-- <ng-container matColumnDef="last_seen">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Seen</th>
+        <td mat-cell *matCellDef="let element"> {{element.last_seen | date :'MMMM d, y, h:mm:ss'}} </td>
+      </ng-container> -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <td mat-cell *matCellDef="let element">
+          <i class="fa fa-arrow-circle-up clr-active" aria-hidden="true"></i>
+          {{element.status}} </td>
+      </ng-container>
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+        <td mat-cell *matCellDef="let element">
+          <span class="edit-btn action-btn" (click)="onEditDongle(element)"><i class="fa fa-pencil"
+              aria-hidden="true"></i></span>
+          <!-- <span class="delete-btn  action-btn" (click)="onDeleteDongle(element)"><i class="fa fa-trash"
+              aria-hidden="true"></i></span> -->
+             </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 15]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

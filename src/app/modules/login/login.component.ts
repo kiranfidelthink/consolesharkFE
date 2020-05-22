@@ -138,6 +138,7 @@ export class LoginComponent implements OnInit {
     this._userService
       .getUserAndOrganization(this.userEmail)
       .subscribe((res: any) => {
+        console.log("Inside login component res", res)
         localStorage.setItem('user_id', res.id);
         console.log('res of get user in login component', res);
         if (res.mfa_enabled == true) {

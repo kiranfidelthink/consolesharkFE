@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { LogService } from 'src/app/shared/shared-service/log.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { HostManagementService } from 'src/app/shared/shared-service/host-management-service';
+import { UserService } from 'src/app/shared/shared-service/user-service';
 
 // import * as data from '../../shared/shared-service/countryList.json';
 
@@ -34,6 +35,9 @@ export class EditManagedHostComponent implements OnInit {
   user_id: any;
   hostDetails: any;
   selectedOption: any;
+  search_site = 'name';
+  siteList: any;
+  selectedSite: any;
   constructor(
     private fb: FormBuilder,
     public activeModal: NgbActiveModal,
@@ -42,7 +46,9 @@ export class EditManagedHostComponent implements OnInit {
     private _toastService: ToastService,
     private http: HttpClient,
     private _logService: LogService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private _userService: UserService,
+
   ) {}
 
   ngOnInit() {
@@ -53,7 +59,7 @@ export class EditManagedHostComponent implements OnInit {
     const epochNow = new Date().getTime();
     this.current_time = epochNow;
     this.updateManagedHostForm = this.fb.group({
-      hostName: ['', Validators.required],
+      name: ['', Validators.required],
       hostType: ['', Validators.required],
       serialNumber: ['', Validators.required],
       manufacture: ['', Validators.required],
@@ -74,6 +80,39 @@ export class EditManagedHostComponent implements OnInit {
       );
     });
   }
+  getSiteList(event) {
+    console.log('evenmt', event);
+    this.isLoadingResult = true;
+    this._userService.getSiteList().subscribe((data: any) => {
+      this.siteList = data;
+      console.log("site list----", data)
+      console.log("site list", this.siteList)
+      this.isLoadingResult = false;
+    });
+    
+  }
+  getSiteListFilter(event) {
+    this.isLoadingResult = true;
+
+    this._userService.getSiteListFilter(event).subscribe((data) => {
+      this.data = data;
+      this.isLoadingResult = false;
+    });
+  }
+  selectEvent(item) {
+    console.log('item', item);
+    this.selectedSite = item;
+  }
+
+  onChangeSearch(val: string) {
+    console.log('val', val);
+  }
+
+  onFocused(e) {}
+  onInputClear(e) {
+    console.log('========', e);
+    this.selectedSite = '';
+  }
   onUpdateHost() {
     console.log('Insdie submit', this.updateManagedHostForm.value);
     console.log('this.updateManagedHostForm', this.updateManagedHostForm);
@@ -81,13 +120,13 @@ export class EditManagedHostComponent implements OnInit {
     this.submitted = true;
     if (this.updateManagedHostForm.valid) {
       const hostDetails = {
-        host_name: this.updateManagedHostForm.value.hostName,
+        name: this.updateManagedHostForm.value.name,
         host_type: this.updateManagedHostForm.value.hostType,
         serial_number: this.updateManagedHostForm.value.serialNumber,
         manufacture: this.updateManagedHostForm.value.manufacture,
         model: this.updateManagedHostForm.value.model,
         status: "Available",
-        Site_id: this.updateManagedHostForm.value.siteId
+        Site_id: this.updateManagedHostForm.value.siteId.id
       };
       this.spinner.show();
       this._hostManagementService.updateHost(hostDetails, this.hostDetails.managedHostsInfo.id).subscribe(

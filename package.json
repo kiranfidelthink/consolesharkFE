@@ -44,6 +44,7 @@
     "ng-pick-datetime": "^7.0.0",
     "ng2-tel-input": "^2.3.0",
     "ngx-bootstrap": "^5.6.1",
+    "ngx-datepicker-material": "^1.0.1",
     "ngx-intl-tel-input": "^2.3.4",
     "ngx-material-timepicker": "^5.5.2",
     "ngx-spinner": "^9.0.2",

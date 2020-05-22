@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   getUserDetails() {
     this.userEmail = localStorage.getItem('userEmail')
     this._userService.getUserAndOrganization(this.userEmail).subscribe((res:any) => {
+      console.log("Inside home component use res", res)
       localStorage.setItem('user_id', res.id)
       // this.getOrganization(res)
       console.log("res of get user in home component", res)

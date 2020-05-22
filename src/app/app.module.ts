@@ -41,6 +41,11 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { AddNewApplianceComponent } from './modals/appliance/add-appliance/add-appliance.component';
 import { EditApplianceComponent } from './modals/appliance/edit-appliance/edit-appliance.component';
 import { SharkManagementService } from './shared/shared-service/shark-management-services';
+import { AddNewDongleComponent } from './modals/dongle/add-dongle/add-dongle.component';
+import { EditDongleComponent } from './modals/dongle/edit-dongle/edit-dongle.component';
+import { NgxDaterangepickerMd } from 'ngx-datepicker-material';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +61,9 @@ import { SharkManagementService } from './shared/shared-service/shark-management
     EditManagedHostComponent,
     ConfirmDialogCOmponent,
     AddNewApplianceComponent,
-    EditApplianceComponent
+    EditApplianceComponent,
+    AddNewDongleComponent,
+    EditDongleComponent,
     // ToastMessageComponent
   ],
   imports: [
@@ -77,7 +84,9 @@ import { SharkManagementService } from './shared/shared-service/shark-management
     IgxTimePickerModule,
     NgxMaterialTimepickerModule,
     OwlDateTimeModule,
-    OwlNativeDateTimeModule
+    OwlNativeDateTimeModule,
+    NgxDaterangepickerMd,
+    BsDatepickerModule.forRoot()
   ],
   // entryComponents:[
   //   RegisterModalComponent

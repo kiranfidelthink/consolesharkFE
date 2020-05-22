@@ -54,7 +54,7 @@ export class AddNewHostComponent implements OnInit {
     const epochNow = new Date().getTime();
     this.current_time = epochNow;
     this.managedHostForm = this.fb.group({
-      hostName: ['', Validators.required],
+      name: ['', Validators.required],
       hostType: ['', Validators.required],
       // description: ['', Validators.required],
       serialNumber: ['', Validators.required],
@@ -116,7 +116,7 @@ export class AddNewHostComponent implements OnInit {
     this.submitted = true;
     if (this.managedHostForm.valid) {
       const managedHosts = {
-        host_name: this.managedHostForm.value.hostName,
+        name: this.managedHostForm.value.name,
         host_type: this.managedHostForm.value.hostType,
         // description: this.managedHostForm.value.description,
         serial_number: this.managedHostForm.value.serialNumber,

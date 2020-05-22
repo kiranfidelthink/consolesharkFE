@@ -16,6 +16,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ApplianceComponent } from './appliance/appliance.component';
 import { SharkManagementRoutingModule } from './shark-management-routing.module';
+import { DongleComponent } from './dongle/dongle.component';
 
 // *******************************************************************************
 //
@@ -37,7 +38,8 @@ import { SharkManagementRoutingModule } from './shark-management-routing.module'
     SharedModule
   ],
   declarations: [
-    ApplianceComponent
+    ApplianceComponent,
+    DongleComponent
   ]
 })
 export class SharkManagementModule { }

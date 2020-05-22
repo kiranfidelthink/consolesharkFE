@@ -14,9 +14,9 @@
   <form class="form" [formGroup]="managedHostForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label>Host Name</label>
-      <input type="text" class="form-control" formControlName="hostName">
+      <input type="text" class="form-control" formControlName="name">
       <span class="text-danger"
-        *ngIf="(managedHostFormControl.hostName.touched || submitted) && managedHostFormControl.hostName.errors?.required">
+        *ngIf="(managedHostFormControl.name.touched || submitted) && managedHostFormControl.name.errors?.required">
         Host Name is required
       </span>
     </div>

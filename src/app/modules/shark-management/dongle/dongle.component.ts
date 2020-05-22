@@ -4,40 +4,44 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { HostManagementService } from 'src/app/shared/shared-service/host-management-service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EmitService } from 'src/app/shared/shared-service/emit-service';
 import { ConfirmDialogCOmponent } from 'src/app/modals/confirm-dialog/confirm-dialog.component';
 import { ToastService } from 'src/app/shared/shared-service/toast-service';
 import { LogService } from 'src/app/shared/shared-service/log.service';
 import { HttpClient } from '@angular/common/http';
-import { AddNewHostComponent } from 'src/app/modals/add-new-host/add-new-host.component';
-import { EditManagedHostComponent } from 'src/app/modals/edit-managed-host/edit-managed-host.component';
+import { SharkManagementService } from 'src/app/shared/shared-service/shark-management-services';
+import { AddNewDongleComponent } from 'src/app/modals/dongle/add-dongle/add-dongle.component';
+import { EditDongleComponent } from 'src/app/modals/dongle/edit-dongle/edit-dongle.component';
 
 export interface PeriodicElement {
-  host_name: string;
+  dongle_serial: string
+  date_added: string;
+  mfg_date: string;
+  managed_host: string;
   site: string;
-  host_type: string;
-  serial_number: any;
-  manufacture: string;
-  model: string;
+  appliance: string;
+  license: string;
+  parameters: string;
   status: string;
   action: string;
 }
 
 @Component({
-  selector: 'managed-hosts',
-  templateUrl: './managed-hosts.component.html',
-  styleUrls: ['./managed-hosts.component.css'],
+  selector: 'dongle',
+  templateUrl: './dongle.component.html',
+  styleUrls: ['./dongle.component.css'],
 })
-export class ManagedHostsComponent implements OnInit {
+export class DongleComponent implements OnInit {
   displayedColumns: string[] = [
-    'host_name',
+    'dongle_serial',
+    'date_added',
+    'mfg_date',
+    'managed_host',
     'site',
-    'host_type',
-    'serial_number',
-    'manufacture',
-    'model',
+    'appliance',
+    'license',
+    'parameters',
     'status',
     'action'
   ];
@@ -53,7 +57,7 @@ export class ManagedHostsComponent implements OnInit {
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   constructor(
-    private _hostManagementService: HostManagementService,
+    private _sharkManagementService: SharkManagementService,
     private spinner: NgxSpinnerService,
     private modalService: NgbModal,
     private _emitService: EmitService,
@@ -63,19 +67,19 @@ export class ManagedHostsComponent implements OnInit {
   ) {
     this._emitService.listen().subscribe((m: any) => {
       console.log(m);
-      this.updateManagesHostsDetails(m);
+      this.updateDongleDetails(m);
     });
   }
-  updateManagesHostsDetails(event) {
-    this.getManagedHosts();
+  updateDongleDetails(event) {
+    this.getDongle();
     console.log('Fire onFilterClick: ', event);
   }
 
   ngOnInit() {
     this.getIPAddress();
-    this.spinner.show();
+    // this.spinner.show();
     this.dataSource = new MatTableDataSource();
-    this.getManagedHosts();
+    this.getDongle();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
@@ -83,22 +87,22 @@ export class ManagedHostsComponent implements OnInit {
     this.http.get('http://api.ipify.org/?format=json').subscribe((res: any) => {
       this.log.ip_address = res.ip;
       console.log(
-        'ip address inside create new managed hosts',
+        'ip address inside create new dongle',
         this.log.ip_address
       );
     });
   }
-  getManagedHosts() {
-    this.spinner.hide();
-    this._hostManagementService.getManagedHosts().subscribe((data: any) => {
+  getDongle() {
+    this._sharkManagementService.getDongle().subscribe((data: any) => {
+      this.spinner.hide();
       console.log(data);
       console.log('Laps');
       this.dataSource.data = data;
       return data;
     });
   }
-  openAddNewHost() {
-    this.modalService.open(AddNewHostComponent, {
+  openPopup() {
+    this.modalService.open(AddNewDongleComponent, {
       scrollable: true,
       size: 'lg',
       backdrop: 'static',
@@ -106,9 +110,9 @@ export class ManagedHostsComponent implements OnInit {
       windowClass: 'myCustomModalClass',
     });
   }
-  onEditManagedHosts(element) {
-    console.log('On edit managed hosts', element);
-    const modalRef = this.modalService.open(EditManagedHostComponent, {
+  onEditDongle(element) {
+    console.log('On edit dongle', element);
+    const modalRef = this.modalService.open(EditDongleComponent, {
       scrollable: true,
       size: 'lg',
       backdrop: 'static',
@@ -116,17 +120,40 @@ export class ManagedHostsComponent implements OnInit {
       windowClass: 'myCustomModalClass',
     });
     let data = {
-      managedHostsInfo: element,
+      dongleInfo: element,
     };
 
-    modalRef.componentInstance.fromManagedHostsComponent = data;
+    modalRef.componentInstance.fromDongleComponent = data;
   }
   public user = {
     name: 'Izzat Nadiri',
     age: 26,
   };
-  onOpenTerminal(element) {
-    console.log("Element in side onOpenTerminal", element)
-    
-  }
+  // onDeleteDongle(element) {
+  //   console.log("Insid edelete applicane", element)
+  //   element.module = "Dongle";
+  //   const modalRef = this.modalService.open(ConfirmDialogCOmponent);
+  //   modalRef.componentInstance.element = element;
+  //   modalRef.result.then((result) => {
+  //     if (result) {
+  //       console.log('result--', result);
+  //       this._sharkManagementService
+  //         .deleteDongle(element.id)
+  //         .subscribe((res: any) => {
+  //           this.log.event_type = 'Dongle deleted';
+  //           this.log.message = 'Dongle deleted Successfully';
+  //           this._logService.createLog(this.log).subscribe((res: any) => {});
+  //           this._toastService.showSuccessToastr(
+  //             'Dongle deleted successfully',
+  //             ''
+  //           );
+  //           this.getDongle();
+  //           console.log('delete dongle res', res);
+  //         });
+  //     }
+  //   });
+  //   // this._sharkManagementService.deleteDongle(element.id).subscribe((res:any)=>{
+  //   //   console.log("delete Dongle res", res)
+  //   // })
+  // }
 }

@@ -1,0 +1,154 @@
+<ngx-spinner></ngx-spinner>
+<div class="modal-header">
+  <div class="text-center w-100">
+    <img src="../../../assets/img/login-form-icon.png" class="w-15" alt="image" />
+  </div>
+  <button type="button" class="close" data-dismiss="modal" (click)="closeModal('dismiss')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body p-4">
+  <div class="text-center text-muted mb-2">
+    <h4 class="text-lighter">Add New Dongle</h4>
+  </div>
+  <form class="form" [formGroup]="dongleForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-6">
+          <label>Search by Host name</label>
+          <ng-autocomplete [data]="hostList" [searchKeyword]="search_host" (selected)='selectEvent($event)'
+            (inputChanged)='getHostListFilter($event)' (inputCleared)="onInputClear($event)"
+            (inputFocused)='getHostList($event)' [itemTemplate]="itemHost" [notFoundTemplate]="notFoundTemplate"
+            formControlName="hostId">
+          </ng-autocomplete>
+
+          <ng-template #itemHost let-item>
+            <a [innerHTML]="item.name"></a>
+            <!-- <span [innerHTML]="item.company_name"></span><i>({{item.company_name}})</i> -->
+          </ng-template>
+
+          <ng-template #notFoundTemplate let-notFound>
+            <div [innerHTML]="notFound"></div>
+          </ng-template>
+        </div>
+        <div class="col-md-6">
+          <label>Search by Site name</label>
+          <ng-autocomplete [data]="siteList" [searchKeyword]="search_site" (selected)='selectEvent($event)'
+            (inputChanged)='getSiteListFilter($event)' (inputCleared)="onInputClear($event)"
+            (inputFocused)='getSiteList($event)' [itemTemplate]="itemSite" [notFoundTemplate]="notFoundTemplate"
+            formControlName="siteId">
+          </ng-autocomplete>
+
+          <ng-template #itemSite let-item>
+            <a [innerHTML]="item.name"></a>
+            <!-- <span [innerHTML]="item.company_name"></span><i>({{item.company_name}})</i> -->
+          </ng-template>
+
+          <ng-template #notFoundTemplate let-notFound>
+            <div [innerHTML]="notFound"></div>
+          </ng-template>
+        </div>
+      </div>
+
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-6">
+          <label>Search by Appliance name</label>
+          <ng-autocomplete [data]="applianceList" [searchKeyword]="search_appliance" (selected)='selectEvent($event)'
+            (inputChanged)='getApplianceListFilter($event)' (inputCleared)="onInputClear($event)"
+            (inputFocused)='getApplianceList($event)' [itemTemplate]="itemAppliance"
+            [notFoundTemplate]="notFoundTemplate" formControlName="applianceId">
+          </ng-autocomplete>
+          <ng-template #itemAppliance let-item>
+            <a [innerHTML]="item.name"></a>
+            <!-- <span [innerHTML]="item.company_name"></span><i>({{item.company_name}})</i> -->
+          </ng-template>
+          <ng-template #notFoundTemplate let-notFound>
+            <div [innerHTML]="notFound"></div>
+          </ng-template>
+        </div>
+
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-6">
+          <label>Select license start date</label>
+          <input type="text" placeholder="Date picker" formControlName="startDate" class="form-control"
+            value="{{ startDate | date: 'dd/MM/yyyy' }}" [(ngModel)]="startDate" bsDatepicker>
+        </div>
+        <div class="col-md-6">
+          <label>Select license end date</label>
+          <input type="text" placeholder="Date picker" formControlName="endDate" class="form-control"
+            value="{{ endDate | date: 'dd/MM/yyyy' }}" [(ngModel)]="endDate" bsDatepicker>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-6">
+          <label>Select Baud </label>
+          <select class="form-control" formControlName="baud">
+            <option value="" [disabled]="true">Select baud</option>
+            <option *ngFor="let item of baud" [ngValue]="item">{{item.value}}</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label>Select Data bits </label>
+          <select class="form-control" formControlName="data_bits">
+            <option value="" [disabled]="true">Select Data bits</option>
+            <option *ngFor="let item of data_bits" [ngValue]="item">{{item.value}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-6">
+          <label>Select Parity </label>
+          <select class="form-control" formControlName="parity">
+            <option value="" [disabled]="true">Select parity</option>
+            <option *ngFor="let item of parity" [ngValue]="item">{{item.value}}</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label>Select Stop bits </label>
+          <select class="form-control" formControlName="stop_bits">
+            <option value="" [disabled]="true">Select Stop bits</option>
+            <option *ngFor="let item of stop_bits" [ngValue]="item">{{item.value}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-4">
+          <label>Select dtr/dsr </label>
+          <select class="form-control" formControlName="dtr_dsr">
+            <option value="" [disabled]="true">Select dtr_dsr</option>
+            <option *ngFor="let item of dtr_dsr" [ngValue]="item">{{item.value}}</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label>Select rts/cts </label>
+          <select class="form-control" formControlName="rts_cts">
+            <option value="" [disabled]="true">Select rts/cts</option>
+            <option *ngFor="let item of rts_cts" [ngValue]="item">{{item.value}}</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label>Select xon/xoff </label>
+          <select class="form-control" formControlName="xon_xoff">
+            <option value="" [disabled]="true">Select xon/xoff</option>
+            <option *ngFor="let item of xon_xoff" [ngValue]="item">{{item.value}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="form-group text-right">
+      <button type="submit" [disabled]="dongleForm.status == 'INVALID'" class="btn btn-primary">Add
+        Dongle</button>
+    </div>
+  </form>
+</div>

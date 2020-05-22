@@ -162,6 +162,32 @@ export class UserService {
       `${this.baseUrl}get_Organizations?filter=${event}`
     );
   }
+  getHostList() {
+    // return this.http.get<User>(`${this.baseUrl}get_Organization?organization_id=${user}`);
+    return this.http.get<PaperTrail>(
+      `${this.baseUrl}get_Hosts?filter=`
+    );
+  }
+  getHostListFilter(event) {
+    console.log('----------', event);
+    // return this.http.get<User>(`${this.baseUrl}get_Organization?organization_id=${user}`);
+    return this.http.get<PaperTrail>(
+      `${this.baseUrl}get_Hosts?filter=${event}`
+    );
+  }
+  getApplianceList() {
+    // return this.http.get<User>(`${this.baseUrl}get_Organization?organization_id=${user}`);
+    return this.http.get<PaperTrail>(
+      `${this.baseUrl}get_Appliances?filter=`
+    );
+  }
+  getApplianceListFilter(event) {
+    console.log('----------', event);
+    // return this.http.get<User>(`${this.baseUrl}get_Organization?organization_id=${user}`);
+    return this.http.get<PaperTrail>(
+      `${this.baseUrl}get_Appliances?filter=${event}`
+    );
+  }
   createJoinOrgReq(
     existingOrganization: ExistingOrganization
   ): Observable<ExistingOrganization> {

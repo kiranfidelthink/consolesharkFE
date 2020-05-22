@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Appliance } from '../../models/appliance';
+import { Dongle } from '../../models/dongle';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ManagedHosts } from 'src/app/models/managed-hosts';
@@ -9,6 +10,8 @@ export class SharkManagementService {
   baseUrl: string = environment.baseUrl;
   constructor(private http: HttpClient) {}
 
+
+  /*********************************************Appliance****************************************************** */
   getAppliances(): Observable<Appliance> {
     return this.http.get<Appliance>(`${this.baseUrl}get_Appliances`);
   }
@@ -37,22 +40,32 @@ export class SharkManagementService {
     // return this.http.post<Appliance>(`${this.baseUrl}create_Appliance`, appliance);
   }
 
-  getManagedHosts(): Observable<Appliance> {
-    return this.http.get<Appliance>(`${this.baseUrl}get_Hosts`);
+  /***********************************************Dongle********************************************************* */
+  getDongle(): Observable<Appliance> {
+    return this.http.get<Appliance>(`${this.baseUrl}get_Dongles`);
   }
-  createHost(host: ManagedHosts): Observable<ManagedHosts> {
-    console.log('host insisde create host', host);
-    return this.http.post<ManagedHosts>(`${this.baseUrl}create_Host`, host);
+  createDongle(appliance: Dongle): Observable<Dongle> {
+    console.log('appliance insisde create appliance', appliance);
+    return this.http.post<Dongle>(`${this.baseUrl}create_Dongle`, appliance);
   }
-  updateHost(host: ManagedHosts, host_id): Observable<ManagedHosts> {
-    console.log('user inside host management service update appliance', host);
-    // this.host_id = localStorage.getItem('host_id');
-    return this.http.patch<ManagedHosts>(
-      `${this.baseUrl}update_Host?Host_id=${host_id}`,
-      host
+  updateDongle(appliance: Dongle, appliance_id): Observable<Dongle> {
+    console.log('user inside host management service update appliance', appliance);
+    // this.appliance_id = localStorage.getItem('appliance_id');
+    return this.http.patch<Dongle>(
+      `${this.baseUrl}update_Dongle?Dongle_id=${appliance_id}`,
+      appliance
     );
 
     // console.log('appliance insisde create appliance', appliance);
-    // return this.http.post<Appliance>(`${this.baseUrl}create_Appliance`, appliance);
+    // return this.http.post<Dongle>(`${this.baseUrl}create_Dongle`, appliance);
+  }
+  deleteDongle(appliance_id): Observable<Dongle> {
+    console.log("appliance id", appliance_id)
+    return this.http.delete<Dongle>(
+      `${this.baseUrl}delete_Dongle?Dongle_id=${appliance_id}`
+    );
+
+    // console.log('appliance insisde create appliance', appliance);
+    // return this.http.post<Dongle>(`${this.baseUrl}create_Appliance`, appliance);
   }
 }
