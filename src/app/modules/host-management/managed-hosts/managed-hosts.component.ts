@@ -159,15 +159,22 @@ export class ManagedHostsComponent implements OnInit {
         console.log('Inside home component use res', res);
         console.log('res of get user in managed host component', res);
         const requestDetails = {
-          first_name: res.first_name,
-          last_name: res.last_name,
-          email_address: res.email,
-          date_time: new Date(),
-          source_ip: this.log.ip_address,
-          appliance_id: '34',
-          dongale_id: '34',
-          requested_user_id: this.log.user_id,
-          requested_host_id: element.id,
+          // first_name: res.first_name,
+          // last_name: res.last_name,
+          // email_address: res.email,
+          // date_time: new Date(),
+          // source_ip: this.log.ip_address,
+          // appliance_id: '34',
+          // dongale_id: '34',
+          // requested_user_id: this.log.user_id,
+          // requested_host_id: element.id,
+          SourceIp: this.log.ip_address,
+          FirstName:res.first_name,
+          LastName: res.last_name,
+          Email: res.email,
+          Date_Time: new Date(),
+          ApplianceID: element.dongle.Appliance_id,
+          SerialNumber: element.dongle.dongle_serial
         };
         this._hostManagementService
           .requestToAccessDevice(requestDetails)
