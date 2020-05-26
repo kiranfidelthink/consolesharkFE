@@ -82,3 +82,7 @@ th {
 .clr-active{
   color: green;
 }
+.launch_console{
+  color: blue;
+    cursor: pointer;
+}

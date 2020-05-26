@@ -120,6 +120,7 @@ export class EditSiteComponent implements OnInit {
         state: this.updateSiteForm.value.state,
         city: this.updateSiteForm.value.city,
         zipCode: this.updateSiteForm.value.zipCode,
+        organization_id: localStorage.getItem('organization_id'),
         site_contact:{
           phone:this.updateSiteForm.value.sitePersonContactNumber,
           name:this.updateSiteForm.value.sitePersonName,

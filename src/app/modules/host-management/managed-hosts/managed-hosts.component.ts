@@ -13,6 +13,7 @@ import { LogService } from 'src/app/shared/shared-service/log.service';
 import { HttpClient } from '@angular/common/http';
 import { AddNewHostComponent } from 'src/app/modals/add-new-host/add-new-host.component';
 import { EditManagedHostComponent } from 'src/app/modals/edit-managed-host/edit-managed-host.component';
+import { UserService } from 'src/app/shared/shared-service/user-service';
 
 export interface PeriodicElement {
   host_name: string;
@@ -39,7 +40,7 @@ export class ManagedHostsComponent implements OnInit {
     'manufacture',
     'model',
     'status',
-    'action'
+    'action',
   ];
   log: any = {
     time: new Date().getTime(),
@@ -59,7 +60,8 @@ export class ManagedHostsComponent implements OnInit {
     private _emitService: EmitService,
     private _toastService: ToastService,
     private _logService: LogService,
-    private http: HttpClient
+    private http: HttpClient,
+    private _userService: UserService
   ) {
     this._emitService.listen().subscribe((m: any) => {
       console.log(m);
@@ -126,7 +128,55 @@ export class ManagedHostsComponent implements OnInit {
     age: 26,
   };
   onOpenTerminal(element) {
-    console.log("Element in side onOpenTerminal", element)
-    
+    console.log('element.dongle.Appliance_id', element.dongle);
+    if (element.dongle) {
+      console.log('Inside if');
+      this.getUserandOrganization(element, this.log.email);
+    } else {
+      alert('No appliance connected');
+      console.log('Inside else');
+    }
+    //   console.log("Element in side onOpenTerminal", element)
+    //   const requestDetails = {
+    //     request_ip:this.log.ip_address,
+    //     requested_user_id:this.log.user_id,
+    //     requested_host_id:element.id,
+    //     date_time:new Date(),
+    //   };
+    //   this._hostManagementService.requestToAccessDevice(requestDetails).subscribe(
+    //     (res: any) => {
+    //       console.log('create site res', res);
+    //     },
+    //     (err: any) => {
+    //     }
+    //   );
+  }
+  getUserandOrganization(element, userEmail) {
+    console.log('element', element);
+    this._userService
+      .getUserAndOrganization(userEmail)
+      .subscribe((res: any) => {
+        console.log('Inside home component use res', res);
+        console.log('res of get user in managed host component', res);
+        const requestDetails = {
+          first_name: res.first_name,
+          last_name: res.last_name,
+          email_address: res.email,
+          date_time: new Date(),
+          source_ip: this.log.ip_address,
+          appliance_id: '34',
+          dongale_id: '34',
+          requested_user_id: this.log.user_id,
+          requested_host_id: element.id,
+        };
+        this._hostManagementService
+          .requestToAccessDevice(requestDetails)
+          .subscribe(
+            (res: any) => {
+              console.log('create site res', res);
+            },
+            (err: any) => {}
+          );
+      });
   }
 }

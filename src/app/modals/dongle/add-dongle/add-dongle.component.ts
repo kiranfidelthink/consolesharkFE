@@ -166,6 +166,7 @@ export class AddNewDongleComponent implements OnInit {
         Site_id: this.dongleForm.value.siteId.id,
         Appliance_id: this.dongleForm.value.applianceId.id,
         Host_id: this.dongleForm.value.hostId.id,
+        organization_id: localStorage.getItem('organization_id'),
         licence: {
           Assigned: this.dongleForm.value.startDate,
           Expires: this.dongleForm.value.endDate,

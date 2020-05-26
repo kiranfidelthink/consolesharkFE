@@ -138,6 +138,7 @@ export class EditDongleComponent implements OnInit {
         Site_id: this.updateDongleForm.value.siteId.id,
         Appliance_id: this.updateDongleForm.value.applianceId.id,
         Host_id: this.updateDongleForm.value.hostId.id,
+        organization_id: localStorage.getItem('organization_id'),
         licence: {
           Assigned: this.updateDongleForm.value.startDate,
           Expires: this.updateDongleForm.value.endDate,

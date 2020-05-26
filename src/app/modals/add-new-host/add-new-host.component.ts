@@ -36,6 +36,7 @@ export class AddNewHostComponent implements OnInit {
   search_site = 'name';
   siteList: any;
   selectedSite: any;
+
   constructor(
     private fb: FormBuilder,
     public activeModal: NgbActiveModal,
@@ -60,7 +61,7 @@ export class AddNewHostComponent implements OnInit {
       serialNumber: ['', Validators.required],
       manufacture: ['', Validators.required],
       model: ['', Validators.required],
-      SiteId: ['', Validators.required]
+      SiteId: ['', Validators.required],
     });
   }
 
@@ -95,6 +96,7 @@ export class AddNewHostComponent implements OnInit {
       this.isLoadingResult = false;
     });
   }
+  
   selectEvent(item) {
     console.log('item', item);
     this.selectedSite = item;
@@ -123,7 +125,8 @@ export class AddNewHostComponent implements OnInit {
         manufacture: this.managedHostForm.value.manufacture,
         model: this.managedHostForm.value.model,
         status: "Available",
-        Site_id: this.managedHostForm.value.SiteId.id
+        Site_id: this.managedHostForm.value.SiteId.id,
+        organization_id: localStorage.getItem('organization_id')
       };
       // const log_details = {
       //   triggered_by: this.routes.url.split('?')[0],

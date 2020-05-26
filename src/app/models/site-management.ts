@@ -6,6 +6,7 @@ export class SiteManagement {
     state: any;
     city: any;
     zipCode: any;
+    organization_id: string;
     start_time: any;
     end_time: any;
     latitude: string;

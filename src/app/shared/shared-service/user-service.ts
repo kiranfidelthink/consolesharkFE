@@ -139,14 +139,14 @@ export class UserService {
   getSiteList() {
     // return this.http.get<User>(`${this.baseUrl}get_Organization?organization_id=${user}`);
     return this.http.get<PaperTrail>(
-      `${this.baseUrl}get_Sites?filter=`
+      `${this.baseUrl}get_Sites?name=&organization_id=${this.organization_id}`
     );
   }
   getSiteListFilter(event) {
     console.log('----------', event);
     // return this.http.get<User>(`${this.baseUrl}get_Organization?organization_id=${user}`);
     return this.http.get<PaperTrail>(
-      `${this.baseUrl}get_Sites?filter=${event}`
+      `${this.baseUrl}get_Sites?name=${event}&organization_id=${this.organization_id}`
     );
   }
   getOrganizationList() {
@@ -165,27 +165,27 @@ export class UserService {
   getHostList() {
     // return this.http.get<User>(`${this.baseUrl}get_Organization?organization_id=${user}`);
     return this.http.get<PaperTrail>(
-      `${this.baseUrl}get_Hosts?filter=`
+      `${this.baseUrl}get_Hosts?name=&organization_id=${this.organization_id}`
     );
   }
   getHostListFilter(event) {
     console.log('----------', event);
     // return this.http.get<User>(`${this.baseUrl}get_Organization?organization_id=${user}`);
     return this.http.get<PaperTrail>(
-      `${this.baseUrl}get_Hosts?filter=${event}`
+      `${this.baseUrl}get_Hosts?name=${event}&organization_id=${this.organization_id}`
     );
   }
   getApplianceList() {
     // return this.http.get<User>(`${this.baseUrl}get_Organization?organization_id=${user}`);
     return this.http.get<PaperTrail>(
-      `${this.baseUrl}get_Appliances?filter=`
+      `${this.baseUrl}get_Appliances?name=&organization_id=${this.organization_id}`
     );
   }
   getApplianceListFilter(event) {
     console.log('----------', event);
     // return this.http.get<User>(`${this.baseUrl}get_Organization?organization_id=${user}`);
     return this.http.get<PaperTrail>(
-      `${this.baseUrl}get_Appliances?filter=${event}`
+      `${this.baseUrl}get_Appliances?name=${event}&organization_id=${this.organization_id}`
     );
   }
   createJoinOrgReq(

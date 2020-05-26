@@ -7,5 +7,6 @@ export class ManagedHosts {
     model: string;
     status: string;
     Site_id: string;
+    organization_id: string;
   }
   

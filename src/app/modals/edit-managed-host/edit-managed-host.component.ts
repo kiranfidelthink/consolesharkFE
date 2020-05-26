@@ -99,6 +99,7 @@ export class EditManagedHostComponent implements OnInit {
       this.isLoadingResult = false;
     });
   }
+  
   selectEvent(item) {
     console.log('item', item);
     this.selectedSite = item;
@@ -126,7 +127,8 @@ export class EditManagedHostComponent implements OnInit {
         manufacture: this.updateManagedHostForm.value.manufacture,
         model: this.updateManagedHostForm.value.model,
         status: "Available",
-        Site_id: this.updateManagedHostForm.value.siteId.id
+        Site_id: this.updateManagedHostForm.value.siteId.id,
+        organization_id: localStorage.getItem('organization_id')
       };
       this.spinner.show();
       this._hostManagementService.updateHost(hostDetails, this.hostDetails.managedHostsInfo.id).subscribe(

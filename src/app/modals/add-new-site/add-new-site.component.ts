@@ -99,6 +99,7 @@ export class AddNewSiteComponent implements OnInit {
         state: this.siteForm.value.state,
         city: this.siteForm.value.city,
         zipCode: this.siteForm.value.zipCode,
+        organization_id: localStorage.getItem('organization_id'),
         site_contact:{
           phone:this.siteForm.value.sitePersonContactNumber,
           name:this.siteForm.value.sitePersonName,

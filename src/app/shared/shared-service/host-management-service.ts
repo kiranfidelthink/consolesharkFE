@@ -4,13 +4,17 @@ import { SiteManagement } from '../../models/site-management';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ManagedHosts } from 'src/app/models/managed-hosts';
+import { DeviceAndUserData } from '../../models/deviceandUserData';
 @Injectable()
 export class HostManagementService {
   baseUrl: string = environment.baseUrl;
-  constructor(private http: HttpClient) {}
+  organization_id: string;
+  constructor(private http: HttpClient) {
+    this.organization_id= localStorage.getItem('organization_id')
+  }
 
   getSites(): Observable<SiteManagement> {
-    return this.http.get<SiteManagement>(`${this.baseUrl}get_Sites`);
+    return this.http.get<SiteManagement>(`${this.baseUrl}get_Sites?organization_id=${this.organization_id}`);
   }
   createSite(site: SiteManagement): Observable<SiteManagement> {
     console.log('site insisde create site', site);
@@ -38,7 +42,7 @@ export class HostManagementService {
   }
 
   getManagedHosts(): Observable<SiteManagement> {
-    return this.http.get<SiteManagement>(`${this.baseUrl}get_Hosts`);
+    return this.http.get<SiteManagement>(`${this.baseUrl}get_Hosts?organization_id=${this.organization_id}`);
   }
   createHost(host: ManagedHosts): Observable<ManagedHosts> {
     console.log('host insisde create host', host);
@@ -54,5 +58,9 @@ export class HostManagementService {
 
     // console.log('site insisde create site', site);
     // return this.http.post<SiteManagement>(`${this.baseUrl}create_Site`, site);
+  }
+  requestToAccessDevice(requestDetails: DeviceAndUserData): Observable<DeviceAndUserData> {
+    console.log('site request to access device', requestDetails);
+    return this.http.post<DeviceAndUserData>(`${this.baseUrl}launch_Console`, requestDetails);
   }
 }

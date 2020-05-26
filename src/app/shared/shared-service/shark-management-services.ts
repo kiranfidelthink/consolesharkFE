@@ -8,12 +8,15 @@ import { ManagedHosts } from 'src/app/models/managed-hosts';
 @Injectable()
 export class SharkManagementService {
   baseUrl: string = environment.baseUrl;
-  constructor(private http: HttpClient) {}
+  organization_id: string;
+  constructor(private http: HttpClient) {
+    this.organization_id= localStorage.getItem('organization_id')
+  }
 
 
   /*********************************************Appliance****************************************************** */
   getAppliances(): Observable<Appliance> {
-    return this.http.get<Appliance>(`${this.baseUrl}get_Appliances`);
+    return this.http.get<Appliance>(`${this.baseUrl}get_Appliances?organization_id=${this.organization_id}`);
   }
   createAppliance(appliance: Appliance): Observable<Appliance> {
     console.log('appliance insisde create appliance', appliance);
@@ -42,7 +45,7 @@ export class SharkManagementService {
 
   /***********************************************Dongle********************************************************* */
   getDongle(): Observable<Appliance> {
-    return this.http.get<Appliance>(`${this.baseUrl}get_Dongles`);
+    return this.http.get<Appliance>(`${this.baseUrl}get_Dongles?organization_id=${this.organization_id}`);
   }
   createDongle(appliance: Dongle): Observable<Dongle> {
     console.log('appliance insisde create appliance', appliance);
