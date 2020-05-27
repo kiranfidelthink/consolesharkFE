@@ -19,7 +19,6 @@ export interface PeriodicElement {
   model: string;
   appliance_serial: string;
   ipv4_address: string;
-  organization_id: string;
   Site_id: string;
   firmware_version: string;
   added: string;
@@ -39,7 +38,6 @@ export class ApplianceComponent implements OnInit {
     'model',
     'appliance_serial',
     'ipv4_address',
-    'organization_id',
     'Site_id',
     'firmware_version',
     'added',

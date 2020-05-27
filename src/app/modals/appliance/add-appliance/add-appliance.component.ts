@@ -35,7 +35,6 @@ export class AddNewApplianceComponent implements OnInit {
   userEmail: any;
   user_id: any;
   time = { hour: 13, minute: 30 };
-  keyword = 'company_name';
   search_site = 'name';
   selectedOrganization: any;
   siteList: any;
@@ -69,7 +68,6 @@ export class AddNewApplianceComponent implements OnInit {
           this.customValidator.ipAddressValidator(),
         ]),
       ],
-      organization_id: ['', Validators.required],
       Site_id: ['', Validators.required]
     });
   }
@@ -105,26 +103,6 @@ export class AddNewApplianceComponent implements OnInit {
       this.isLoadingResult = false;
     });
   }
-  getOrganizationsList(event) {
-    console.log('evenmt', event);
-    this.isLoadingResult = true;
-
-    this._userService.getOrganizationList().subscribe((data) => {
-      this.data = data;
-      console.log("organization list----", data)
-      console.log("organization list", this.data)
-      this.isLoadingResult = false;
-    });
-  }
-  
-  getOrganizationsListFilter(event) {
-    this.isLoadingResult = true;
-
-    this._userService.getOrganizationListFilter(event).subscribe((data) => {
-      this.data = data;
-      this.isLoadingResult = false;
-    });
-  }
   selectEvent(item) {
     console.log('item', item);
     this.selectedOrganization = item;
@@ -150,7 +128,7 @@ export class AddNewApplianceComponent implements OnInit {
         model: this.applianceForm.value.model,
         firmware_version: this.applianceForm.value.firmware_version,
         ipv4_address: this.applianceForm.value.ipv4_address,
-        organization_id: this.applianceForm.value.organization_id.id,
+        organization_id: localStorage.getItem('organization_id'),
         Site_id: this.applianceForm.value.Site_id.id,
         last_seen: new Date(),
         status: "Available",
