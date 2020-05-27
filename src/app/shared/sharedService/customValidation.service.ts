@@ -94,7 +94,8 @@ otpPatternValidator(): ValidatorFn {
         return null;
       }
       // const regex = new RegExp('[0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}')
-      const regex = new RegExp('(?:[0-9]{1,3}[.]){3}[0-9]{1,3}');
+      // const regex = new RegExp('(?:[0-9]{1,3}[.]){3}[0-9]{1,3}');
+      const regex = new RegExp('^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})$')
       const valid = regex.test(control.value);
       return valid ? null : { invalidIpAddress: true };
     };

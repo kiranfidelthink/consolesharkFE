@@ -180,6 +180,7 @@ export class ManagedHostsComponent implements OnInit {
           .requestToAccessDevice(requestDetails)
           .subscribe(
             (res: any) => {
+              
               console.log('create site res', res);
             },
             (err: any) => {}
