@@ -45,6 +45,7 @@ import { AddNewDongleComponent } from './modals/dongle/add-dongle/add-dongle.com
 import { EditDongleComponent } from './modals/dongle/edit-dongle/edit-dongle.component';
 import { NgxDaterangepickerMd } from 'ngx-datepicker-material';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { launchConsoleComponent } from './modals/launch-console/launch-console.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     EditApplianceComponent,
     AddNewDongleComponent,
     EditDongleComponent,
+    launchConsoleComponent
     // ToastMessageComponent
   ],
   imports: [

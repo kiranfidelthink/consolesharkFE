@@ -1,0 +1,141 @@
+.modal-header {
+  border-bottom: none;
+  padding: 0.5rem 1rem;
+}
+
+.modal-footer {
+  border-top: none;
+}
+
+.btn-primary {
+  border-color: rgba(0, 0, 0, 0);
+  background: #26B4FF;
+  color: #fff;
+}
+.billing-address-css{
+  color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Tabs*/
+section {
+    /* padding: 60px 0; */
+}
+
+section .section-title {
+    text-align: center;
+    color: #007b5e;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+}
+#tabs{
+    color: #9d9fa1;
+}
+#tabs h6.section-title{
+    color: #9d9fa1;
+}
+
+#tabs .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #f3f3f3;
+    background-color: transparent;
+    border-color: transparent transparent #f3f3f3;
+    border-bottom: 4px solid !important;
+    font-size: 20px;
+    font-weight: bold;
+}
+#tabs .nav-tabs .nav-link {
+    border: 1px solid transparent;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    color: #9d9fa1;
+    font-size: 20px;
+}
+.p-2rem-custom{
+  padding: 0 2rem;
+}
+.custom-control {
+  position: relative;
+  display: block;
+  min-height: 1.31418rem;
+  padding-left: 1.563rem;
+}
+.custom-control {
+  min-height: 1.125rem;
+  cursor: default;
+}
+.custom-checkbox .custom-control-label::before {
+  background-size: 65%;
+}
+.custom-checkbox .custom-control-label::before {
+  border-radius: .25rem;
+}
+.custom-control-label::before {
+  top: .0625rem;
+  left: 0;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-clip: padding-box;
+  transition: all .2s;
+  pointer-events: auto;
+}
+.custom-control-label::before {
+  position: absolute;
+  top: .0rem;
+  left: -1.563rem;
+  display: block;
+  width: 1.125rem;
+  height: 1.125rem;
+  pointer-events: none;
+  content: "";
+  background-color: #fff;
+  border:rgba(22, 26, 31, 0.4) solid 1px
+}
+.component-host-scrollable{
+  height: 900px !important;
+}
+.custom-modal-height{
+  height: 550px !important;
+}
+.border-custom{
+  border: 1px solid rgba(0,0,0,.125);
+  border-left: none;
+  border-top: none;
+}
+.org-table-body{
+  border: 5px solid #dee2e6;
+}
+.table td, .table th{
+  border-top: 1px solid #dee2e6;
+}
+.td-left{
+  background-color: #dee2e642;
+  border-right: 1px solid #dee2e6;
+  text-transform: uppercase;
+  font-weight: 500
+}
+.billing-details-td{
+  color: #856404;
+  background-color: #fff3cd;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.modal-body{
+  padding: 0rem 1rem;
+}
+.custom-control-label::after {
+  position: absolute;
+  top: .07rem;
+  left: -1.5rem;
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  content: "";
+  background: no-repeat 50%/50% 50%;
+}
+.instruction-content{
+  padding: 10px;
+  border: 1px dashed;
+}

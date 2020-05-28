@@ -59,8 +59,9 @@ export class HostManagementService {
     // console.log('site insisde create site', site);
     // return this.http.post<SiteManagement>(`${this.baseUrl}create_Site`, site);
   }
-  requestToAccessDevice(requestDetails: DeviceAndUserData): Observable<DeviceAndUserData> {
+  requestToAccessDevice(requestDetails: DeviceAndUserData, element): Observable<DeviceAndUserData> {
     console.log('site request to access device', requestDetails);
-    return this.http.post<DeviceAndUserData>(`${this.baseUrl}launch_Console`, requestDetails);
+    return this.http.post<DeviceAndUserData>(`${this.baseUrl}launch_Console?Host_id=${element.id}`, requestDetails);
+    // https://api.dashboard.consoleshark.com/user-svc/launch_Console?Host_id=2
   }
 }

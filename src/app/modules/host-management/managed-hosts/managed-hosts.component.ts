@@ -7,13 +7,13 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { HostManagementService } from 'src/app/shared/shared-service/host-management-service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EmitService } from 'src/app/shared/shared-service/emit-service';
-import { ConfirmDialogCOmponent } from 'src/app/modals/confirm-dialog/confirm-dialog.component';
 import { ToastService } from 'src/app/shared/shared-service/toast-service';
 import { LogService } from 'src/app/shared/shared-service/log.service';
 import { HttpClient } from '@angular/common/http';
 import { AddNewHostComponent } from 'src/app/modals/add-new-host/add-new-host.component';
 import { EditManagedHostComponent } from 'src/app/modals/edit-managed-host/edit-managed-host.component';
 import { UserService } from 'src/app/shared/shared-service/user-service';
+import { launchConsoleComponent } from 'src/app/modals/launch-console/launch-console.component';
 
 export interface PeriodicElement {
   host_name: string;
@@ -31,6 +31,7 @@ export interface PeriodicElement {
   templateUrl: './managed-hosts.component.html',
   styleUrls: ['./managed-hosts.component.css'],
 })
+
 export class ManagedHostsComponent implements OnInit {
   displayedColumns: string[] = [
     'host_name',
@@ -49,6 +50,7 @@ export class ManagedHostsComponent implements OnInit {
     triggered_by: 'Login Page',
     severity: 'Informational',
   };
+  requestStatus: boolean = false;
   dataSource: MatTableDataSource<PeriodicElement>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
@@ -128,6 +130,7 @@ export class ManagedHostsComponent implements OnInit {
     age: 26,
   };
   onOpenTerminal(element) {
+    this.requestStatus = true;
     console.log('element.dongle.Appliance_id', element.dongle);
     if (element.dongle) {
       console.log('Inside if');
@@ -169,22 +172,39 @@ export class ManagedHostsComponent implements OnInit {
           // requested_user_id: this.log.user_id,
           // requested_host_id: element.id,
           SourceIp: this.log.ip_address,
-          FirstName:res.first_name,
+          FirstName: res.first_name,
           LastName: res.last_name,
           Email: res.email,
           Date_Time: new Date(),
           ApplianceID: element.dongle.Appliance_id,
-          SerialNumber: element.dongle.dongle_serial
+          SerialNumber: element.dongle.dongle_serial,
         };
         this._hostManagementService
-          .requestToAccessDevice(requestDetails)
+          .requestToAccessDevice(requestDetails, element)
           .subscribe(
             (res: any) => {
-              
               console.log('create site res', res);
+              this.showModal(res);
             },
             (err: any) => {}
           );
       });
+  }
+  showModal(res) {
+    this.requestStatus = false;
+
+    const modalRef = this.modalService.open(launchConsoleComponent, {
+      scrollable: true,
+      size: 'lg',
+      backdrop: 'static',
+      keyboard: false,
+      windowClass: 'myCustomModalClass',
+    });
+    modalRef.componentInstance.element = res;
+    modalRef.result.then((result) => {
+      if (result) {
+        console.log('result--', result);
+      }
+    });
   }
 }
