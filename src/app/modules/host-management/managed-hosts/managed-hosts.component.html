@@ -55,7 +55,7 @@
               aria-hidden="true"></i></span>
           <span class="launch_console" *ngIf="isLaunched[i] == false" (click)="onOpenTerminal(element, i)"><i
               class="fa fa-terminal" aria-hidden="true"></i> Launch Console</span>
-          <!-- <span class="launch_console" *ngIf="requestStatus[i] == true">Requested</span> -->
+          <!-- <span class="launch_console" *ngIf="requestedStatus[i] == true">Requested</span> -->
           <span class="launch_console" *ngIf="isLaunched[i] == true">
             <button class="btn btn-info" (click)="disconnectHost(element, i)">Disconnect</button>
           </span>

@@ -56,7 +56,6 @@ export class ManagedHostsComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   isLaunched: any[];
   accessHostDetails: any;
-  currentIndex: any;
   constructor(
     private _hostManagementService: HostManagementService,
     private spinner: NgxSpinnerService,
@@ -169,7 +168,6 @@ export class ManagedHostsComponent implements OnInit {
     }
   }
   getUserandOrganization(element, userEmail, index) {
-    this.currentIndex = index;
     console.log('element', element);
     this._userService
       .getUserAndOrganization(userEmail)
@@ -222,7 +220,6 @@ export class ManagedHostsComponent implements OnInit {
     modalRef.result.then((result) => {
       if (result) {
         console.log('result--', result);
-        this.isLaunched[this.currentIndex] = false;
       }
     });
   }
