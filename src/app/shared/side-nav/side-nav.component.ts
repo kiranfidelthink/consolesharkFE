@@ -33,7 +33,6 @@ export class SidenavComponent implements OnInit {
     this.routes.navigate(['/login']);
   }
   goToHostManagement() {
-    // console.log("Inside host management")
     this.routes.navigate(['/host-management']);
   }
   config = {

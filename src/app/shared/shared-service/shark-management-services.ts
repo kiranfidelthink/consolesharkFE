@@ -29,18 +29,12 @@ export class SharkManagementService {
       `${this.baseUrl}update_Appliance?Appliance_id=${appliance_id}`,
       appliance
     );
-
-    // console.log('appliance insisde create appliance', appliance);
-    // return this.http.post<Appliance>(`${this.baseUrl}create_Appliance`, appliance);
   }
   deleteAppliance(appliance_id): Observable<Appliance> {
     console.log("appliance id", appliance_id)
     return this.http.delete<Appliance>(
       `${this.baseUrl}delete_Appliance?Appliance_id=${appliance_id}`
     );
-
-    // console.log('appliance insisde create appliance', appliance);
-    // return this.http.post<Appliance>(`${this.baseUrl}create_Appliance`, appliance);
   }
 
   /***********************************************Dongle********************************************************* */
@@ -58,17 +52,11 @@ export class SharkManagementService {
       `${this.baseUrl}update_Dongle?Dongle_id=${appliance_id}`,
       appliance
     );
-
-    // console.log('appliance insisde create appliance', appliance);
-    // return this.http.post<Dongle>(`${this.baseUrl}create_Dongle`, appliance);
   }
   deleteDongle(appliance_id): Observable<Dongle> {
     console.log("appliance id", appliance_id)
     return this.http.delete<Dongle>(
       `${this.baseUrl}delete_Dongle?Dongle_id=${appliance_id}`
     );
-
-    // console.log('appliance insisde create appliance', appliance);
-    // return this.http.post<Dongle>(`${this.baseUrl}create_Appliance`, appliance);
   }
 }

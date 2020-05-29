@@ -45,7 +45,6 @@ export class RegisterModalComponent implements OnInit {
 
   ngOnInit() {
     this.getIPAddress();
-    // console.log('this.fromParent', this.fromParent);
     this.registerForm = this.fb.group(
       {
         firstName: ['', Validators.required],
@@ -58,11 +57,6 @@ export class RegisterModalComponent implements OnInit {
             this.customValidator.contactPatternValidator(),
           ]),
         ],
-        // username: [
-        //   '',
-        //   [Validators.required],
-        //   this.customValidator.userNameValidator.bind(this.customValidator),
-        // ],
         password: [
           '',
           Validators.compose([
@@ -82,7 +76,7 @@ export class RegisterModalComponent implements OnInit {
   }
 
   getIPAddress() {
-    this.http.get('http://api.ipify.org/?format=json').subscribe((res: any) => {
+    this.http.get('https://api.ipify.org/?format=json').subscribe((res: any) => {
       this.log.ip_address = res.ip;
     });
   }
@@ -93,7 +87,6 @@ export class RegisterModalComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    // console.log("this.registerForm", this.registerForm)
     if (this.registerForm.valid) {
       const user: any = {
         first_name: this.registerForm.value.firstName,
@@ -112,7 +105,6 @@ export class RegisterModalComponent implements OnInit {
           this.log.event_type = 'User registered';
           this.log.message = 'User has successfully registered';
           this._logService.createLog(this.log).subscribe((res: any) => {});
-          // console.log("register success", res)
           this.createUser(user);
         },
         (err: any) => {
@@ -125,7 +117,6 @@ export class RegisterModalComponent implements OnInit {
   }
   createUser(user) {
     this._auth.createUser(user).subscribe((res) => {
-      // console.log("create user success", res)
       if (res) {
 
         this._toastService.showSuccessToastr('Registration successfully', '');

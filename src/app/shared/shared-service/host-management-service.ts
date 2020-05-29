@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ManagedHosts } from 'src/app/models/managed-hosts';
 import { DeviceAndUserData } from '../../models/deviceandUserData';
+import { HttpHeaders } from '@angular/common/http';
+
 @Injectable()
 export class HostManagementService {
   baseUrl: string = environment.baseUrl;
@@ -29,18 +31,12 @@ export class HostManagementService {
       `${this.baseUrl}update_Site?Site_id=${site_id}`,
       site
     );
-
-    // console.log('site insisde create site', site);
-    // return this.http.post<SiteManagement>(`${this.baseUrl}create_Site`, site);
   }
   deleteSite(site_id): Observable<SiteManagement> {
     console.log('site id', site_id);
     return this.http.delete<SiteManagement>(
       `${this.baseUrl}delete_Site?Site_id=${site_id}`
     );
-
-    // console.log('site insisde create site', site);
-    // return this.http.post<SiteManagement>(`${this.baseUrl}create_Site`, site);
   }
 
   getManagedHosts(): Observable<SiteManagement> {
@@ -59,9 +55,6 @@ export class HostManagementService {
       `${this.baseUrl}update_Host?Host_id=${host_id}`,
       host
     );
-
-    // console.log('site insisde create site', site);
-    // return this.http.post<SiteManagement>(`${this.baseUrl}create_Site`, site);
   }
   requestToAccessDevice(
     requestDetails: DeviceAndUserData,
@@ -76,8 +69,20 @@ export class HostManagementService {
   }
 
   disconnectHost(requestDetails: any, element): Observable<any> {
-    return this.http.get<any>(
-      `http://${requestDetails.IP}:5000/todo/api/v1.0/portrestart`
+    console.log('Request details in service', requestDetails);
+    // let header = new HttpHeaders();
+    // header.set('Access-Control-Allow-Origin', '*');
+    // header.set('secure', 'false');
+    // return this.http.get<any>(
+    //   `https://${requestDetails.IP}:5000/todo/api/v1.0/portrestart`,{headers: header}
+    // );
+    const ip_address = {
+      ip_address: requestDetails.IP,
+    };
+
+    return this.http.post<DeviceAndUserData>(
+      `${this.baseUrl}port_Restart`,
+      ip_address
     );
   }
 }

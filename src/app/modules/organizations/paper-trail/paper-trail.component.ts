@@ -69,8 +69,6 @@ export class PaperTrailComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
   getClass(priority){
-    // console.log("priority", priority)
-  
     return {'informational': priority =='Informational',
                   'warning': priority == 'Warning', 
                   'critical': priority =='Critical',

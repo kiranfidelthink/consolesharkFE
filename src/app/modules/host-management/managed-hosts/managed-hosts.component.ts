@@ -14,6 +14,7 @@ import { AddNewHostComponent } from 'src/app/modals/add-new-host/add-new-host.co
 import { EditManagedHostComponent } from 'src/app/modals/edit-managed-host/edit-managed-host.component';
 import { UserService } from 'src/app/shared/shared-service/user-service';
 import { launchConsoleComponent } from 'src/app/modals/launch-console/launch-console.component';
+import { HttpHeaders } from '@angular/common/http';
 
 export interface PeriodicElement {
   host_name: string;
@@ -55,6 +56,7 @@ export class ManagedHostsComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   isLaunched: any[];
   accessHostDetails: any;
+  currentIndex: any;
   constructor(
     private _hostManagementService: HostManagementService,
     private spinner: NgxSpinnerService,
@@ -69,6 +71,7 @@ export class ManagedHostsComponent implements OnInit {
       console.log(m);
       this.updateManagesHostsDetails(m);
     });
+    this.getIPAddress();
   }
   updateManagesHostsDetails(event) {
     this.getManagedHosts();
@@ -76,25 +79,42 @@ export class ManagedHostsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getIPAddress();
-    this.spinner.show();
+    
     this.dataSource = new MatTableDataSource();
     this.getManagedHosts();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
   getIPAddress() {
-    this.http.get('http://api.ipify.org/?format=json').subscribe((res: any) => {
+    let header = new HttpHeaders();
+    header.set('Access-Control-Allow-Origin', '*');
+    this.http.get('https://api.ipify.org/?format=json',{headers: header}).subscribe((res: any) => {
+      console.log("=------", res)
       this.log.ip_address = res.ip;
       console.log(
         'ip address inside create new managed hosts',
         this.log.ip_address
       );
     });
+    // this.http.get('https://api.ipify.org/?format=json',{headers: headers}).subscribe((res: any) => {
+    //   this.log.ip_address = res.ip;
+    //   console.log(
+    //     'ip address inside create new managed hosts',
+    //     this.log.ip_address
+    //   );
+    // });
+    // this.http.get('http://freegeoip.net/json/?callback').subscribe((res: any) => {
+    //   this.log.ip_address = res.ip;
+    //   console.log(
+    //     'ip address inside create new managed hosts',
+    //     this.log.ip_address
+    //   );
+    // });
   }
   getManagedHosts() {
-    this.spinner.hide();
+    this.spinner.show();
     this._hostManagementService.getManagedHosts().subscribe((data: any) => {
+      this.spinner.hide();
       console.log(data);
       console.log('Laps');
       this.dataSource.data = data;
@@ -141,7 +161,7 @@ export class ManagedHostsComponent implements OnInit {
     console.log('element.dongle.Appliance_id', element.dongle);
     if (element.dongle) {
       console.log('Inside if');
-      
+
       this.getUserandOrganization(element, this.log.email, index);
     } else {
       alert('No appliance connected');
@@ -149,6 +169,7 @@ export class ManagedHostsComponent implements OnInit {
     }
   }
   getUserandOrganization(element, userEmail, index) {
+    this.currentIndex = index;
     console.log('element', element);
     this._userService
       .getUserAndOrganization(userEmail)
@@ -183,8 +204,8 @@ export class ManagedHostsComponent implements OnInit {
               this.showModal(res);
             },
             (err: any) => {
-              alert("Failed to launch console please try again")
-              console.log("request to access launch error", err)
+              alert('Failed to launch console please try again');
+              console.log('request to access launch error', err);
             }
           );
       });
@@ -201,6 +222,7 @@ export class ManagedHostsComponent implements OnInit {
     modalRef.result.then((result) => {
       if (result) {
         console.log('result--', result);
+        this.isLaunched[this.currentIndex] = false;
       }
     });
   }
@@ -217,6 +239,8 @@ export class ManagedHostsComponent implements OnInit {
         },
         (err: any) => {
           console.log('error', err);
+          this.isLaunched[index] = false;
+
         }
       );
   }

@@ -77,7 +77,7 @@ export class AddNewSiteComponent implements OnInit {
     return this.siteForm.controls;
   }
   getIPAddress() {
-    this.http.get('http://api.ipify.org/?format=json').subscribe((res: any) => {
+    this.http.get('https://api.ipify.org/?format=json').subscribe((res: any) => {
       this.log.ip_address = res.ip;
       console.log(
         'ip address inside create new site',

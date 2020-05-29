@@ -59,10 +59,6 @@ export class UserService {
   createOrganization(
     organization: Organization
   ): Observable<Organization> {
-    // const params = {
-    //   log: JSON.stringify(log_details),
-    // };
-    // console.log("log details insisde create organization", params)
     console.log("organization insisde create organization", organization)
     return this.http.post<Organization>(
       `${this.baseUrl}create_Organization`,

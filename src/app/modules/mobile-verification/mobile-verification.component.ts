@@ -42,7 +42,6 @@ export class MobileVerifyComponent implements OnInit {
       this.clientId = params['clientId'];
       this.username = params['username'];
       this.code = params['code'];
-      // console.log("emailId", this.emailId); // Print the parameter to the console. 
   });
   }
   msg;
@@ -59,7 +58,7 @@ export class MobileVerifyComponent implements OnInit {
     this.getUserDetails(this.emailId);
   }
   getIPAddress() {
-    this.http.get('http://api.ipify.org/?format=json').subscribe((res: any) => {
+    this.http.get('https://api.ipify.org/?format=json').subscribe((res: any) => {
       this.log.ip_address = res.ip;
     });
   }
@@ -90,22 +89,18 @@ export class MobileVerifyComponent implements OnInit {
   }
   sendOTP(userData){
     this._userService.sendMobileOTP(userData).subscribe((res:any) => {
-      // console.log("resssssss--------", res)
     });
   }
   get mobileVerificationFormControl() {
     return this.mobileVerificationForm.controls;
   }
   onSubmit() {
-    // console.log("mobile",this.currentUserDetail)
-    // console.log("this.mobileVerificationForm.value",this.mobileVerificationForm.value)
     this.submitted = true;
     const userData:any= {
       otp:this.mobileVerificationForm.value.otp,
       mobile_number:this.currentUserDetail.mobile_number
     }
     this._userService.verifyMobile(userData).subscribe((res) => {
-      // console.log("ressss", res)
       this.log.event_type = 'Mobile verification';
         this.log.message = 'User mobile verified successfully';
         this.log.email = this.currentUserDetail.email
@@ -117,7 +112,6 @@ export class MobileVerifyComponent implements OnInit {
     });
     if (this.mobileVerificationForm.valid) {
       
-      // console.log('this.mobileVerificationForm.valid', this.mobileVerificationForm.value);
       console.warn(this.mobileVerificationForm.value);
       
     }
