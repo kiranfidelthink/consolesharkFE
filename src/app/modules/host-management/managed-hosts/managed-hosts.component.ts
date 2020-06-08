@@ -199,7 +199,10 @@ export class ManagedHostsComponent implements OnInit {
               this.isLaunched[index] = true;
               this.accessHostDetails = res;
               console.log('create site res', res);
-              this.showModal(res);
+              // this.showModal(res);
+              // window.open('http://localhost:8888/', '_blank','view');
+              const privateKey1 = encodeURIComponent('-----BEGIN RSA PRIVATE KEY-----\nMIICXAIBAAKBgQC4ZAUA+bS31D+KeXS1XlgW+udX1OE9hMjbI3i2LB/BuGmHHlKB\nuqqiBy80rW6ena5mhfQ0hQBkHoLL8EEIc6M0tD/qctDL3kclC7laB6Eow5sZSTK1\nJAmDwyG1F6rAPUouxsur4KinbLxFJiPdF/89YId8hw03BQ4xliycyYpVLwIDAQAB\nAoGAPg7jpD1mdkxICmnwPq5/BVTykZwDJrpPA3n/wYg+M+vGEITDDghuL1QtrhQE\n2/uD29uPojF1PT0LlmnI6XhJ3/vd0gnzbcK0KWe7qYGXWh2U9HXxGp2u/mL2QXaC\nUEbLhIMCVXc59m/+XL2I5hsQruW4sobU+dg3oA6rtBuMbCkCQQDXZx5oGP9b9tMr\nxlu5b9+ztAAuJlYcK8c8uiEBwV1n8e1eGEYVkxeTveJy1srNJbK3HKu6W9622vdQ\nyFGnbtQVAkEA2yScReSdNjxDTGu7GiDastqwwTKMqFPjPn8Eq1tcwxQuWGhGtIRB\nSP8qj9wQrfVW0slqZxjXjfubaYxTf5oBMwJBAKYkJmLabRQM5EJOY+866Auemcj+\nzso5xhoD4nONJrOG+bPq+xum8beF7YTwQUpMenUcSySZucXGTJ3ldH21USUCQAbG\nSPZ4LMwCbOot4mjaXyhsTk6Kq4KApWPHNXO+rU1ykEQ3ZQgrloEVMlGkMffOv9Jg\nW6O4RuGix5kpt2MYdbUCQENnymFJmDGpHGg+sS3hBefMmGaxIyiC25OFar7p5Hva\niHZl0zcZpjq4tenYYxIttNS+cU93223539Cq1CTkSIU=\n-----END RSA PRIVATE KEY-----')
+              window.open(`http://localhost:8888?hostname=${res.IP}&port=${res.port}&username=${res.username}&privatekey=${privateKey1}`, '_blank', "height=800,width=1000");
             },
             (err: any) => {
               alert('Failed to launch console please try again');

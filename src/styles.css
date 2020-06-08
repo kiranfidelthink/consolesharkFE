@@ -29,8 +29,8 @@ body {
   /* min-height: 174vh!important; */
 }
 .min-vh-custom {
-  min-height: 85.3vh !important;
-  max-height: 85.3vh !important;
+  min-height: 85.8vh !important;
+  max-height: 85.8vh !important;
   overflow-x: hidden;
   overflow-y: scroll;
 }
