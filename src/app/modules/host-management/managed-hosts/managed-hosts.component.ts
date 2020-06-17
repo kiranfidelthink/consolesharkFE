@@ -26,7 +26,6 @@ export interface PeriodicElement {
   status: string;
   action: string;
 }
-
 @Component({
   selector: 'managed-hosts',
   templateUrl: './managed-hosts.component.html',
@@ -52,7 +51,6 @@ export class ManagedHostsComponent implements OnInit {
   };
   dataSource: MatTableDataSource<PeriodicElement>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   isLaunched: any[];
   accessHostDetails: any;
@@ -78,7 +76,6 @@ export class ManagedHostsComponent implements OnInit {
   }
 
   ngOnInit() {
-    
     this.dataSource = new MatTableDataSource();
     this.getManagedHosts();
     this.dataSource.paginator = this.paginator;
@@ -87,28 +84,16 @@ export class ManagedHostsComponent implements OnInit {
   getIPAddress() {
     let header = new HttpHeaders();
     header.set('Access-Control-Allow-Origin', '*');
-    this.http.get('https://api.ipify.org/?format=json',{headers: header}).subscribe((res: any) => {
-      console.log("=------", res)
-      this.log.ip_address = res.ip;
-      console.log(
-        'ip address inside create new managed hosts',
-        this.log.ip_address
-      );
-    });
-    // this.http.get('https://api.ipify.org/?format=json',{headers: headers}).subscribe((res: any) => {
-    //   this.log.ip_address = res.ip;
-    //   console.log(
-    //     'ip address inside create new managed hosts',
-    //     this.log.ip_address
-    //   );
-    // });
-    // this.http.get('http://freegeoip.net/json/?callback').subscribe((res: any) => {
-    //   this.log.ip_address = res.ip;
-    //   console.log(
-    //     'ip address inside create new managed hosts',
-    //     this.log.ip_address
-    //   );
-    // });
+    this.http
+      .get('https://api.ipify.org/?format=json', { headers: header })
+      .subscribe((res: any) => {
+        console.log('=------', res);
+        this.log.ip_address = res.ip;
+        console.log(
+          'ip address inside create new managed hosts',
+          this.log.ip_address
+        );
+      });
   }
   getManagedHosts() {
     this.spinner.show();
@@ -160,58 +145,16 @@ export class ManagedHostsComponent implements OnInit {
     console.log('element.dongle.Appliance_id', element.dongle);
     if (element.dongle) {
       console.log('Inside if');
-
-      this.getUserandOrganization(element, this.log.email, index);
+      this.showModal(element, this.log.email, index);
+      // this.getUserandOrganization(element, this.log.email, index);
     } else {
       alert('No appliance connected');
       console.log('Inside else');
     }
   }
-  getUserandOrganization(element, userEmail, index) {
-    console.log('element', element);
-    this._userService
-      .getUserAndOrganization(userEmail)
-      .subscribe((res: any) => {
-        console.log('Inside home component use res', res);
-        console.log('res of get user in managed host component', res);
-        const requestDetails = {
-          // first_name: res.first_name,
-          // last_name: res.last_name,
-          // email_address: res.email,
-          // date_time: new Date(),
-          // source_ip: this.log.ip_address,
-          // appliance_id: '34',
-          // dongale_id: '34',
-          // requested_user_id: this.log.user_id,
-          // requested_host_id: element.id,
-          SourceIp: this.log.ip_address,
-          FirstName: res.first_name,
-          LastName: res.last_name,
-          Email: res.email,
-          Date_Time: new Date(),
-          ApplianceID: element.dongle.Appliance_id,
-          SerialNumber: element.dongle.dongle_serial,
-        };
-        this._hostManagementService
-          .requestToAccessDevice(requestDetails, element)
-          .subscribe(
-            (res: any) => {
-              this.isLaunched[index] = true;
-              this.accessHostDetails = res;
-              console.log('create site res', res);
-              // this.showModal(res);
-              // window.open('http://localhost:8888/', '_blank','view');
-              const privateKey1 = encodeURIComponent('-----BEGIN RSA PRIVATE KEY-----\nMIICXAIBAAKBgQC4ZAUA+bS31D+KeXS1XlgW+udX1OE9hMjbI3i2LB/BuGmHHlKB\nuqqiBy80rW6ena5mhfQ0hQBkHoLL8EEIc6M0tD/qctDL3kclC7laB6Eow5sZSTK1\nJAmDwyG1F6rAPUouxsur4KinbLxFJiPdF/89YId8hw03BQ4xliycyYpVLwIDAQAB\nAoGAPg7jpD1mdkxICmnwPq5/BVTykZwDJrpPA3n/wYg+M+vGEITDDghuL1QtrhQE\n2/uD29uPojF1PT0LlmnI6XhJ3/vd0gnzbcK0KWe7qYGXWh2U9HXxGp2u/mL2QXaC\nUEbLhIMCVXc59m/+XL2I5hsQruW4sobU+dg3oA6rtBuMbCkCQQDXZx5oGP9b9tMr\nxlu5b9+ztAAuJlYcK8c8uiEBwV1n8e1eGEYVkxeTveJy1srNJbK3HKu6W9622vdQ\nyFGnbtQVAkEA2yScReSdNjxDTGu7GiDastqwwTKMqFPjPn8Eq1tcwxQuWGhGtIRB\nSP8qj9wQrfVW0slqZxjXjfubaYxTf5oBMwJBAKYkJmLabRQM5EJOY+866Auemcj+\nzso5xhoD4nONJrOG+bPq+xum8beF7YTwQUpMenUcSySZucXGTJ3ldH21USUCQAbG\nSPZ4LMwCbOot4mjaXyhsTk6Kq4KApWPHNXO+rU1ykEQ3ZQgrloEVMlGkMffOv9Jg\nW6O4RuGix5kpt2MYdbUCQENnymFJmDGpHGg+sS3hBefMmGaxIyiC25OFar7p5Hva\niHZl0zcZpjq4tenYYxIttNS+cU93223539Cq1CTkSIU=\n-----END RSA PRIVATE KEY-----')
-              window.open(`http://localhost:8888?hostname=${res.IP}&port=${res.port}&username=${res.username}&privatekey=${privateKey1}`, '_blank', "height=800,width=1000");
-            },
-            (err: any) => {
-              alert('Failed to launch console please try again');
-              console.log('request to access launch error', err);
-            }
-          );
-      });
-  }
-  showModal(res) {
+  showModal(res, userEmail, index) {
+    this.isLaunched[index] = true;
+    this.accessHostDetails = res;
     const modalRef = this.modalService.open(launchConsoleComponent, {
       scrollable: true,
       size: 'lg',
@@ -219,14 +162,55 @@ export class ManagedHostsComponent implements OnInit {
       keyboard: false,
       windowClass: 'myCustomModalClass',
     });
-    modalRef.componentInstance.element = res;
+    const obj = {
+      res: res,
+      userEmail: userEmail,
+      index: index
+    }
+    modalRef.componentInstance.element = obj;
     modalRef.result.then((result) => {
-      if (result) {
+      console.log("result before", result)
+      if (result || result == 0) {
         console.log('result--', result);
+        this.isLaunched[result] = false;
       }
     });
   }
-
+  // getUserandOrganization(element, userEmail, index) {
+  //   console.log('element', element);
+  //   this._userService
+  //     .getUserAndOrganization(userEmail)
+  //     .subscribe((res: any) => {
+  //       const requestDetails = {
+  //         SourceIp: this.log.ip_address,
+  //         FirstName: res.first_name,
+  //         LastName: res.last_name,
+  //         Email: res.email,
+  //         Date_Time: new Date(),
+  //         ApplianceID: element.dongle.Appliance_id,
+  //         SerialNumber: element.dongle.dongle_serial,
+  //       };
+  //       // window.open(`http://localhost:8888?hostId=${element.id}`)
+  //       this._hostManagementService
+  //         .requestToAccessDevice(requestDetails, element)
+  //         .subscribe(
+  //           (res: any) => {
+  //             this.isLaunched[index] = true;
+  //             this.accessHostDetails = res;
+  //             console.log('create site res============', res);
+  //             window.open(
+  //               `ssh://${res.username}:YEQwa8WLgHGYPTdE@${res.IP}:${res.port}`,
+  //               '_blank'
+  //             );
+  //           },
+  //           (err: any) => {
+  //             alert('Failed to launch console please try again');
+  //             console.log('request to access launch error', err);
+  //           }
+  //         );
+  //     });
+  // }
+  
   disconnectHost(element, index) {
     console.log('this.accessHostDetails', this.accessHostDetails);
     console.log('element', element);
@@ -240,7 +224,6 @@ export class ManagedHostsComponent implements OnInit {
         (err: any) => {
           console.log('error', err);
           this.isLaunched[index] = false;
-
         }
       );
   }
