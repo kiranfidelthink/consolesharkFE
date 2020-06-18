@@ -54,6 +54,7 @@ export class ManagedHostsComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   isLaunched: any[];
   accessHostDetails: any;
+  disconnectSession: any;
   constructor(
     private _hostManagementService: HostManagementService,
     private spinner: NgxSpinnerService,
@@ -153,6 +154,7 @@ export class ManagedHostsComponent implements OnInit {
     }
   }
   showModal(res, userEmail, index) {
+    console.log("show modal res", res)
     this.isLaunched[index] = true;
     this.accessHostDetails = res;
     const modalRef = this.modalService.open(launchConsoleComponent, {
@@ -170,6 +172,7 @@ export class ManagedHostsComponent implements OnInit {
     modalRef.componentInstance.element = obj;
     modalRef.result.then((result) => {
       console.log("result before", result)
+      this.disconnectSession = result;
       if (result || result == 0) {
         console.log('result--', result);
         this.isLaunched[result] = false;
@@ -211,11 +214,12 @@ export class ManagedHostsComponent implements OnInit {
   //     });
   // }
   
-  disconnectHost(element, index) {
+  disconnectHost(element, index, disconnectSession) {
+    console.log("disconnectSession", disconnectSession)
     console.log('this.accessHostDetails', this.accessHostDetails);
     console.log('element', element);
     this._hostManagementService
-      .disconnectHost(this.accessHostDetails, element)
+      .disconnectHost(this.accessHostDetails, element, disconnectSession)
       .subscribe(
         (res: any) => {
           console.log('Res', res);

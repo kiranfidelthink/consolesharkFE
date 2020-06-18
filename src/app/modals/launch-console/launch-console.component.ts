@@ -4,7 +4,6 @@ import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { UserService } from 'src/app/shared/shared-service/user-service';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { HostManagementService } from 'src/app/shared/shared-service/host-management-service';
-
 // import * as data from '../../shared/shared-service/countryList.json';
 
 @Component({
@@ -74,13 +73,12 @@ export class launchConsoleComponent implements OnInit {
             (res: any) => {
               this.requestStatus = 'ready';
               setTimeout(() => {
-                /** spinner ends after 5 seconds */
                 console.log('create site res============', res);
                 window.open(
-                  `ssh://${res.username}:YEQwa8WLgHGYPTdE@${res.IP}:${res.port}`,
+                  `ssh://${res.username}:${res.private_key}@${res.IP}:${res.port}`,
                   '_blank'
                 );
-                this.activeModal.close(this.element.index);
+                this.activeModal.close(res);
               }, 3000);
             },
             (err: any) => {

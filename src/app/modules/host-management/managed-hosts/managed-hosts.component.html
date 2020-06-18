@@ -57,7 +57,7 @@
               class="fa fa-terminal" aria-hidden="true"></i> Launch Console</span>
           <!-- <span class="launch_console" *ngIf="requestedStatus[i] == true">Requested</span> -->
           <span class="launch_console" *ngIf="isLaunched[i] == true">
-            <button class="btn btn-info" (click)="disconnectHost(element, i)">Disconnect</button>
+            <button class="btn btn-info" (click)="disconnectHost(element, i, disconnectSession)">Disconnect</button>
           </span>
           <!-- <span class="delete-btn  action-btn" (click)="onOpenTerminal(element)" >
             <i class="fa fa-terminal" aria-hidden="true"></i>

@@ -68,7 +68,7 @@ export class HostManagementService {
     // https://api.dashboard.consoleshark.com/user-svc/launch_Console?Host_id=2
   }
 
-  disconnectHost(requestDetails: any, element): Observable<any> {
+  disconnectHost(requestDetails: any, element, disconnectSession): Observable<any> {
     console.log('Request details in service', requestDetails);
     // let header = new HttpHeaders();
     // header.set('Access-Control-Allow-Origin', '*');
@@ -77,12 +77,16 @@ export class HostManagementService {
     //   `https://${requestDetails.IP}:5000/todo/api/v1.0/portrestart`,{headers: header}
     // );
     const ip_address = {
-      ip_address: requestDetails.IP,
+      ip_address: disconnectSession.IP,
     };
 
     return this.http.post<DeviceAndUserData>(
       `${this.baseUrl}port_Restart`,
       ip_address
     );
+    // return this.http.get<DeviceAndUserData>(
+    //   `https://96.32.121.85:5000/todo/api/v1.0/portrestart`
+    // );
+    
   }
 }
