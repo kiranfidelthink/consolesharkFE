@@ -153,6 +153,7 @@ export class ManagedHostsComponent implements OnInit {
       console.log('Inside else');
     }
   }
+
   showModal(res, userEmail, index) {
     console.log("show modal res", res)
     this.isLaunched[index] = true;
@@ -226,8 +227,15 @@ export class ManagedHostsComponent implements OnInit {
           this.isLaunched[index] = false;
         },
         (err: any) => {
-          console.log('error', err);
-          this.isLaunched[index] = false;
+          console.log('error', err.status);
+          if(err.status == '200'){
+            console.log("Inside if")
+            this.isLaunched[index] = false;
+          }
+          else{
+          alert("Session is not disconnected, please try again")
+          }
+          // this.isLaunched[index] = true;
         }
       );
   }

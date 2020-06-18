@@ -34,9 +34,7 @@ export class launchConsoleComponent implements OnInit {
     this.requestStatus = 'requested';
     console.log('this.element----', this.element);
     console.log('this.element.res.id', this.element.res.id);
-    if (this.element.res) {
-      this.getUserandOrganization(this.element);
-    }
+    
   }
 
   // onConfirm(value) {
@@ -98,6 +96,10 @@ export class launchConsoleComponent implements OnInit {
       .subscribe((res: any) => {
         console.log('=------', res);
         this.log.ip_address = res.ip;
+        if (this.element.res) {
+          console.log("API call after IP address")
+          this.getUserandOrganization(this.element);
+        }
         console.log(
           'ip address inside create new managed hosts',
           this.log.ip_address
