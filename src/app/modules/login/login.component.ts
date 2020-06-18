@@ -7,7 +7,7 @@ import { ForgotPasswordModalComponent } from '../../modals/forgot-password/forgo
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { LogService } from 'src/app/shared/shared-service/log.service';
 import { HttpClient } from '@angular/common/http';
-import { CustomvalidationService } from 'src/app/shared/sharedService/customValidation.service';
+import { CustomvalidationService } from 'src/app/shared/shared-service/customValidation.service';
 import { UserService } from 'src/app/shared/shared-service/user-service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastService } from 'src/app/shared/shared-service/toast-service';

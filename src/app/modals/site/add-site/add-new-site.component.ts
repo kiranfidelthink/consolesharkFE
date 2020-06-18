@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { EmitService } from 'src/app/shared/shared-service/emit-service';
@@ -7,18 +7,17 @@ import { HttpClient } from '@angular/common/http';
 import { LogService } from 'src/app/shared/shared-service/log.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { HostManagementService } from 'src/app/shared/shared-service/host-management-service';
-import { CustomvalidationService } from 'src/app/shared/sharedService/customValidation.service';
+import { CustomvalidationService } from 'src/app/shared/shared-service/customValidation.service';
 
 // import * as data from '../../shared/shared-service/countryList.json';
 
 @Component({
-  selector: 'edit-site-modal',
-  templateUrl: './edit-site.component.html',
-  styleUrls: ['./edit-site.component.css'],
+  selector: 'add-new-site-modal',
+  templateUrl: './add-new-site.component.html',
+  styleUrls: ['./add-new-site.component.css'],
 })
-export class EditSiteComponent implements OnInit {
-  @Input() fromSiteComponent;
-  updateSiteForm: FormGroup;
+export class AddNewSiteComponent implements OnInit {
+  siteForm: FormGroup;
   submitted = false;
   ipAddress = '';
   current_time: number;
@@ -33,14 +32,7 @@ export class EditSiteComponent implements OnInit {
   data: any;
   userEmail: any;
   user_id: any;
-  siteDetails: any;
-  selectedOption: any;
-  public min = new Date(2018, 3, 12, 10, 30);
-  public max = new Date(2018, 3, 25, 20, 30);
-  invalidDateTime1: Date;
-  selectedCountry: any;
-  // public invalidDateTime1 = new Date(2018, 3, 26, 20, 30);
-
+  time = {hour: 13, minute: 30};
   constructor(
     private fb: FormBuilder,
     public activeModal: NgbActiveModal,
@@ -50,19 +42,14 @@ export class EditSiteComponent implements OnInit {
     private http: HttpClient,
     private _logService: LogService,
     private spinner: NgxSpinnerService,
-    private customValidator: CustomvalidationService
+    private customValidator: CustomvalidationService,
   ) {}
 
   ngOnInit() {
-    this.selectedOption = this.countries[0];
-    console.log('this.fromSiteComponent', this.fromSiteComponent);
-    this.siteDetails = this.fromSiteComponent
-    this.onDefaultSelectCountry(this.siteDetails.siteInfo.country);
-  this.invalidDateTime1 = new Date(this.siteDetails.siteInfo.start_time);
     this.getIPAddress();
     const epochNow = new Date().getTime();
     this.current_time = epochNow;
-    this.updateSiteForm = this.fb.group({
+    this.siteForm = this.fb.group({
       siteName: ['', Validators.required],
       addressLineOne: ['', Validators.required],
       addressLineTwo: ['', Validators.required],
@@ -85,17 +72,9 @@ export class EditSiteComponent implements OnInit {
       ],
     });
   }
-  onDefaultSelectCountry(countryId) { 
-    this.selectedCountry = null;
-    for (var i = 0; i < this.countries.length; i++)
-    {
-      if (this.countries[i].id == countryId.id) {
-        this.selectedCountry = this.countries[i];
-      }
-    }
-}
-  get updateSiteFormControl() {
-    return this.updateSiteForm.controls;
+
+  get siteFormControl() {
+    return this.siteForm.controls;
   }
   getIPAddress() {
     this.http.get('https://api.ipify.org/?format=json').subscribe((res: any) => {
@@ -106,43 +85,51 @@ export class EditSiteComponent implements OnInit {
       );
     });
   }
-  onUpdateSite() {
-    console.log('Insdie submit', this.updateSiteForm.value);
-    console.log('this.updateSiteForm', this.updateSiteForm);
+  onSubmit() {
+    console.log('Insdie submit', this.siteForm.value);
+    console.log('this.siteForm', this.siteForm);
 
     this.submitted = true;
-    if (this.updateSiteForm.valid) {
+    if (this.siteForm.valid) {
       const siteDetails = {
-        name: this.updateSiteForm.value.siteName,
-        addressLineOne: this.updateSiteForm.value.addressLineOne,
-        addressLineTwo: this.updateSiteForm.value.addressLineTwo,
-        country: this.updateSiteForm.value.country,
-        state: this.updateSiteForm.value.state,
-        city: this.updateSiteForm.value.city,
-        zipCode: this.updateSiteForm.value.zipCode,
+        name: this.siteForm.value.siteName,
+        addressLineOne: this.siteForm.value.addressLineOne,
+        addressLineTwo: this.siteForm.value.addressLineTwo,
+        country: this.siteForm.value.country,
+        state: this.siteForm.value.state,
+        city: this.siteForm.value.city,
+        zipCode: this.siteForm.value.zipCode,
         organization_id: localStorage.getItem('organization_id'),
         site_contact:{
-          phone:this.updateSiteForm.value.sitePersonContactNumber,
-          name:this.updateSiteForm.value.sitePersonName,
-          position:this.updateSiteForm.value.sitePersonposition
+          phone:this.siteForm.value.sitePersonContactNumber,
+          name:this.siteForm.value.sitePersonName,
+          position:this.siteForm.value.sitePersonposition
         },
-        start_time: this.updateSiteForm.value.startDate,
-        end_time: this.updateSiteForm.value.endDate,
-        latitude: this.updateSiteForm.value.latitude,
-        longitude: this.updateSiteForm.value.longitude
+        start_time: this.siteForm.value.startDate,
+        end_time: this.siteForm.value.endDate,
+        // start_time: Math.round(new Date(this.siteForm.value.startDate).getTime()/1000),
+        // end_time: Math.round(new Date(this.siteForm.value.endDate).getTime()/1000),
+        latitude: this.siteForm.value.latitude,
+        longitude: this.siteForm.value.longitude
       };
+      // const log_details = {
+      //   triggered_by: this.routes.url.split('?')[0],
+      //   email_id: this.userEmail,
+      //   user_id: this.user_id,
+      //   time: this.current_time,
+      // };
       this.spinner.show();
-      this._hostManagementService.updateSite(siteDetails, this.siteDetails.siteInfo.id).subscribe(
+      this._hostManagementService.createSite(siteDetails).subscribe(
         (res: any) => {
           this.spinner.hide();
           console.log('create site res', res);
-          this.log.event_type = 'Site updated';
-          this.log.message = 'Site updated Successfully';
+          this.log.event_type = 'Site created';
+          this.log.message = 'Site created Successfully';
           console.log('this.log', this.log);
           this._logService.createLog(this.log).subscribe((res: any) => {});
           this._emitService.reloadOrganizationDetails('');
           this._toastService.showSuccessToastr(
-            'Site updated successfully',
+            'Site created successfully',
             ''
           );
           this.activeModal.close();
@@ -159,7 +146,7 @@ export class EditSiteComponent implements OnInit {
               this.spinner.hide();
             }, 3000);
           }
-          this.log.event_type = 'Site not updated';
+          this.log.event_type = 'Site not created';
           this.log.message = 'Failed to create site';
           this._logService.createLog(this.log).subscribe((res: any) => {});
         }

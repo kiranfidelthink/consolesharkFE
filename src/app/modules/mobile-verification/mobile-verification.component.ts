@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
-import { CustomvalidationService } from 'src/app/shared/sharedService/customValidation.service';
+import { CustomvalidationService } from 'src/app/shared/shared-service/customValidation.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/shared/shared-service/user-service';
 import { HttpClient } from '@angular/common/http';

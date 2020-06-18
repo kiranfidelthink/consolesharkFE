@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
-import { CustomvalidationService } from 'src/app/shared/sharedService/customValidation.service';
+import { CustomvalidationService } from 'src/app/shared/shared-service/customValidation.service';
 // import { ToastrService } from 'ngx-toastr';
 import { EmitService } from 'src/app/shared/shared-service/emit-service';
 import { UserService } from 'src/app/shared/shared-service/user-service';

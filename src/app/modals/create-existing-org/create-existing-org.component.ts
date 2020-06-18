@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
-import { CustomvalidationService } from '../../shared/sharedService/customValidation.service';
+import { CustomvalidationService } from '../../shared/shared-service/customValidation.service';
 import { EmitService } from 'src/app/shared/shared-service/emit-service';
 import { UserService } from 'src/app/shared/shared-service/user-service';
 import { ToastService } from 'src/app/shared/shared-service/toast-service';

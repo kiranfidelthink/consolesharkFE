@@ -6,7 +6,7 @@ import { ToastService } from 'src/app/shared/shared-service/toast-service';
 import { HttpClient } from '@angular/common/http';
 import { LogService } from 'src/app/shared/shared-service/log.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { CustomvalidationService } from 'src/app/shared/sharedService/customValidation.service';
+import { CustomvalidationService } from 'src/app/shared/shared-service/customValidation.service';
 import { SharkManagementService } from 'src/app/shared/shared-service/shark-management-services';
 import { UserService } from 'src/app/shared/shared-service/user-service';
 
